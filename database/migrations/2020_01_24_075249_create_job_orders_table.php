@@ -15,7 +15,7 @@ class CreateJobOrdersTable extends Migration
     {
         Schema::create('job_orders', function (Blueprint $table) {
             $table->bigIncrements('job_order_id');
-            $table->string('job_order_name');
+            $table->string('job_order_name')->nullable();
             $table->timestamps();
         });
     }
