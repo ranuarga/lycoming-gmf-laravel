@@ -22,8 +22,8 @@ class CreateProgressJobsTable extends Migration
             $table->unsignedBigInteger('progress_status_id')->nullable();
             $table->date('progress_job_date_start')->nullable();
             $table->date('progress_job_date_completion')->nullable();
-            $table->text('progress_job_date_remark')->nullable();
-            $table->text('progress_job_date_note')->nullable();
+            $table->text('progress_job_remark')->nullable();
+            $table->text('progress_job_note')->nullable();
             $table->timestamps();
 
             $table
