@@ -30,7 +30,7 @@ class JobSheetController extends Controller
                 'job_sheet_name' => 'string|max:255',
             ]);
             
-            $job_sheet = JobOrder::create([
+            $job_sheet = JobSheet::create([
                 'job_sheet_name' => $request->job_sheet_name,
             ]);
 

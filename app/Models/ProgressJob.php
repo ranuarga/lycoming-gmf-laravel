@@ -22,18 +22,28 @@ class ProgressJob extends Model
         'progress_job_note'
     ];
 
-    public function progress_job()
+    public function job()
     {
-        return $this->hasMany('App\Models\ProgressJob', 'job_id');
+        return $this->belongsTo('App\Models\Job', 'job_id');
     }
 
-    public function engine_model()
+    public function job_sheet()
     {
-        return $this->belongsTo('App\Models\EngineModel', 'engine_model_id');
+        return $this->belongsTo('App\Models\JobSheet', 'job_sheet_id');
     }
 
-    public function job_order()
+    public function engineer()
     {
-        return $this->belongsTo('App\Models\JobOrder', 'job_order_id');
+        return $this->belongsTo('App\Models\Engineer', 'engineer_id');
+    }
+
+    public function management()
+    {
+        return $this->belongsTo('App\Models\Management', 'management_id');
+    }
+    
+    public function progress_status()
+    {
+        return $this->belongsTo('App\Models\ProgressStatus', 'progress_status_id');
     }
 }

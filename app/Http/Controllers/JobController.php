@@ -11,13 +11,24 @@ class JobController extends Controller
 {
     public function all()
     {
-        return response()->json(Job::all());
+        return response()
+            ->json(
+                Job::with('engine_model')
+                    ->with('job_order')
+                    ->get()
+            );
     }
 
     public function show($id)
     {
         try {
-            return response()->json(Job::findOrFail($id));
+            return response()
+                ->json(
+                    Job::with('progress_job')
+                        ->with('engine_model')
+                        ->with('job_order')
+                        ->findOrFail($id)
+                );
         } catch (\Exception $ex) {
             return response()->json([
                 'message' => $ex->getMessage()
@@ -29,8 +40,8 @@ class JobController extends Controller
     {
         try {
             $this->validate($request, [
-                'engine_model_id' => 'number',
-                'job_order_id' => 'number',
+                'engine_model_id' => 'numeric',
+                'job_order_id' => 'numeric',
                 'job_number' => 'string|max:255',
                 'job_engine_number' => 'string|max:255',
                 'job_customer' => 'string|max:255',

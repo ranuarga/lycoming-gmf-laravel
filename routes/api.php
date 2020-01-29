@@ -65,8 +65,11 @@ Route::delete('management/{id}', 'ManagementController@delete')->name('managemen
 
 Route::get('progress-job', 'ProgressJobController@all')->name('progress-job.all');
 Route::get('progress-job/{id}', 'ProgressJobController@show')->name('progress-job.show');
-Route::post('progress-job', 'ProgressJobController@store')->name('progress-job.store');
+// Progress Job created when we create Job so probably we not this method right now
+// Route::post('progress-job', 'ProgressJobController@store')->name('progress-job.store');
 Route::put('progress-job/{id}', 'ProgressJobController@update')->name('progress-job.update');
+Route::put('progress-job/{id}/note', 'ProgressJobController@updateNote')->name('progress-job.update-note');
+Route::put('progress-job/{id}/remark', 'ProgressJobController@updateStatusAndRemark')->name('progress-job.update-remark');
 Route::delete('progress-job/{id}', 'ProgressJobController@delete')->name('progress-job.delete');
 
 Route::get('progress-status', 'ProgressStatusController@all')->name('progress-status.all');
