@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Engineer;
 
 class EngineerController extends Controller
@@ -26,7 +27,7 @@ class EngineerController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'engineer_user_name' => 'string|max:255',
+            'engineer_user_name' => 'required|string|unique:engineers|max:255',
             'engineer_password' => 'required|string|max:255',
             'engineer_full_name' => 'string|max:255'
         ]);
@@ -65,7 +66,7 @@ class EngineerController extends Controller
         try {
             Engineer::findOrFail($id)->delete();
 
-            return response()->json('Engineer Status Deleted Successfully', 200);
+            return response()->json('Engineer Deleted Successfully', 200);
         } catch (\Exception $ex) {
             return response()->json([
                 'message' => $ex->getMessage()

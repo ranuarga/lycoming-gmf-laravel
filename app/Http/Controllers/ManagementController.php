@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Management;
 
 class ManagementController extends Controller
@@ -26,7 +27,7 @@ class ManagementController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'management_user_name' => 'string|max:255',
+            'management_user_name' => 'required|string|unique:managements|max:255',
             'management_password' => 'required|string|max:255',
             'management_full_name' => 'string|max:255'
         ]);
@@ -65,7 +66,7 @@ class ManagementController extends Controller
         try {
             Management::findOrFail($id)->delete();
 
-            return response()->json('Management Status Deleted Successfully', 200);
+            return response()->json('Management Deleted Successfully', 200);
         } catch (\Exception $ex) {
             return response()->json([
                 'message' => $ex->getMessage()
