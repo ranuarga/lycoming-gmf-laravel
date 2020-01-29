@@ -27,17 +27,17 @@ class JobController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'engine_model_id' => 'number',
-            'job_order_id' => 'number',
-            'job_number' => 'string|max:255',
-            'job_engine_number' => 'string|max:255',
-            'job_customer' => 'string|max:255',
-            'job_reference' => 'string|max:255',
-            'job_entry_date' => 'string'
-        ]);
-
         try {
+            $this->validate($request, [
+                'engine_model_id' => 'number',
+                'job_order_id' => 'number',
+                'job_number' => 'string|max:255',
+                'job_engine_number' => 'string|max:255',
+                'job_customer' => 'string|max:255',
+                'job_reference' => 'string|max:255',
+                'job_entry_date' => 'string'
+            ]);
+
             $job = Job::create([
                 'engine_model_id' => $request->engine_model_id,
                 'job_order_id' => $request->job_order_id,

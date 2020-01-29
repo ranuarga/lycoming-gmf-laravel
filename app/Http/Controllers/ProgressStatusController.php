@@ -25,11 +25,11 @@ class ProgressStatusController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'progress_status_name' => 'string|max:255',
-        ]);
-
         try {
+            $this->validate($request, [
+                'progress_status_name' => 'string|max:255',
+            ]);
+            
             $progress_status = ProgressStatus::create([
                 'progress_status_name' => $request->progress_status_name,
             ]);

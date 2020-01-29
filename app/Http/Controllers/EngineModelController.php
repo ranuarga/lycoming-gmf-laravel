@@ -25,11 +25,11 @@ class EngineModelController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'engine_model_name' => 'string|max:255',
-        ]);
-
         try {
+            $this->validate($request, [
+                'engine_model_name' => 'string|max:255',
+            ]);
+            
             $engine_model = EngineModel::create([
                 'engine_model_name' => $request->engine_model_name,
             ]);

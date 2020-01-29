@@ -25,19 +25,19 @@ class ProgressJobController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'job_id' => 'number',
-            'job_sheet_id' => 'number',
-            'engineer_id' => 'number',
-            'management_id' => 'number',
-            'progress_status_id' => 'number',
-            'progress_job_date_start' => 'string',
-            'progress_job_date_completion' => 'string',
-            'progress_job_remark' => 'string',
-            'progress_job_note' => 'string',
-        ]);
-
         try {
+            $this->validate($request, [
+                'job_id' => 'number',
+                'job_sheet_id' => 'number',
+                'engineer_id' => 'number',
+                'management_id' => 'number',
+                'progress_status_id' => 'number',
+                'progress_job_date_start' => 'string',
+                'progress_job_date_completion' => 'string',
+                'progress_job_remark' => 'string',
+                'progress_job_note' => 'string',
+            ]);
+    
             $progress_job = ProgressJob::create([
                 'job_id' => $request->job_id,
                 'job_sheet_id' => $request->job_sheet_id,

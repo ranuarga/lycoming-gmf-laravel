@@ -25,11 +25,11 @@ class JobSheetController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'job_sheet_name' => 'string|max:255',
-        ]);
-
         try {
+            $this->validate($request, [
+                'job_sheet_name' => 'string|max:255',
+            ]);
+            
             $job_sheet = JobOrder::create([
                 'job_sheet_name' => $request->job_sheet_name,
             ]);

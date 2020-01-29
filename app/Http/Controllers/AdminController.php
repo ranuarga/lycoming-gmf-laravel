@@ -26,13 +26,13 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'admin_user_name' => 'required|string|unique:admins|max:255',
-            'admin_password' => 'required|string|max:255',
-            'admin_full_name' => 'string|max:255'
-        ]);
-
         try {
+            $this->validate($request, [
+                'admin_user_name' => 'required|string|unique:admins|max:255',
+                'admin_password' => 'required|string|max:255',
+                'admin_full_name' => 'string|max:255'
+            ]);
+            
             $admin = Admin::create([
                 'admin_user_name' => $request->admin_user_name,
                 'admin_password' => Hash::make($request->admin_password),

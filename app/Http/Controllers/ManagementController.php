@@ -26,13 +26,13 @@ class ManagementController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'management_user_name' => 'required|string|unique:managements|max:255',
-            'management_password' => 'required|string|max:255',
-            'management_full_name' => 'string|max:255'
-        ]);
-
         try {
+            $this->validate($request, [
+                'management_user_name' => 'required|string|unique:managements|max:255',
+                'management_password' => 'required|string|max:255',
+                'management_full_name' => 'string|max:255'
+            ]);
+            
             $management = Management::create([
                 'management_user_name' => $request->management_user_name,
                 'management_password' => Hash::make($request->management_password),

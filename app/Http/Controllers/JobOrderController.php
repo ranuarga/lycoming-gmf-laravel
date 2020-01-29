@@ -25,11 +25,11 @@ class JobOrderController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'job_order_name' => 'string|max:255',
-        ]);
-
         try {
+            $this->validate($request, [
+                'job_order_name' => 'string|max:255',
+            ]);
+            
             $job_order = JobOrder::create([
                 'job_order_name' => $request->job_order_name,
             ]);

@@ -26,13 +26,13 @@ class EngineerController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'engineer_user_name' => 'required|string|unique:engineers|max:255',
-            'engineer_password' => 'required|string|max:255',
-            'engineer_full_name' => 'string|max:255'
-        ]);
-
         try {
+            $this->validate($request, [
+                'engineer_user_name' => 'required|string|unique:engineers|max:255',
+                'engineer_password' => 'required|string|max:255',
+                'engineer_full_name' => 'string|max:255'
+            ]);
+    
             $engineer = Engineer::create([
                 'engineer_user_name' => $request->engineer_user_name,
                 'engineer_password' => Hash::make($request->engineer_password),
