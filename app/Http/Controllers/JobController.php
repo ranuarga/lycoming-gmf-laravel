@@ -19,6 +19,65 @@ class JobController extends Controller
             );
     }
 
+    public function allDone()
+    {
+        $jobs = Job::with('progress_job')
+                    ->with('engine_model')
+                    ->with('job_order')
+                    ->get();
+        $jobsDone = [];
+        foreach ($jobs as $job) {
+            $allDone = true;
+            $progress_jobs = ProgressJob::where('job_id', $job->job_id)->get();
+            foreach ($progress_jobs as $progress_job) {
+                if ($progress_job->progress_status) {
+                    if ($progress_job->progress_status->progress_status_name != 'Done') {
+                        $allDone = false;
+                        break;
+                    }
+                } else {
+                    $allDone = false;
+                    break;
+                }
+            }
+            
+            if($allDone == true) {
+                array_push($jobsDone, $job);
+            }
+        }
+
+        return response()->json($jobsDone);
+    }
+
+    public function allProgress()
+    {
+        $jobs = Job::with('progress_job')
+                    ->with('engine_model')
+                    ->with('job_order')
+                    ->get();
+        $jobsProgress = [];
+        foreach ($jobs as $job) {
+            $allProgress = false;
+            $progress_jobs = ProgressJob::where('job_id', $job->job_id)->get();
+            foreach ($progress_jobs as $progress_job) {
+                if ($progress_job->progress_status) {
+                    if ($progress_job->progress_status->progress_status_name != 'Done') {
+                        $allProgress = true;
+                        break;
+                    }
+                } else {
+                    $allProgress = true;
+                }
+            }
+            
+            if($allProgress == true) {
+                array_push($jobsProgress, $job);
+            }
+        }
+
+        return response()->json($jobsProgress);
+    }
+
     public function show($id)
     {
         try {

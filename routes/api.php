@@ -40,6 +40,8 @@ Route::put('engine-model/{id}', 'EngineModelController@update')->name('engine-mo
 Route::delete('engine-model/{id}', 'EngineModelController@delete')->name('engine-model.delete');
 
 Route::get('job', 'JobController@all')->name('job.all');
+Route::get('job/done', 'JobController@allDone')->name('job.all-done');
+Route::get('job/progress', 'JobController@allProgress')->name('job.all-progress');
 Route::get('job/{id}', 'JobController@show')->name('job.show');
 Route::post('job', 'JobController@store')->name('job.store');
 Route::put('job/{id}', 'JobController@update')->name('job.update');
@@ -65,8 +67,9 @@ Route::delete('management/{id}', 'ManagementController@delete')->name('managemen
 
 Route::get('progress-job', 'ProgressJobController@all')->name('progress-job.all');
 Route::get('progress-job/{id}', 'ProgressJobController@show')->name('progress-job.show');
-// Progress Job created when we create Job so probably we not this method right now
-// Route::post('progress-job', 'ProgressJobController@store')->name('progress-job.store');
+// Progress Job created when we create Job so probably we not this method for production,
+// but for development I think i need it so I put it here.
+Route::post('progress-job', 'ProgressJobController@store')->name('progress-job.store');
 Route::put('progress-job/{id}', 'ProgressJobController@update')->name('progress-job.update');
 Route::put('progress-job/{id}/note', 'ProgressJobController@updateNote')->name('progress-job.update-note');
 Route::put('progress-job/{id}/remark', 'ProgressJobController@updateStatusAndRemark')->name('progress-job.update-remark');

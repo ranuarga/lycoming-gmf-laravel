@@ -40,41 +40,42 @@ class ProgressJobController extends Controller
         }
     }
 
-    // Progress Job created when we create Job so probably we not this method right now
-    // public function store(Request $request)
-    // {
-    //     try {
-    //         $this->validate($request, [
-    //             'job_id' => 'number',
-    //             'job_sheet_id' => 'number',
-    //             'engineer_id' => 'number',
-    //             'management_id' => 'number',
-    //             'progress_status_id' => 'number',
-    //             'progress_job_date_start' => 'string',
-    //             'progress_job_date_completion' => 'string',
-    //             'progress_job_remark' => 'string',
-    //             'progress_job_note' => 'string',
-    //         ]);
+    // Progress Job created when we create Job so probably we not this method in production.
+    // But, in development stage I think i need it so I will put it here.
+    public function store(Request $request)
+    {
+        try {
+            $this->validate($request, [
+                'job_id' => 'numeric',
+                'job_sheet_id' => 'numeric',
+                'engineer_id' => 'numeric',
+                'management_id' => 'numeric',
+                'progress_status_id' => 'numeric',
+                'progress_job_date_start' => 'string',
+                'progress_job_date_completion' => 'string',
+                'progress_job_remark' => 'string',
+                'progress_job_note' => 'string',
+            ]);
     
-    //         $progress_job = ProgressJob::create([
-    //             'job_id' => $request->job_id,
-    //             'job_sheet_id' => $request->job_sheet_id,
-    //             'engineer_id' => $request->engineer_id,
-    //             'management_id' => $request->management_id,
-    //             'progress_status_id' => $request->progress_status_id,
-    //             'progress_job_date_start' => $request->progress_job_date_start,
-    //             'progress_job_date_completion' => $request->progress_job_date_completion,
-    //             'progress_job_remark' => $request->progress_job_remark,
-    //             'progress_job_note' => $request->progress_job_note,
-    //         ]);
+            $progress_job = ProgressJob::create([
+                'job_id' => $request->job_id,
+                'job_sheet_id' => $request->job_sheet_id,
+                'engineer_id' => $request->engineer_id,
+                'management_id' => $request->management_id,
+                'progress_status_id' => $request->progress_status_id,
+                'progress_job_date_start' => $request->progress_job_date_start,
+                'progress_job_date_completion' => $request->progress_job_date_completion,
+                'progress_job_remark' => $request->progress_job_remark,
+                'progress_job_note' => $request->progress_job_note,
+            ]);
 
-    //         return response()->json($progress_job, 201);
-    //     } catch (\Exception $ex) {
-    //         return response()->json([
-    //             'message' => $ex->getMessage()
-    //         ], 500);
-    //     }
-    // }
+            return response()->json($progress_job, 201);
+        } catch (\Exception $ex) {
+            return response()->json([
+                'message' => $ex->getMessage()
+            ], 500);
+        }
+    }
 
     public function update($id, Request $request)
     {
