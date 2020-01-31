@@ -50,6 +50,11 @@ return [
         'admin' => [
             'driver' => 'jwt',
             'provider' => 'admins'
+        ],
+
+        'management' => [
+            'driver' => 'jwt',
+            'provider' => 'managements'
         ]
     ],
 
@@ -79,6 +84,11 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class
+        ],
+
+        'managements' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Management::class
         ]
 
         // 'users' => [

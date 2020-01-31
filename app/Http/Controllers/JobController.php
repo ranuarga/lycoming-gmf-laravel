@@ -84,6 +84,7 @@ class JobController extends Controller
             return response()
                 ->json(
                     Job::with('progress_job')
+                        ->with('progress_job.progress_status')
                         ->with('engine_model')
                         ->with('job_order')
                         ->findOrFail($id)

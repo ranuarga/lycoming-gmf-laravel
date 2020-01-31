@@ -3,22 +3,42 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Management extends Model
+class Management extends Model implements AuthenticatableContract, JWTSubject
 {
+    use Authenticatable;
+    
     protected $table = 'managements';
     protected $primaryKey = 'management_id';
 
     protected $fillable = [
         'management_id',
         'management_user_name',
-        'management_password',
+        'password',
         'management_full_name'
     ];
 
     protected $hidden = [
-        'management_password'
+        'password', 'remember_token'
     ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
 
     public function progress_job()
     {

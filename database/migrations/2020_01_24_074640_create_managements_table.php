@@ -16,7 +16,7 @@ class CreateManagementsTable extends Migration
         Schema::create('managements', function (Blueprint $table) {
             $table->bigIncrements('management_id');
             $table->string('management_user_name')->unique();
-            $table->string('management_password');
+            $table->string('password');
             $table->string('management_full_name')->nullable();
             $table->rememberToken();
             $table->timestamps();

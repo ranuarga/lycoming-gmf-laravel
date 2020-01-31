@@ -24,4 +24,22 @@ class LoginController extends Controller
 
         return response()->json(compact('token'));
     }
+
+    public function loginManagement(Request $request)
+    {
+        $credentials = [
+            'management_user_name'    => $request->management_user_name,
+            'password' => $request->password
+        ];
+
+        try {
+            if (! $token = Auth::guard('management')->attempt($credentials)) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'could_not_create_token'], 500);
+        }
+
+        return response()->json(compact('token'));
+    }
 }

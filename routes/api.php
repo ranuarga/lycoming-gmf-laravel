@@ -13,72 +13,93 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::post('login-admin', 'LoginController@loginAdmin');
+// Example from Laravel
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::get('/', function () {
     return "Welcome to Lycoming GMF KSO Surabaya's API";
+})->name('root');
+
+Route::group(['prefix' => 'admin-side'], function() {
+    Route::post('login', 'LoginController@loginAdmin');
+    
+    Route::group(['middleware' => 'auth:admin'], function() {
+        Route::get('admin', 'AdminController@all');
+        Route::get('admin/{id}', 'AdminController@show');
+        Route::post('admin', 'AdminController@store');
+        Route::put('admin/{id}', 'AdminController@update');
+        Route::delete('admin/{id}', 'AdminController@delete');
+    
+        Route::get('engineer', 'EngineerController@all');
+        Route::get('engineer/{id}', 'EngineerController@show');
+        Route::post('engineer', 'EngineerController@store');
+        Route::put('engineer/{id}', 'EngineerController@update');
+        Route::delete('engineer/{id}', 'EngineerController@delete');
+    
+        Route::get('engine-model', 'EngineModelController@all');
+        Route::get('engine-model/{id}', 'EngineModelController@show');
+        Route::post('engine-model', 'EngineModelController@store');
+        Route::put('engine-model/{id}', 'EngineModelController@update');
+        Route::delete('engine-model/{id}', 'EngineModelController@delete');
+    
+        Route::get('job', 'JobController@all');
+        Route::get('job/done', 'JobController@allDone');
+        Route::get('job/progress', 'JobController@allProgress');
+        Route::get('job/{id}', 'JobController@show');
+        Route::post('job', 'JobController@store');
+        Route::put('job/{id}', 'JobController@update');
+        Route::delete('job/{id}', 'JobController@delete');
+    
+        Route::get('job-order', 'JobOrderController@all');
+        Route::get('job-order/{id}', 'JobOrderController@show');
+        Route::post('job-order', 'JobOrderController@store');
+        Route::put('job-order/{id}', 'JobOrderController@update');
+        Route::delete('job-order/{id}', 'JobOrderController@delete');
+    
+        Route::get('job-sheet', 'JobSheetController@all');
+        Route::get('job-sheet/{id}', 'JobSheetController@show');
+        Route::post('job-sheet', 'JobSheetController@store');
+        Route::put('job-sheet/{id}', 'JobSheetController@update');
+        Route::delete('job-sheet/{id}', 'JobSheetController@delete');
+    
+        Route::get('management', 'ManagementController@all');
+        Route::get('management/{id}', 'ManagementController@show');
+        Route::post('management', 'ManagementController@store');
+        Route::put('management/{id}', 'ManagementController@update');
+        Route::delete('management/{id}', 'ManagementController@delete');
+    
+        Route::get('progress-job', 'ProgressJobController@all');
+        Route::get('progress-job/{id}', 'ProgressJobController@show');
+        // Progress Job created when we create Job so probably we not this method for production,
+        // but for development I think i need it so I put it here.
+        Route::post('progress-job', 'ProgressJobController@store');
+        Route::put('progress-job/{id}', 'ProgressJobController@update');
+        Route::put('progress-job/{id}/note', 'ProgressJobController@updateNote');
+        Route::put('progress-job/{id}/remark', 'ProgressJobController@updateStatusAndRemark');
+        Route::delete('progress-job/{id}', 'ProgressJobController@delete');
+    
+        Route::get('progress-status', 'ProgressStatusController@all');
+        Route::get('progress-status/{id}', 'ProgressStatusController@show');
+        Route::post('progress-status', 'ProgressStatusController@store');
+        Route::put('progress-status/{id}', 'ProgressStatusController@update');
+        Route::delete('progress-status/{id}', 'ProgressStatusController@delete');
+    });
 });
 
-Route::get('admin', 'AdminController@all')->name('admin.all');
-Route::get('admin/{id}', 'AdminController@show')->name('admin.show')->middleware('auth:admin');
-Route::post('admin', 'AdminController@store')->name('admin.store');
-Route::put('admin/{id}', 'AdminController@update')->name('admin.update');
-Route::delete('admin/{id}', 'AdminController@delete')->name('admin.delete');
+Route::group(['prefix' => 'management-side'], function() {
+    Route::post('login', 'LoginController@loginManagement');
+    
+    Route::group(['middleware' => 'auth:management'], function() {
+        Route::get('job', 'JobController@all');
+        Route::get('job/done', 'JobController@allDone');
+        Route::get('job/progress', 'JobController@allProgress');
+        Route::get('job/{id}', 'JobController@show');
 
-Route::get('engineer', 'EngineerController@all')->name('engineer.all');
-Route::get('engineer/{id}', 'EngineerController@show')->name('engineer.show');
-Route::post('engineer', 'EngineerController@store')->name('engineer.store');
-Route::put('engineer/{id}', 'EngineerController@update')->name('engineer.update');
-Route::delete('engineer/{id}', 'EngineerController@delete')->name('engineer.delete');
+        Route::get('progress-job/{id}', 'ProgressJobController@show');
+        Route::put('progress-job/{id}/note', 'ProgressJobController@updateNote');
 
-Route::get('engine-model', 'EngineModelController@all')->name('engine-model.all');
-Route::get('engine-model/{id}', 'EngineModelController@show')->name('engine-model.show');
-Route::post('engine-model', 'EngineModelController@store')->name('engine-model.store');
-Route::put('engine-model/{id}', 'EngineModelController@update')->name('engine-model.update');
-Route::delete('engine-model/{id}', 'EngineModelController@delete')->name('engine-model.delete');
-
-Route::get('job', 'JobController@all')->name('job.all');
-Route::get('job/done', 'JobController@allDone')->name('job.all-done');
-Route::get('job/progress', 'JobController@allProgress')->name('job.all-progress');
-Route::get('job/{id}', 'JobController@show')->name('job.show');
-Route::post('job', 'JobController@store')->name('job.store');
-Route::put('job/{id}', 'JobController@update')->name('job.update');
-Route::delete('job/{id}', 'JobController@delete')->name('job.delete');
-
-Route::get('job-order', 'JobOrderController@all')->name('job-order.all');
-Route::get('job-order/{id}', 'JobOrderController@show')->name('job-order.show');
-Route::post('job-order', 'JobOrderController@store')->name('job-order.store');
-Route::put('job-order/{id}', 'JobOrderController@update')->name('job-order.update');
-Route::delete('job-order/{id}', 'JobOrderController@delete')->name('job-order.delete');
-
-Route::get('job-sheet', 'JobSheetController@all')->name('job-sheet.all');
-Route::get('job-sheet/{id}', 'JobSheetController@show')->name('job-sheet.show');
-Route::post('job-sheet', 'JobSheetController@store')->name('job-sheet.store');
-Route::put('job-sheet/{id}', 'JobSheetController@update')->name('job-sheet.update');
-Route::delete('job-sheet/{id}', 'JobSheetController@delete')->name('job-sheet.delete');
-
-Route::get('management', 'ManagementController@all')->name('management.all');
-Route::get('management/{id}', 'ManagementController@show')->name('management.show');
-Route::post('management', 'ManagementController@store')->name('management.store');
-Route::put('management/{id}', 'ManagementController@update')->name('management.update');
-Route::delete('management/{id}', 'ManagementController@delete')->name('management.delete');
-
-Route::get('progress-job', 'ProgressJobController@all')->name('progress-job.all');
-Route::get('progress-job/{id}', 'ProgressJobController@show')->name('progress-job.show');
-// Progress Job created when we create Job so probably we not this method for production,
-// but for development I think i need it so I put it here.
-Route::post('progress-job', 'ProgressJobController@store')->name('progress-job.store');
-Route::put('progress-job/{id}', 'ProgressJobController@update')->name('progress-job.update');
-Route::put('progress-job/{id}/note', 'ProgressJobController@updateNote')->name('progress-job.update-note');
-Route::put('progress-job/{id}/remark', 'ProgressJobController@updateStatusAndRemark')->name('progress-job.update-remark');
-Route::delete('progress-job/{id}', 'ProgressJobController@delete')->name('progress-job.delete');
-
-Route::get('progress-status', 'ProgressStatusController@all')->name('progress-status.all');
-Route::get('progress-status/{id}', 'ProgressStatusController@show')->name('progress-status.show');
-Route::post('progress-status', 'ProgressStatusController@store')->name('progress-status.store');
-Route::put('progress-status/{id}', 'ProgressStatusController@update')->name('progress-status.update');
-Route::delete('progress-status/{id}', 'ProgressStatusController@delete')->name('progress-status.delete');
+        Route::get('progress-status', 'ProgressStatusController@all');
+    });
+});
