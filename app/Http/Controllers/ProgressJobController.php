@@ -112,6 +112,14 @@ class ProgressJobController extends Controller
             $progress_job = ProgressJob::findOrFail($id);
             $progress_job->progress_status_id = $request->progress_status_id;
             $progress_job->progress_job_remark = $request->progress_job_remark;
+            if ($request->progress_status_id) {
+                // 1 is for On Progress, 2 is for Done
+                if ($request->progress_status_id == 1) {
+                    $progress_job->progress_job_date_start = date('Y-m-d');
+                } else if ($request->progress_status_id == 2) {
+                    $progress_job->progress_job_date_completion = date('Y-m-d');
+                }
+            }
             $progress_job->save();
 
             return response()->json($progress_job, 200);
