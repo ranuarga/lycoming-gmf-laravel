@@ -29,13 +29,13 @@ class EngineerController extends Controller
         try {
             $this->validate($request, [
                 'engineer_user_name' => 'required|string|unique:engineers|max:255',
-                'engineer_password' => 'required|string|max:255',
+                'password' => 'required|string|max:255',
                 'engineer_full_name' => 'string|max:255'
             ]);
     
             $engineer = Engineer::create([
                 'engineer_user_name' => $request->engineer_user_name,
-                'engineer_password' => Hash::make($request->engineer_password),
+                'password' => Hash::make($request->password),
                 'engineer_full_name' => $request->engineer_full_name
             ]);
 

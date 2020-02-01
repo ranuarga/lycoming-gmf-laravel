@@ -29,13 +29,13 @@ class ManagementController extends Controller
         try {
             $this->validate($request, [
                 'management_user_name' => 'required|string|unique:managements|max:255',
-                'management_password' => 'required|string|max:255',
+                'password' => 'required|string|max:255',
                 'management_full_name' => 'string|max:255'
             ]);
             
             $management = Management::create([
                 'management_user_name' => $request->management_user_name,
-                'management_password' => Hash::make($request->management_password),
+                'password' => Hash::make($request->password),
                 'management_full_name' => $request->management_full_name
             ]);
 

@@ -42,4 +42,22 @@ class LoginController extends Controller
 
         return response()->json(compact('token'));
     }
+
+    public function loginEngineer(Request $request)
+    {
+        $credentials = [
+            'engineer_user_name'    => $request->engineer_user_name,
+            'password' => $request->password
+        ];
+
+        try {
+            if (! $token = Auth::guard('engineer')->attempt($credentials)) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'could_not_create_token'], 500);
+        }
+
+        return response()->json(compact('token'));
+    }
 }

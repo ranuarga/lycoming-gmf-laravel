@@ -88,6 +88,22 @@ Route::group(['prefix' => 'admin-side'], function() {
     });
 });
 
+Route::group(['prefix' => 'engineer-side'], function() {
+    Route::post('login', 'LoginController@loginEngineer');
+    
+    Route::group(['middleware' => 'auth:engineer'], function() {
+        Route::get('job', 'JobController@all');
+        Route::get('job/done', 'JobController@allDone');
+        Route::get('job/progress', 'JobController@allProgress');
+        Route::get('job/{id}', 'JobController@show');
+
+        Route::get('progress-job/{id}', 'ProgressJobController@show');
+        Route::put('progress-job/{id}/remark', 'ProgressJobController@updateStatusAndRemark');
+
+        Route::get('progress-status', 'ProgressStatusController@all');
+    });
+});
+
 Route::group(['prefix' => 'management-side'], function() {
     Route::post('login', 'LoginController@loginManagement');
     
@@ -99,7 +115,5 @@ Route::group(['prefix' => 'management-side'], function() {
 
         Route::get('progress-job/{id}', 'ProgressJobController@show');
         Route::put('progress-job/{id}/note', 'ProgressJobController@updateNote');
-
-        Route::get('progress-status', 'ProgressStatusController@all');
     });
 });

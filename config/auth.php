@@ -55,6 +55,11 @@ return [
         'management' => [
             'driver' => 'jwt',
             'provider' => 'managements'
+        ],
+
+        'engineer' => [
+            'driver' => 'jwt',
+            'provider' => 'engineers'
         ]
     ],
 
@@ -89,6 +94,11 @@ return [
         'managements' => [
             'driver' => 'eloquent',
             'model' => App\Models\Management::class
+        ],
+
+        'engineers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Engineer::class
         ]
 
         // 'users' => [
