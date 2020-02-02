@@ -16,7 +16,7 @@ class CreateEngineersTable extends Migration
         Schema::create('engineers', function (Blueprint $table) {
             $table->bigIncrements('engineer_id');
             $table->string('engineer_user_name')->unique();
-            $table->string('engineer_password');
+            $table->string('password');
             $table->string('engineer_full_name')->nullable();
             $table->rememberToken();
             $table->timestamps();

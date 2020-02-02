@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class ProgressStatusesTableSeeder extends Seeder
 {
@@ -12,9 +13,21 @@ class ProgressStatusesTableSeeder extends Seeder
     public function run()
     {
         DB::table('progress_statuses')->insert([
-            ['progress_status_name' => 'On Progress',],
-            ['progress_status_name' => 'Done',],
-            ['progress_status_name' => 'Pending',],
+            [
+                'progress_status_name' => 'On Progress',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'progress_status_name' => 'Done',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'progress_status_name' => 'Pending',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
         ]);
     }
 }

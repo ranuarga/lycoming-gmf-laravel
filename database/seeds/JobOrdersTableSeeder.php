@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class JobOrdersTableSeeder extends Seeder
 {
@@ -13,8 +14,16 @@ class JobOrdersTableSeeder extends Seeder
     public function run()
     {
         DB::table('job_orders')->insert([
-            ['job_order_name' => 'Overhaul',],
-            ['job_order_name' => 'Repair',]
+            [
+                'job_order_name' => 'Overhaul',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'job_order_name' => 'Repair',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ]
         ]);
     }
 }

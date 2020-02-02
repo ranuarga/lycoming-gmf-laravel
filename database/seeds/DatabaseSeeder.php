@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             JobOrdersTableSeeder::class,
             JobSheetsTableSeeder::class,
             ManagementsTableSeeder::class,
-            ProgressStausesTableSeeder::class,
+            ProgressStatusesTableSeeder::class,
         ]);
 
     }

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class EngineModelsTableSeeder extends Seeder
 {
@@ -13,8 +14,16 @@ class EngineModelsTableSeeder extends Seeder
     public function run()
     {
         DB::table('engine_models')->insert([
-            ['engine_model_name' => 'Lycoming IO-320',],
-            ['engine_model_name' => 'Lycoming IO-360',]
+            [
+                'engine_model_name' => 'Lycoming O-320',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'engine_model_name' => 'Lycoming IO-360',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ]
         ]);
     }
 }
