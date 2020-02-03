@@ -22,7 +22,7 @@ class Engineer extends Model implements AuthenticatableContract, JWTSubject
     ];
 
     protected $hidden = [
-        'engineer_password', 'remember_token'
+        'password', 'remember_token'
     ];
 
     public function getJWTIdentifier()

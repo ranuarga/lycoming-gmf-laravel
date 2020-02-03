@@ -16,7 +16,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        $admins = json_decode($this->all());
+        $admins = Admin::all();
         
         return view('admin.index', ['admins' => $admins]);
     }
