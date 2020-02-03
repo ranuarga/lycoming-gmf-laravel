@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Admin;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AdminController extends Controller
 {
     public function all()
     {
         return response()->json(Admin::all());
+    }
+
+    public function index()
+    {
+        $admins = json_decode($this->all());
+        
+        return view('admin.index', ['admins' => $admins]);
     }
 
     public function show($id)
