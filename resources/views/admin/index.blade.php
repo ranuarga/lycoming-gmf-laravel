@@ -50,8 +50,8 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $admin->admin_user_name }}</td>
                         <td>{{ $admin->admin_full_name }}</td>
-                        <td>{{ $admin->created_at }}</td>
-                        <td>{{ $admin->updated_at }}</td>
+                        <td>{{ date("Y-m-d H:i:s T", strtotime($admin->created_at.' UTC')) }}</td>
+                        <td>{{ date("Y-m-d H:i:s T", strtotime($admin->updated_at.' UTC')) }}</td>
                         <td>
                             <a href="#">
                                 <i class="fas fa-pencil-alt"></i>

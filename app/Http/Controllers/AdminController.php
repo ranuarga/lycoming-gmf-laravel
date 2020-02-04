@@ -84,4 +84,11 @@ class AdminController extends Controller
             ]);
         }
     }
+
+    public function destroy($id)
+    {
+        Admin::findOrFail($id)->delete();
+
+        return redirect()->route('admin');
+    }
 }
