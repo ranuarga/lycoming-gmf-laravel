@@ -9,8 +9,8 @@
         <title>
             @yield('title')
         </title>
-        <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <!-- <body class="sb-nav-fixed"> -->
@@ -67,7 +67,7 @@
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-industry"></i>
                                 </div>
-                                Jobs
+                                Job
                                 <div class="sb-sidenav-collapse-arrow">
                                     <i class="fas fa-angle-down"></i>
                                 </div>
@@ -75,7 +75,7 @@
                             <div class="collapse" id="collapseJobs" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="#">
-                                        All Jobs
+                                        All Job
                                     </a>
                                     <a class="nav-link" href="#">
                                         Progress
@@ -97,13 +97,13 @@
                             <div class="collapse" id="collapseUsers" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{ route('admin') }}">
-                                        Admins
+                                        Admin
                                     </a>
                                     <a class="nav-link" href="#">
-                                        Engineers
+                                        Engineer
                                     </a>
                                     <a class="nav-link" href="#">
-                                        Managements
+                                        Management
                                     </a>
                                 </nav>
                             </div>

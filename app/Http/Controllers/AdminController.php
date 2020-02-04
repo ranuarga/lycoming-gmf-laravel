@@ -15,10 +15,8 @@ class AdminController extends Controller
     }
 
     public function index()
-    {
-        $admins = Admin::all();
-        
-        return view('admin.index', ['admins' => $admins]);
+    {        
+        return view('admin.index', ['admins' => Admin::all()]);
     }
 
     public function show($id)
@@ -53,6 +51,11 @@ class AdminController extends Controller
                 'message' => $ex->getMessage()
             ], 500);
         }
+    }
+
+    public function create()
+    {
+        return view('admin.createOrUpdate');
     }
 
     public function update($id, Request $request)

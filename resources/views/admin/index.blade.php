@@ -1,18 +1,25 @@
 @extends('layouts.index')
 
 @section('title')
-    Admins
+    Admin
 @endsection
 
 @section('name')
-    Admins
+    Admin
 @endsection
 
 @section('content')
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-    <li class="breadcrumb-item active">Admins</li>
+    <li class="breadcrumb-item active">Admin</li>
 </ol>
+<a href="{{ route('admin.create') }}">
+    <button class="btn btn-success float-right">
+        Create Admin
+    </button>
+</a>
+<br>
+<br>
 <div class="card mb-4">
     <div class="card-body">
         <div class="table-responsive">
@@ -24,7 +31,7 @@
                         <th>Full Name</th>
                         <th>Created At</th>
                         <th>Updated At</th>
-                        <th>Action</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -34,7 +41,7 @@
                         <th>Full Name</th>
                         <th>Created At</th>
                         <th>Updated At</th>
-                        <th>Action</th>
+                        <th>Actions</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -46,9 +53,6 @@
                         <td>{{ $admin->created_at }}</td>
                         <td>{{ $admin->updated_at }}</td>
                         <td>
-                            <a href="#">
-                                <i class="fas fa-eye"></i>
-                            </a>
                             <a href="#">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
