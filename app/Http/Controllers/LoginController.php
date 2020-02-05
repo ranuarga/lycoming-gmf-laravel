@@ -22,7 +22,12 @@ class LoginController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
-        return response()->json(compact('token'));
+        $admin = auth()->guard('admin')->user();
+
+        return response()->json(array(
+            'admin' => $admin,
+            'token' => $token
+        ));
     }
 
     public function loginManagement(Request $request)
@@ -40,7 +45,12 @@ class LoginController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
-        return response()->json(compact('token'));
+        $management = auth()->guard('management')->user();
+
+        return response()->json(array(
+            'management' => $management,
+            'token' => $token
+        ));
     }
 
     public function loginEngineer(Request $request)
@@ -58,6 +68,11 @@ class LoginController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
-        return response()->json(compact('token'));
+        $engineer = auth()->guard('engineer')->user();
+
+        return response()->json(array(
+            'engineer' => $engineer,
+            'token' => $token
+        ));
     }
 }
