@@ -23,3 +23,10 @@ Route::post('admin/store', 'AdminController@storeWeb')->name('admin.store');
 Route::post('admin/{id}/update', 'AdminController@updateWeb')->name('admin.update');
 Route::get('admin/{id}/edit', 'AdminController@edit')->name('admin.edit');
 Route::get('admin/{id}/delete', 'AdminController@destroy')->name('admin.delete');
+
+Route::get('engineer', 'EngineerController@index')->name('engineer');
+Route::get('engineer/create', 'EngineerController@create')->name('engineer.create');
+Route::post('engineer/store', 'EngineerController@storeWeb')->name('engineer.store');
+Route::post('engineer/{id}/update', 'EngineerController@updateWeb')->name('engineer.update');
+Route::get('engineer/{id}/edit', 'EngineerController@edit')->name('engineer.edit');
+Route::get('engineer/{id}/delete', 'EngineerController@destroy')->name('engineer.delete');
