@@ -13,8 +13,8 @@
         <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     </head>
-    <!-- <body class="sb-nav-fixed"> -->
-    <body>
+    <body class="sb-nav-fixed">
+    <!-- <body> -->
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <a class="navbar-brand" href="{{ route('home') }}">
                 Admin Panel

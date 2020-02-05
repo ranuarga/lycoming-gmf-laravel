@@ -53,11 +53,18 @@ class AdminController extends Controller
         }
     }
 
+    public function storeWeb(Request $request)
+    {
+        $this->store($request);
+
+        return redirect()->route('admin');
+    }
+
     public function create()
     {
         return view('admin.createOrUpdate');
     }
-
+    
     public function update($id, Request $request)
     {
         try {
@@ -70,6 +77,13 @@ class AdminController extends Controller
                 'message' => $ex->getMessage()
             ]);
         }
+    }
+
+    public function updateWeb($id, Request $request)
+    {
+        $this->update($id, $request);
+
+        return redirect()->route('admin');
     }
 
     public function delete($id)
