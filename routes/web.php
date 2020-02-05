@@ -21,4 +21,5 @@ Route::get('admin', 'AdminController@index')->name('admin');
 Route::get('admin/create', 'AdminController@create')->name('admin.create');
 Route::post('admin/store', 'AdminController@storeWeb')->name('admin.store');
 Route::post('admin/{id}/update', 'AdminController@updateWeb')->name('admin.update');
+Route::get('admin/{id}/edit', 'AdminController@edit')->name('admin.edit');
 Route::get('admin/{id}/delete', 'AdminController@destroy')->name('admin.delete');

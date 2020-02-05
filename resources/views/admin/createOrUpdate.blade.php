@@ -28,7 +28,11 @@
             {{ Form::label('admin_user_name', 'Username') }}
             {{ Form::text('admin_user_name', Request::old('admin_user_name'), ['class' => 'form-control', 'placeholder' => 'Username', 'required']) }}
             {{ Form::label('password', 'Password') }}
-            {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password', 'required']) }}
+            @if(!isset($admin))
+                {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password', 'required']) }}
+            @else
+                {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
+            @endif
             {{ Form::label('admin_full_name', 'Full Name') }}
             {{ Form::text('admin_full_name', Request::old('admin_full_name'), ['class' => 'form-control', 'placeholder' => 'Full Name']) }}
             <br>

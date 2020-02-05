@@ -50,13 +50,13 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $admin->admin_user_name }}</td>
                         <td>{{ $admin->admin_full_name }}</td>
-                        <td>{{ date("Y-m-d H:i:s T", strtotime($admin->created_at.' UTC')) }}</td>
-                        <td>{{ date("Y-m-d H:i:s T", strtotime($admin->updated_at.' UTC')) }}</td>
+                        <td>{{ $admin->created_at }}</td>
+                        <td>{{ $admin->updated_at }}</td>
                         <td>
-                            <a href="#">
+                            <a href="{{ route('admin.edit', ['id' => $admin->admin_id]) }}">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            <a href="#">
+                            <a href="{{ route('admin.delete', ['id' => $admin->admin_id]) }}">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>

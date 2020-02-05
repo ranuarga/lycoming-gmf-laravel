@@ -55,21 +55,40 @@ class AdminController extends Controller
 
     public function storeWeb(Request $request)
     {
-        $this->store($request);
+        try {            
+            $admin = Admin::create([
+                'admin_user_name' => $request->admin_user_name,
+                'password' => Hash::make($request->password),
+                'admin_full_name' => $request->admin_full_name
+            ]);
 
-        return redirect()->route('admin');
+            return redirect()->route('admin');
+        } catch (\Exception $ex) {
+            print_r($ex->getMessage());
+        }
     }
 
     public function create()
     {
         return view('admin.createOrUpdate');
     }
+
+    public function edit($id)
+    {
+        $admin = Admin::findOrFail($id);
+
+        return view('admin.createOrUpdate', ['admin' => $admin]);
+    }
     
     public function update($id, Request $request)
     {
         try {
             $admin = Admin::findOrFail($id);
-            $admin->update($request->all());
+            $admin->admin_user_name = $request->admin_user_name;
+            if(isset($request->password))
+                $admin->password = Hash::make($request->password);
+            $admin->admin_full_name = $request->admin_full_name;
+            $admin->save();
 
             return response()->json($admin, 200);
         } catch (\Exception $ex) {
@@ -81,9 +100,18 @@ class AdminController extends Controller
 
     public function updateWeb($id, Request $request)
     {
-        $this->update($id, $request);
+        try {
+            $admin = Admin::findOrFail($id);
+            $admin->admin_user_name = $request->admin_user_name;
+            if(isset($request->password))
+                $admin->password = Hash::make($request->password);
+            $admin->admin_full_name = $request->admin_full_name;
+            $admin->save();
 
-        return redirect()->route('admin');
+            return redirect()->route('admin');
+        } catch (\Exception $ex) {
+            print_r($ex->getMessage());
+        }
     }
 
     public function delete($id)
