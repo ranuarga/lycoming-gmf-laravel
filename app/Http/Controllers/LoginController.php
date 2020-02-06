@@ -16,7 +16,7 @@ class LoginController extends Controller
 
         try {
             if (! $token = Auth::guard('admin')->attempt($credentials)) {
-                return response()->json(['error' => 'Unauthorized'], 401);
+                return response()->json(['error' => 'Invalid username or password'], 401);
             }
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
@@ -26,7 +26,8 @@ class LoginController extends Controller
 
         return response()->json(array(
             'admin' => $admin,
-            'token' => $token
+            'token' => $token,
+            'message' => 'Login Success'
         ));
     }
 
@@ -39,7 +40,7 @@ class LoginController extends Controller
 
         try {
             if (! $token = Auth::guard('management')->attempt($credentials)) {
-                return response()->json(['error' => 'Unauthorized'], 401);
+                return response()->json(['error' => 'Invalid username or password'], 401);
             }
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
@@ -49,7 +50,8 @@ class LoginController extends Controller
 
         return response()->json(array(
             'management' => $management,
-            'token' => $token
+            'token' => $token,
+            'message' => 'Login Success'
         ));
     }
 
@@ -62,7 +64,7 @@ class LoginController extends Controller
 
         try {
             if (! $token = Auth::guard('engineer')->attempt($credentials)) {
-                return response()->json(['error' => 'Unauthorized'], 401);
+                return response()->json(['error' => 'Invalid username or password'], 401);
             }
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
@@ -72,7 +74,8 @@ class LoginController extends Controller
 
         return response()->json(array(
             'engineer' => $engineer,
-            'token' => $token
+            'token' => $token,
+            'message' => 'Login Success'
         ));
     }
 }
