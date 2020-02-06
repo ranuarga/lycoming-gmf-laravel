@@ -16,10 +16,10 @@ class LoginController extends Controller
 
         try {
             if (! $token = Auth::guard('admin')->attempt($credentials)) {
-                return response()->json(['error' => 'Invalid username or password'], 401);
+                return response()->json(['message' => 'Invalid username or password'], 401);
             }
         } catch (JWTException $e) {
-            return response()->json(['error' => 'could_not_create_token'], 500);
+            return response()->json(['message' => 'could_not_create_token'], 500);
         }
 
         $admin = auth()->guard('admin')->user();
@@ -40,10 +40,10 @@ class LoginController extends Controller
 
         try {
             if (! $token = Auth::guard('management')->attempt($credentials)) {
-                return response()->json(['error' => 'Invalid username or password'], 401);
+                return response()->json(['message' => 'Invalid username or password'], 401);
             }
         } catch (JWTException $e) {
-            return response()->json(['error' => 'could_not_create_token'], 500);
+            return response()->json(['message' => 'could_not_create_token'], 500);
         }
 
         $management = auth()->guard('management')->user();
@@ -64,10 +64,10 @@ class LoginController extends Controller
 
         try {
             if (! $token = Auth::guard('engineer')->attempt($credentials)) {
-                return response()->json(['error' => 'Invalid username or password'], 401);
+                return response()->json(['message' => 'Invalid username or password'], 401);
             }
         } catch (JWTException $e) {
-            return response()->json(['error' => 'could_not_create_token'], 500);
+            return response()->json(['message' => 'could_not_create_token'], 500);
         }
 
         $engineer = auth()->guard('engineer')->user();
