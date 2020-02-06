@@ -47,6 +47,11 @@ return [
             'hash' => false,
         ],
 
+        'web-admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
         'admin' => [
             'driver' => 'jwt',
             'provider' => 'admins'

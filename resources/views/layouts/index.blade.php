@@ -45,7 +45,7 @@
                             Activity Log
                         </a>
                         <div class="dropdown-divider"></div> -->
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -99,7 +99,7 @@
                                     <a class="nav-link" href="{{ route('admin') }}">
                                         Admin
                                     </a>
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="{{ route('engineer') }}">
                                         Engineer
                                     </a>
                                     <a class="nav-link" href="#">
@@ -135,7 +135,7 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        Admin
+                        {{ Auth::guard('web-admin')->user()->admin_full_name }}
                     </div>
                 </nav>
             </div>

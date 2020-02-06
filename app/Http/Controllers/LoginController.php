@@ -7,6 +7,39 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    public function loginForm()
+    {
+        return view('home.login');
+    }
+
+    public function loginWeb(Request $request)
+    {
+        $this->validate($request, [
+            'admin_user_name' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        $credentials = [
+            'admin_user_name'    => $request->admin_user_name,
+            'password' => $request->password
+        ];
+
+        if (Auth::guard('web-admin')->attempt($credentials)) {
+            return redirect('home');
+        }
+
+        return redirect('login')->with('error', 'Invalid Username or Password');
+    }
+
+    public function logoutWeb(Request $request)
+    {
+        if (Auth::guard('web-admin')->check()) {
+            Auth::guard('web-admin')->logout();
+            $request->session()->invalidate();
+        }
+        return  redirect('login');
+    }
+
     public function loginAdmin(Request $request)
     {
         $credentials = [
