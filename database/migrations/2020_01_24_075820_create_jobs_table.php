@@ -17,7 +17,7 @@ class CreateJobsTable extends Migration
             $table->bigIncrements('job_id');
             $table->unsignedBigInteger('engine_model_id')->nullable();
             $table->unsignedBigInteger('job_order_id')->nullable();
-            $table->string('job_number')->unique();
+            $table->string('job_number')->nullable()->unique();
             $table->string('job_engine_number')->nullable();
             $table->string('job_customer')->nullable();
             $table->string('job_reference')->nullable();

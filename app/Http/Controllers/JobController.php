@@ -102,7 +102,6 @@ class JobController extends Controller
             $this->validate($request, [
                 'engine_model_id' => 'numeric',
                 'job_order_id' => 'numeric',
-                'job_number' => 'string|max:255',
                 'job_engine_number' => 'string|max:255',
                 'job_customer' => 'string|max:255',
                 'job_reference' => 'string|max:255',
@@ -112,12 +111,14 @@ class JobController extends Controller
             $job = Job::create([
                 'engine_model_id' => $request->engine_model_id,
                 'job_order_id' => $request->job_order_id,
-                'job_number' => $request->job_number,
                 'job_engine_number' => $request->job_engine_number,
                 'job_customer' => $request->job_customer,
                 'job_reference' => $request->job_reference,
                 'job_entry_date' => $request->job_entry_date
             ]);
+
+            $job->job_number = sprintf("%06d", $job->job_id);
+            $job->save();
 
             $job_sheets = JobSheet::all();
             foreach ($job_sheets as $job_sheet) {
