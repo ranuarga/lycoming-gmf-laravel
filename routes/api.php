@@ -76,8 +76,10 @@ Route::group(['prefix' => 'admin-side'], function() {
         // but for development I think i need it so I put it here.
         Route::post('progress-job', 'ProgressJobController@store');
         Route::put('progress-job/{id}', 'ProgressJobController@update');
-        Route::put('progress-job/{id}/note', 'ProgressJobController@updateNote');
-        Route::put('progress-job/{id}/remark', 'ProgressJobController@updateStatusAndRemark');
+        // The one who can only edit note is Management
+        // Route::put('progress-job/{id}/note', 'ProgressJobController@updateNote');
+        // The one who can only edit remark & status is Engineer
+        // Route::put('progress-job/{id}/remark', 'ProgressJobController@updateStatusAndRemark');
         Route::delete('progress-job/{id}', 'ProgressJobController@delete');
     
         Route::get('progress-status', 'ProgressStatusController@all');

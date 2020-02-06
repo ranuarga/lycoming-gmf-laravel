@@ -11,6 +11,7 @@
 |
 */
 
+// Example from Laravel
 // Route::get('/', function () {
 //     return view('welcome');
 // });

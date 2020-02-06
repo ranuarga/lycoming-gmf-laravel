@@ -96,6 +96,7 @@ class ProgressJobController extends Controller
         try {
             $progress_job = ProgressJob::findOrFail($id);
             $progress_job->progress_job_note = $request->progress_job_note;
+            $progress_job->management_id = auth()->guard('management')->user()->management_id;
             $progress_job->save();
 
             return response()->json($progress_job, 200);
@@ -112,6 +113,7 @@ class ProgressJobController extends Controller
             $progress_job = ProgressJob::findOrFail($id);
             $progress_job->progress_status_id = $request->progress_status_id;
             $progress_job->progress_job_remark = $request->progress_job_remark;
+            $progress_job->engineer_id = auth()->guard('engineer')->user()->engineer_id;
             if ($request->progress_status_id) {
                 // 1 is for On Progress, 2 is for Done
                 if ($request->progress_status_id == 1) {
