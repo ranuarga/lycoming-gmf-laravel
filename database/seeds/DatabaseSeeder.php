@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             JobsTableSeeder::class,
             ManagementsTableSeeder::class,
             ProgressStatusesTableSeeder::class,
+            ProgressJobsTableSeeder::class,
         ]);
 
     }
