@@ -20,7 +20,7 @@ class JobSheetsTableSeeder extends Seeder
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
-                'job_sheet_name' => 'Engine Insventory Record',
+                'job_sheet_name' => 'Engine Inventory Record',
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],

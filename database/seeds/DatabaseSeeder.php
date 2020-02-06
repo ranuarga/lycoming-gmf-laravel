@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             EngineModelsTableSeeder::class,
             JobOrdersTableSeeder::class,
             JobSheetsTableSeeder::class,
+            JobsTableSeeder::class,
             ManagementsTableSeeder::class,
             ProgressStatusesTableSeeder::class,
         ]);
