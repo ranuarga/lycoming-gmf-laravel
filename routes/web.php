@@ -37,4 +37,11 @@ Route::group(['middleware' => 'auth:web-admin'], function() {
     Route::post('engineer/{id}/update', 'EngineerController@updateWeb')->name('engineer.update');
     Route::get('engineer/{id}/edit', 'EngineerController@edit')->name('engineer.edit');
     Route::get('engineer/{id}/delete', 'EngineerController@destroy')->name('engineer.delete');
+
+    Route::get('management', 'ManagementController@index')->name('management');
+    Route::get('management/create', 'ManagementController@create')->name('management.create');
+    Route::post('management/store', 'ManagementController@storeWeb')->name('management.store');
+    Route::post('management/{id}/update', 'ManagementController@updateWeb')->name('management.update');
+    Route::get('management/{id}/edit', 'ManagementController@edit')->name('management.edit');
+    Route::get('management/{id}/delete', 'ManagementController@destroy')->name('management.delete');
 });

@@ -74,7 +74,7 @@ class EngineerController extends Controller
 
     public function edit($id)
     {
-        $admin = Engineer::findOrFail($id);
+        $engineer = Engineer::findOrFail($id);
 
         return view('engineer.createOrUpdate', ['engineer' => $engineer]);
     }
