@@ -15,7 +15,7 @@ class ManagementController extends Controller
 
     public function index()
     {        
-        return view('management.index', ['managemnts' => Management::all()]);
+        return view('management.index', ['managements' => Management::all()]);
     }
     
     public function show($id)

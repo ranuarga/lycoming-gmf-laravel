@@ -102,7 +102,7 @@
                                     <a class="nav-link" href="{{ route('engineer') }}">
                                         Engineer
                                     </a>
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="{{ route('management') }}">
                                         Management
                                     </a>
                                 </nav>
