@@ -56,10 +56,10 @@ class LoginController extends Controller
         }
 
         $admin = auth()->guard('admin')->user();
+        $admin['token'] = $token;
 
         return response()->json(array(
             'admin' => $admin,
-            'token' => $token,
             'message' => 'Login Success'
         ));
     }
@@ -80,10 +80,10 @@ class LoginController extends Controller
         }
 
         $management = auth()->guard('management')->user();
+        $management['token'] = $token;
 
         return response()->json(array(
             'management' => $management,
-            'token' => $token,
             'message' => 'Login Success'
         ));
     }
@@ -104,10 +104,10 @@ class LoginController extends Controller
         }
 
         $engineer = auth()->guard('engineer')->user();
+        $engineer['token'] = $token;
 
         return response()->json(array(
             'engineer' => $engineer,
-            'token' => $token,
             'message' => 'Login Success'
         ));
     }
