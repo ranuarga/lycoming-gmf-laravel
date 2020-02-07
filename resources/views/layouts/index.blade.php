@@ -119,7 +119,7 @@
                                 </div>
                                 Job Order
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('job-sheet') }}">
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-book-open"></i>
                                 </div>

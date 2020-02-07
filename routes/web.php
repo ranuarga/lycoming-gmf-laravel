@@ -38,6 +38,8 @@ Route::group(['middleware' => 'auth:web-admin'], function() {
     Route::get('engineer/{id}/edit', 'EngineerController@edit')->name('engineer.edit');
     Route::get('engineer/{id}/delete', 'EngineerController@destroy')->name('engineer.delete');
 
+    Route::get('job-sheet', 'JobSheetController@index')->name('job-sheet');
+    
     Route::get('management', 'ManagementController@index')->name('management');
     Route::get('management/create', 'ManagementController@create')->name('management.create');
     Route::post('management/store', 'ManagementController@storeWeb')->name('management.store');

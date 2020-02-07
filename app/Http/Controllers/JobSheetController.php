@@ -12,6 +12,11 @@ class JobSheetController extends Controller
         return response()->json(JobSheet::all());
     }
 
+    public function index()
+    {        
+        return view('job-sheet.index', ['job_sheets' => JobSheet::all()]);
+    }
+
     public function show($id)
     {
         try {
