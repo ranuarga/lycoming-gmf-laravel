@@ -46,7 +46,9 @@ class JobController extends Controller
             }
         }
 
-        return response()->json($jobsDone);
+        return response()->json(array(
+            'job_done' => $jobsDone
+        ));
     }
 
     public function allProgress()
@@ -75,7 +77,9 @@ class JobController extends Controller
             }
         }
 
-        return response()->json($jobsProgress);
+        return response()->json(array(
+            'job_progress' => $jobsProgress
+        ));
     }
 
     public function show($id)
