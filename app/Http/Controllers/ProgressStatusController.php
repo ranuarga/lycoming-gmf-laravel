@@ -12,6 +12,11 @@ class ProgressStatusController extends Controller
         return response()->json(ProgressStatus::all());
     }
 
+    public function index()
+    {        
+        return view('progress-status.index', ['progress_statuses' => ProgressStatus::all()]);
+    }
+
     public function show($id)
     {
         try {

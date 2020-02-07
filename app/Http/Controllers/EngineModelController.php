@@ -12,6 +12,11 @@ class EngineModelController extends Controller
         return response()->json(EngineModel::all());
     }
 
+    public function index()
+    {        
+        return view('engine-model.index', ['engine_models' => EngineModel::all()]);
+    }
+    
     public function show($id)
     {
         try {
@@ -42,6 +47,32 @@ class EngineModelController extends Controller
         }
     }
 
+    public function storeWeb(Request $request)
+    {
+        try {            
+            $engine_model = JobOrder::create([
+                'engine_model_name' => $request->engine_model_name,
+            ]);
+
+            return redirect()->route('engine-model');
+        } catch (\Exception $ex) {
+            print_r($ex->getMessage());
+        }
+    }
+
+    public function create()
+    {
+        return view('engine-model.createOrUpdate');
+    }
+
+    public function edit($id)
+    {
+        $engine_model = EngineModel::findOrFail($id);
+
+        return view('engine-model.createOrUpdate', ['engine_model' => $engine_model]);
+    }
+
+
     public function update($id, Request $request)
     {
         try {
@@ -56,6 +87,18 @@ class EngineModelController extends Controller
         }
     }
 
+    public function updateWeb($id, Request $request)
+    {
+        try {
+            $engine_model = EngineModel::findOrFail($id);
+            $engine_model->update($request->all());
+            
+            return redirect()->route('engine-model');
+        } catch (\Exception $ex) {
+            print_r($ex->getMessage());
+        }
+    }
+
     public function delete($id)
     {
         try {
@@ -67,5 +110,12 @@ class EngineModelController extends Controller
                 'message' => $ex->getMessage()
             ]);
         }
+    }
+
+    public function destroy($id)
+    {
+        EngineModel::findOrFail($id)->delete();
+
+        return redirect()->route('engine-model');
     }
 }

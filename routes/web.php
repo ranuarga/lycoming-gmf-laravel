@@ -38,6 +38,20 @@ Route::group(['middleware' => 'auth:web-admin'], function() {
     Route::get('engineer/{id}/edit', 'EngineerController@edit')->name('engineer.edit');
     Route::get('engineer/{id}/delete', 'EngineerController@destroy')->name('engineer.delete');
 
+    Route::get('engine-model', 'EngineModelController@index')->name('engine-model');
+    Route::get('engine-model/create', 'EngineModelController@create')->name('engine-model.create');
+    Route::post('engine-model/store', 'EngineModelController@storeWeb')->name('engine-model.store');
+    Route::post('engine-model/{id}/update', 'EngineModelController@updateWeb')->name('engine-model.update');
+    Route::get('engine-model/{id}/edit', 'EngineModelController@edit')->name('engine-model.edit');
+    Route::get('engine-model/{id}/delete', 'EngineModelController@destroy')->name('engine-model.delete');
+
+    Route::get('job-order', 'JobOrderController@index')->name('job-order');
+    Route::get('job-order/create', 'JobOrderController@create')->name('job-order.create');
+    Route::post('job-order/store', 'JobOrderController@storeWeb')->name('job-order.store');
+    Route::post('job-order/{id}/update', 'JobOrderController@updateWeb')->name('job-order.update');
+    Route::get('job-order/{id}/edit', 'JobOrderController@edit')->name('job-order.edit');
+    Route::get('job-order/{id}/delete', 'JobOrderController@destroy')->name('job-order.delete');
+    
     Route::get('job-sheet', 'JobSheetController@index')->name('job-sheet');
     
     Route::get('management', 'ManagementController@index')->name('management');
@@ -46,4 +60,6 @@ Route::group(['middleware' => 'auth:web-admin'], function() {
     Route::post('management/{id}/update', 'ManagementController@updateWeb')->name('management.update');
     Route::get('management/{id}/edit', 'ManagementController@edit')->name('management.edit');
     Route::get('management/{id}/delete', 'ManagementController@destroy')->name('management.delete');
+
+    Route::get('progress-status', 'ProgressStatusController@index')->name('progress-status');
 });

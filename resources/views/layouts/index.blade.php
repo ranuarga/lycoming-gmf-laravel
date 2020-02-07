@@ -107,13 +107,13 @@
                                     </a>
                                 </nav>
                             </div>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('engine-model') }}">
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-tachometer-alt"></i>
                                 </div>
                                 Engine Model
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('job-order') }}">
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-tools"></i>
                                 </div>
@@ -125,7 +125,7 @@
                                 </div>
                                 Job Sheet
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{ route('progress-status') }}">
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-tasks"></i>
                                 </div>
