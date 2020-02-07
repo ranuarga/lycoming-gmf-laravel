@@ -74,7 +74,7 @@
                             </a>
                             <div class="collapse" id="collapseJobs" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link" href="{{ route('job') }}">
                                         All Job
                                     </a>
                                     <a class="nav-link" href="#">

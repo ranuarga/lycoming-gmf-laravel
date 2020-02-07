@@ -19,6 +19,50 @@ class JobController extends Controller
             );
     }
 
+    public function index()
+    {        
+        return view(
+            'job.index',
+            [
+                'jobs' => Job::with('engine_model')
+                    ->with('job_order')
+                    ->get()
+            ]
+        );
+    }
+
+    public function progress($id)
+    {        
+        return view(
+            'job.progress',
+            [
+                'progress_jobs' => ProgressJob::where('job_id', $id)
+                    ->with('job')
+                    ->with('job_sheet')
+                    ->with('engineer')
+                    ->with('management')
+                    ->with('progress_status')
+                    ->get()
+            ]
+        );
+    }
+
+    public function progressDetail($pid)
+    {        
+        return view(
+            'job.progress-detail',
+            [
+                'jobs' => ProgressJob::with('job')
+                            ->with('job_sheet')
+                            ->with('engineer')
+                            ->with('management')
+                            ->with('progress_status')
+                            ->findOrFail($pid)
+            ]
+        );
+    }
+
+
     public function allDone()
     {
         $jobs = Job::with('progress_job')
@@ -139,18 +183,84 @@ class JobController extends Controller
             ], 500);
         }
     }
+    
+    public function storeWeb(Request $request)
+    {
+        try {            
+            $job = Job::create([
+                'engine_model_id' => $request->engine_model_id,
+                'job_order_id' => $request->job_order_id,
+                'job_engine_number' => $request->job_engine_number,
+                'job_customer' => $request->job_customer,
+                'job_reference' => $request->job_reference,
+                'job_entry_date' => $request->job_entry_date
+            ]);
+
+            $job->job_number = sprintf("%06d", $job->job_id);
+            $job->save();
+
+            $job_sheets = JobSheet::all();
+            foreach ($job_sheets as $job_sheet) {
+                ProgressJob::create([
+                    'job_id' => $job->job_id,
+                    'job_sheet_id' => $job_sheet->job_sheet_id,
+                ]);
+            }
+
+            return redirect()->route('job');
+        } catch (\Exception $ex) {
+            print_r($ex->getMessage());
+        }
+    }
+
+    public function create()
+    {
+        return view('job.createOrUpdate');
+    }
+
+    public function edit($id)
+    {
+        $job = Job::findOrFail($id);
+
+        return view('job.createOrUpdate', ['job' => $job]);
+    }
 
     public function update($id, Request $request)
     {
         try {
             $job = Job::findOrFail($id);
-            $job->update($request->all());
+            $job->engine_model_id = $request->engine_model_id;
+            $job->job_order_id = $request->job_order_id;
+            $job->job_engine_number = $request->job_engine_number;
+            $job->job_customer = $request->job_customer;
+            $job->job_reference = $request->job_reference;
+            $job->job_entry_date = $request->job_entry_date;
+            $job->save();
 
             return response()->json($job, 200);
         } catch (\Exception $ex) {
             return response()->json([
                 'message' => $ex->getMessage()
             ]);
+        }
+    }
+
+    public function updateWeb($id, Request $request)
+    {
+        try {
+            $job = Job::findOrFail($id);
+            $job->engine_model_id = $request->engine_model_id;
+            $job->job_order_id = $request->job_order_id;
+            $job->job_engine_number = $request->job_engine_number;
+            $job->job_customer = $request->job_customer;
+            $job->job_reference = $request->job_reference;
+            $job->job_entry_date = $request->job_entry_date;
+            $job->save();
+
+
+            return redirect()->route('job');
+        } catch (\Exception $ex) {
+            print_r($ex->getMessage());
         }
     }
 
@@ -165,5 +275,12 @@ class JobController extends Controller
                 'message' => $ex->getMessage()
             ]);
         }
+    }
+
+    public function destroy($id)
+    {
+        Job::findOrFail($id)->delete();
+
+        return redirect()->route('job');
     }
 }
