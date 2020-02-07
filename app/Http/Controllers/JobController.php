@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\EngineModel;
 use App\Models\Job;
+use App\Models\JobOrder;
 use App\Models\JobSheet;
 use App\Models\ProgressJob;
 
@@ -65,10 +67,10 @@ class JobController extends Controller
 
     public function allDone()
     {
-        $jobs = Job::with('progress_job')
-                    ->with('engine_model')
-                    ->with('job_order')
-                    ->get();
+        // $jobs = Job::with('engine_model')
+        //             ->with('job_order')
+        //             ->get();
+        $jobs = Job::all();
         $jobsDone = [];
         foreach ($jobs as $job) {
             $allDone = true;
@@ -86,6 +88,12 @@ class JobController extends Controller
             }
             
             if($allDone == true) {
+                $job['engine_model_name'] = EngineModel::where('engine_model_id', $job->engine_model_id)
+                    ->first()
+                    ->engine_model_name;
+                $job['job_order_name'] = JobOrder::where('job_order_id', $job->job_order_id)
+                    ->first()
+                    ->job_order_name;
                 array_push($jobsDone, $job);
             }
         }
@@ -97,8 +105,7 @@ class JobController extends Controller
 
     public function allProgress()
     {
-        $jobs = Job::with('progress_job')
-                    ->with('engine_model')
+        $jobs = Job::with('engine_model')
                     ->with('job_order')
                     ->get();
         $jobsProgress = [];
@@ -117,6 +124,12 @@ class JobController extends Controller
             }
             
             if($allProgress == true) {
+                $job['engine_model_name'] = EngineModel::where('engine_model_id', $job->engine_model_id)
+                    ->first()
+                    ->engine_model_name;
+                $job['job_order_name'] = JobOrder::where('job_order_id', $job->job_order_id)
+                    ->first()
+                    ->job_order_name;
                 array_push($jobsProgress, $job);
             }
         }
