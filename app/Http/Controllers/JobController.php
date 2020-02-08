@@ -11,6 +11,26 @@ use App\Models\ProgressJob;
 
 class JobController extends Controller
 {
+    public function getEngineModels()
+    {
+        $engine_models = [];
+        foreach (EngineModel::all() as $engine_model) {
+            $engine_models[$engine_model->engine_model_id] = $engine_model->engine_model_name;
+        }
+        
+        return $engine_models;
+    }
+
+    public function getJobOrders()
+    {
+        $job_orders = [];
+        foreach (JobOrder::all() as $job_order) {
+            $job_orders[$job_order->job_order_id] = $job_order->job_order_name;
+        }
+
+        return $job_orders;
+    }
+    
     public function all()
     {
         return response()
@@ -228,14 +248,21 @@ class JobController extends Controller
 
     public function create()
     {
-        return view('job.createOrUpdate');
+        return view('job.createOrUpdate', [
+            'engine_models' => $this->getEngineModels(),
+            'job_orders' => $this->getJobOrders(),
+        ]);
     }
 
     public function edit($id)
     {
         $job = Job::findOrFail($id);
 
-        return view('job.createOrUpdate', ['job' => $job]);
+        return view('job.createOrUpdate', [
+            'job' => $job,
+            'engine_models' => $this->getEngineModels(),
+            'job_orders' => $this->getJobOrders(),
+        ]);
     }
 
     public function update($id, Request $request)

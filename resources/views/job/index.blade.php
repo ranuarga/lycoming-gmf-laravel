@@ -13,7 +13,7 @@
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
     <li class="breadcrumb-item active">Job</li>
 </ol>
-<a href="{{ route('management.create') }}">
+<a href="{{ route('job.create') }}">
     <button class="btn btn-success float-right">
         Create Job
     </button>

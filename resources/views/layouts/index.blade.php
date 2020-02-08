@@ -153,7 +153,7 @@
                         <div class="d-flex align-items-center justify-content-between small">
                             <div class="text-muted">Lycoming Engine Monitoring & Progress Report Application Admin Panel</div>
                             <div>
-                                Joint Opeation GMF
+                                Joint Operation GMF
                                 &middot;
                                 MMF
                             </div>
