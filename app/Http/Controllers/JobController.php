@@ -68,7 +68,7 @@ class JobController extends Controller
         return view(
             'job.progress-detail',
             [
-                'jobs' => ProgressJob::with('job')
+                'progress_job' => ProgressJob::with('job')
                             ->with('job_sheet')
                             ->with('engineer')
                             ->with('management')
