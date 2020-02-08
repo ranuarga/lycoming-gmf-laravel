@@ -43,14 +43,7 @@ class JobController extends Controller
 
     public function index()
     {        
-        return view(
-            'job.index',
-            [
-                'jobs' => Job::with('engine_model')
-                    ->with('job_order')
-                    ->get()
-            ]
-        );
+        return view('job.index', ['jobs' => Job::all()]);
     }
 
     public function progress($id)
@@ -84,8 +77,7 @@ class JobController extends Controller
         );
     }
 
-
-    public function allDone()
+    public function done()
     {
         // $jobs = Job::with('engine_model')
         //             ->with('job_order')
@@ -118,12 +110,22 @@ class JobController extends Controller
             }
         }
 
+        return $jobsDone;
+    }
+    
+    public function allDoneWeb()
+    {
+        return view('job.index', ['jobs' => $this->done(), 'title' => 'Done']);
+    }
+
+    public function allDone()
+    {        
         return response()->json(array(
-            'job_done' => $jobsDone
+            'job_done' => $this->done()
         ));
     }
 
-    public function allProgress()
+    public function onProgress()
     {
         $jobs = Job::with('engine_model')
                     ->with('job_order')
@@ -154,8 +156,18 @@ class JobController extends Controller
             }
         }
 
+        return $jobsProgress;
+    }
+    
+    public function allProgressWeb()
+    {
+        return view('job.index', ['jobs' => $this->onProgress(), 'title' => 'On Progress']);
+    }
+
+    public function allProgress()
+    {
         return response()->json(array(
-            'job_progress' => $jobsProgress
+            'job_progress' => $this->onProgress()
         ));
     }
 

@@ -1,17 +1,21 @@
+<?php
+    if(!isset($title))
+        $title = '';
+?>
 @extends('layouts.index')
 
 @section('title')
-    Job
+    Job {{ $title }}
 @endsection
 
 @section('name')
-    Job
+    Job {{ $title }}
 @endsection
 
 @section('content')
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-    <li class="breadcrumb-item active">Job</li>
+    <li class="breadcrumb-item active">Job {{ $title }}</li>
 </ol>
 <a href="{{ route('job.create') }}">
     <button class="btn btn-success float-right">
