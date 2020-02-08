@@ -19,6 +19,38 @@
 <div class="card mb-4">
     <div class="card-body">
         <div class="table-responsive">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <tr>
+                    <td>Job Number</td>
+                    <td>{{ $job->job_number }}</td>
+                </tr>
+                <tr>
+                    <td>Engine</td>
+                    <td>{{ $job->engine_model->engine_model_name }}</td>
+                </tr>
+                <tr>
+                    <td>Engine Number</td>
+                    <td>{{ $job->job_engine_number }}</td>
+                </tr>
+                <tr>
+                    <td>Order</td>
+                    <td>{{ $job->job_order->job_order_name }}</td>
+                </tr>
+                <tr>
+                    <td>Customer</td>
+                    <td>{{ $job->job_customer }}</td>
+                </tr>
+                <tr>
+                    <td>Reference</td>
+                    <td>{{ $job->job_reference }}</td>
+                </tr>
+                <tr>
+                    <td>Entry Date</td>
+                    <td>{{ $job->job_entry_date }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>

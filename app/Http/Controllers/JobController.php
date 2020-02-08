@@ -51,6 +51,7 @@ class JobController extends Controller
         return view(
             'job.progress',
             [
+                'job' => Job::findOrFail($id),
                 'progress_jobs' => ProgressJob::where('job_id', $id)
                     ->with('job')
                     ->with('job_sheet')
