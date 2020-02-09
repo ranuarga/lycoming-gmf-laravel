@@ -16,11 +16,11 @@
     <div class="col-xl-4 col-md-12">
         <div class="card bg-primary text-white mb-4">
             <div class="card-body">
-                <h1>0</h1>
+                <h1>{{ $all }}</h1>
                 Job(s)
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="#">
+                <a class="small text-white stretched-link" href="{{ route('job') }}">
                     View Details
                 </a>
                 <div class="small text-white">
@@ -32,11 +32,11 @@
     <div class="col-xl-4 col-md-12">
         <div class="card bg-warning text-white mb-4">
             <div class="card-body">
-                <h1>0</h1>
+                <h1>{{ $onProgress }}</h1>
                 Job(s) On Progress
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="#">
+                <a class="small text-white stretched-link" href="{{ route('job.on-progress') }}">
                     View Details
                 </a>
                 <div class="small text-white">
@@ -48,11 +48,11 @@
     <div class="col-xl-4 col-md-12">
         <div class="card bg-success text-white mb-4">
             <div class="card-body">
-                <h1>0</h1>
+                <h1>{{ $done }}</h1>
                 Job(s) Done
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="#">
+                <a class="small text-white stretched-link" href="{{ route('job.done') }}">
                     View Details
                 </a>
                 <div class="small text-white">
