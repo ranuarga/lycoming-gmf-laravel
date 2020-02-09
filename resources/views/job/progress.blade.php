@@ -76,7 +76,11 @@
                     @foreach($progress_jobs as $progress_job)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        @if($progress_job->job_sheet)
                         <td>{{ $progress_job->job_sheet->job_sheet_name }}</td>
+                        @else
+                        <td></td>
+                        @endif
                         @if($progress_job->progress_status)
                         <td>{{ $progress_job->progress_status->progress_status_name }}</td>
                         @else

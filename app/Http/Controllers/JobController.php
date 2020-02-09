@@ -52,28 +52,18 @@ class JobController extends Controller
             'job.progress',
             [
                 'job' => Job::findOrFail($id),
-                'progress_jobs' => ProgressJob::where('job_id', $id)
-                    ->with('job')
-                    ->with('job_sheet')
-                    ->with('engineer')
-                    ->with('management')
-                    ->with('progress_status')
-                    ->get()
+                'progress_jobs' => ProgressJob::where('job_id', $id)->get()
             ]
         );
     }
 
-    public function progressDetail($pid)
+    public function progressDetail($id, $pid)
     {        
         return view(
             'job.progress-detail',
             [
-                'progress_job' => ProgressJob::with('job')
-                            ->with('job_sheet')
-                            ->with('engineer')
-                            ->with('management')
-                            ->with('progress_status')
-                            ->findOrFail($pid)
+                'progress_job' => ProgressJob::findOrFail($pid),
+                'job' => Job::findOrFail($id)
             ]
         );
     }

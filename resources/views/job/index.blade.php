@@ -59,9 +59,17 @@
                     <tr>
                         <!-- <td>{{ $loop->iteration }}</td> -->
                         <td>{{ $job->job_number }}</td>
+                        @if($job->engine_model)
                         <td>{{ $job->engine_model->engine_model_name }}</td>
+                        @else
+                        <td></td>
+                        @endif
                         <td>{{ $job->job_engine_number }}</td>
+                        @if($job->job_order)
                         <td>{{ $job->job_order->job_order_name }}</td>
+                        @else
+                        <td></td>
+                        @endif
                         <td>{{ $job->job_customer }}</td>
                         <td>{{ $job->job_reference }}</td>
                         <td>{{ $job->job_entry_date }}</td>
