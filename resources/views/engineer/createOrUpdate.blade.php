@@ -34,7 +34,7 @@
                 {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
             @endif
             {{ Form::label('engineer_full_name', 'Full Name') }}
-            {{ Form::text('engineer_full_name', Request::old('engineer_full_name'), ['class' => 'form-control', 'placeholder' => 'Full Name']) }}
+            {{ Form::text('engineer_full_name', Request::old('engineer_full_name'), ['class' => 'form-control', 'placeholder' => 'Full Name', 'required']) }}
             <br>
             <button type="submit" class="btn btn-primary float-right">Done</button>
     {{ Form::close() }}

@@ -77,7 +77,11 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $progress_job->job_sheet->job_sheet_name }}</td>
+                        @if($progress_job->progress_status)
                         <td>{{ $progress_job->progress_status->progress_status_name }}</td>
+                        @else
+                        <td></td>
+                        @endif
                         <td>{{ $progress_job->progress_job_date_start }}</td>
                         <td>{{ $progress_job->progress_job_date_completion }}</td>
                         <td>
