@@ -84,7 +84,6 @@ class LoginController extends Controller
 
         return response()->json(array(
             'management' => $management,
-            'token' => $token,
             'message' => 'Login Success'
         ));
     }
