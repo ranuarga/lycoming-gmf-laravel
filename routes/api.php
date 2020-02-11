@@ -109,7 +109,8 @@ Route::group(['prefix' => 'engineer-side'], function() {
 Route::group(['prefix' => 'management-side'], function() {
     Route::post('login', 'LoginController@loginManagement');
     
-    Route::group(['middleware' => ['auth:management', 'cors']], function() {
+    // Route::group(['middleware' => ['auth:management', 'cors']], function() {
+    Route::group(['middleware' => ['cors']], function() {
         Route::get('job', 'JobController@all');
         Route::get('job/done', 'JobController@allDone');
         Route::get('job/progress', 'JobController@allProgress');
