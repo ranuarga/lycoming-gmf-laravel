@@ -118,9 +118,10 @@ class JobController extends Controller
 
     public function onProgress()
     {
-        $jobs = Job::with('engine_model')
-                    ->with('job_order')
-                    ->get();
+        // $jobs = Job::with('engine_model')
+        //             ->with('job_order')
+        //             ->get();
+        $jobs = Job::all();
         $jobsProgress = [];
         foreach ($jobs as $job) {
             $allProgress = false;
