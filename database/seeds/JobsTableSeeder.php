@@ -36,6 +36,17 @@ class JobsTableSeeder extends Seeder
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
+            [
+                'engine_model_id' => 2,
+                'job_order_id' => 1,
+                'job_number' => sprintf("%06d", 3),
+                'job_engine_number' => 'RL-14372-39 A',
+                'job_customer' => 'Mr. Lee',
+                'job_reference' => 'OHM 60294-7-14',
+                'job_entry_date' => '2020-02-13',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
         ]);
     }
 }    
