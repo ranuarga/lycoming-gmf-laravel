@@ -20,6 +20,10 @@ class Job extends Model
         'job_entry_date'
     ];
 
+    protected $casts = [
+        'job_entry_date'  => 'date:d-M-Y',
+    ];
+
     public function progress_job()
     {
         return $this->hasMany('App\Models\ProgressJob', 'job_id');
