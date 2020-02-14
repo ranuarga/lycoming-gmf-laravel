@@ -17,9 +17,4 @@ class HomeController extends Controller
             'all' => Job::all()->count()
         ]);
     }
-
-    public function root()
-    {
-        return redirect()->route('home');
-    }
 }

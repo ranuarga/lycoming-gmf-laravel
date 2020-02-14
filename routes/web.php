@@ -16,9 +16,11 @@
 //     return view('welcome');
 // });
 
+Route::get('/', 'TrackController@index')->name('track');
+Route::post('search', 'TrackController@search')->name('track.search');
+
 Route::get('login',  'LoginController@loginForm')->name('login');
 Route::post('login',  'LoginController@loginWeb')->name('login.post');
-Route::get('/', 'HomeController@root')->name('root');
 
 Route::group(['middleware' => 'auth:web-admin'], function() {
     Route::get('home', 'HomeController@index')->name('home');
