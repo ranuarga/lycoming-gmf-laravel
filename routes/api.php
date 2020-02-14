@@ -98,6 +98,7 @@ Route::group(['prefix' => 'engineer-side'], function() {
         Route::get('job/done', 'JobController@allDone');
         Route::get('job/progress', 'JobController@allProgress');
         Route::get('job/{id}', 'JobController@show');
+        Route::get('job/{id}/progress', 'JobController@showProgress');
 
         Route::get('progress-job/{id}', 'ProgressJobController@show');
         Route::put('progress-job/{id}/remark', 'ProgressJobController@updateStatusAndRemark');
@@ -114,6 +115,7 @@ Route::group(['prefix' => 'management-side'], function() {
         Route::get('job/done', 'JobController@allDone');
         Route::get('job/progress', 'JobController@allProgress');
         Route::get('job/{id}', 'JobController@show');
+        Route::get('job/{id}/progress', 'JobController@showProgress');
 
         Route::get('progress-job/{id}', 'ProgressJobController@show');
         Route::put('progress-job/{id}/note', 'ProgressJobController@updateNote');

@@ -163,6 +163,22 @@ class JobController extends Controller
         ));
     }
 
+    public function showProgress($id)
+    {
+        try {
+            return response()
+                ->json(
+                    ProgressJob::where('job_id', $id)
+                        ->with('progress_status')
+                        ->get()
+                );
+        } catch (\Exception $ex) {
+            return response()->json([
+                'message' => $ex->getMessage()
+            ]);
+        }
+    }
+
     public function show($id)
     {
         try {
