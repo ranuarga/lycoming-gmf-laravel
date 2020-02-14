@@ -63,7 +63,7 @@
                 </tr>
                 <tr>
                     <td>Entry Date</td>
-                    <td>{{ $job->job_entry_date }}</td>
+                    <td>{{ $job->job_entry_date->format('d-M-Y') }}</td>
                 </tr>
                 <tr>
                     <td>

@@ -72,7 +72,7 @@
                         @endif
                         <td>{{ $job->job_customer }}</td>
                         <td>{{ $job->job_reference }}</td>
-                        <td>{{ $job->job_entry_date }}</td>
+                        <td>{{ $job->job_entry_date->format('d-M-Y') }}</td>
                         <td>
                             <a href="{{ route('job.progress', ['id' => $job->job_id]) }}">
                                 <i class="fas fa-eye"></i>
