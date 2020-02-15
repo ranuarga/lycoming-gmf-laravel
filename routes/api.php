@@ -51,6 +51,7 @@ Route::group(['prefix' => 'admin-side'], function() {
         Route::post('job', 'JobController@store');
         Route::put('job/{id}', 'JobController@update');
         Route::delete('job/{id}', 'JobController@delete');
+        Route::get('job/{id}/progress', 'JobController@showProgress');
     
         Route::get('job-order', 'JobOrderController@all');
         Route::get('job-order/{id}', 'JobOrderController@show');

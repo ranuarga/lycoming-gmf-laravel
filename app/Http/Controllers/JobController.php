@@ -8,6 +8,7 @@ use App\Models\Job;
 use App\Models\JobOrder;
 use App\Models\JobSheet;
 use App\Models\ProgressJob;
+use App\Models\ProgressStatus;
 
 class JobController extends Controller
 {
@@ -166,12 +167,14 @@ class JobController extends Controller
     public function showProgress($id)
     {
         try {
-            return response()
-                ->json(
-                    ProgressJob::where('job_id', $id)
-                        ->with('progress_status')
-                        ->get()
-                );
+            $job_progress_list = ProgressJob::where('job_id', $id)->get();
+            foreach ($job_progress_list as $list) {
+                $list['job_sheet_name'] = JobSheet::findOrFail($list->job_sheet_id)->job_sheet_name;
+                $list['progress_status_name'] = ProgressStatus::findOrFail($list->progress_status_id)->progress_status_name;
+            }
+            return response()->json(array(
+                'job_progress_list' => $job_progress_list
+            ));
         } catch (\Exception $ex) {
             return response()->json([
                 'message' => $ex->getMessage()
