@@ -57,6 +57,42 @@
         </div>
     </section>
     @elseif(isset($job))
+    <section class="testimonials text-center bg-light">
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <tr>
+                        <td>Job Number</td>
+                        <td>{{ $job->job_number }}</td>
+                    </tr>
+                    <tr>
+                        <td>Engine</td>
+                        <td>{{ $job->engine_model->engine_model_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Engine Number</td>
+                        <td>{{ $job->job_engine_number }}</td>
+                    </tr>
+                    <tr>
+                        <td>Order</td>
+                        <td>{{ $job->job_order->job_order_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Customer</td>
+                        <td>{{ $job->job_customer }}</td>
+                    </tr>
+                    <tr>
+                        <td>Reference</td>
+                        <td>{{ $job->job_reference }}</td>
+                    </tr>
+                    <tr>
+                        <td>Entry Date</td>
+                        <td>{{ $job->job_entry_date->format('d-M-Y') }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
     @endif
     <!-- Footer -->
     <footer class="footer bg-light">
