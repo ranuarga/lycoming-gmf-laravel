@@ -207,14 +207,23 @@ class JobController extends Controller
     public function show($id)
     {
         try {
-            return response()
-                ->json(
-                    Job::with('progress_job')
-                        ->with('progress_job.progress_status')
-                        ->with('engine_model')
-                        ->with('job_order')
-                        ->findOrFail($id)
-                );
+            $job = Job::findOrFail($id);
+            $engine_model = EngineModel::find($job->engine_model_id);
+            $job_order = JobOrder::find($job->job_order_id);
+            if ($engine_model) {
+                $job['engine_model_name'] = $engine_model->engine_model_name;
+            } else {
+                $job['engine_model_name'] = null;
+            }
+            if ($job_order) {
+                $job['job_order_name'] = $job_order->job_order_name;
+            } else {
+                $job['job_order_name'] = null;
+            }
+
+            return response()->json(array(
+                    'job' => $job
+            ));
         } catch (\Exception $ex) {
             return response()->json([
                 'message' => $ex->getMessage()
