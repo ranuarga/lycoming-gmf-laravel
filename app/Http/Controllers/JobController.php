@@ -92,12 +92,18 @@ class JobController extends Controller
             }
             
             if($allDone == true) {
-                $job['engine_model_name'] = EngineModel::where('engine_model_id', $job->engine_model_id)
-                    ->first()
-                    ->engine_model_name;
-                $job['job_order_name'] = JobOrder::where('job_order_id', $job->job_order_id)
-                    ->first()
-                    ->job_order_name;
+                $engine_model = EngineModel::find($job->engine_model_id);
+                $job_order = JobOrder::find($job->job_order_id);
+                if ($engine_model) {
+                    $job['engine_model_name'] = $engine_model->engine_model_name;
+                } else {
+                    $job['engine_model_name'] = null;
+                }
+                if ($job_order) {
+                    $job['job_order_name'] = $job_order->job_order_name;
+                } else {
+                    $job['job_order_name'] = null;
+                }
                 array_push($jobsDone, $job);
             }
         }
@@ -139,12 +145,18 @@ class JobController extends Controller
             }
             
             if($allProgress == true) {
-                $job['engine_model_name'] = EngineModel::where('engine_model_id', $job->engine_model_id)
-                    ->first()
-                    ->engine_model_name;
-                $job['job_order_name'] = JobOrder::where('job_order_id', $job->job_order_id)
-                    ->first()
-                    ->job_order_name;
+                $engine_model = EngineModel::find($job->engine_model_id);
+                $job_order = JobOrder::find($job->job_order_id);
+                if ($engine_model) {
+                    $job['engine_model_name'] = $engine_model->engine_model_name;
+                } else {
+                    $job['engine_model_name'] = null;
+                }
+                if ($job_order) {
+                    $job['job_order_name'] = $job_order->job_order_name;
+                } else {
+                    $job['job_order_name'] = null;
+                }
                 array_push($jobsProgress, $job);
             }
         }
@@ -169,8 +181,18 @@ class JobController extends Controller
         try {
             $job_progress_list = ProgressJob::where('job_id', $id)->get();
             foreach ($job_progress_list as $list) {
-                $list['job_sheet_name'] = JobSheet::findOrFail($list->job_sheet_id)->job_sheet_name;
-                $list['progress_status_name'] = ProgressStatus::findOrFail($list->progress_status_id)->progress_status_name;
+                $job_sheet = JobSheet::find($list->job_sheet_id);
+                $progress_status = ProgressStatus::find($list->progress_status_id);
+                if ($job_sheet) {                   
+                    $list['job_sheet_name'] = $job_sheet->job_sheet_name;
+                } else {
+                    $list['job_sheet_name'] = null;
+                }
+                if ($progress_status) {
+                    $list['progress_status_name'] = $progress_status->progress_status_name;
+                } else {
+                    $list['progress_status_name'] = null;
+                }
             }
             return response()->json(array(
                 'job_progress_list' => $job_progress_list
