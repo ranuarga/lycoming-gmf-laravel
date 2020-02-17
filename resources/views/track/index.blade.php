@@ -93,6 +93,8 @@
             </div>
         </div>
     </section>
+    @if($progress_jobs)
+    @endif
     @endif
     <!-- Footer -->
     <footer class="footer bg-light">

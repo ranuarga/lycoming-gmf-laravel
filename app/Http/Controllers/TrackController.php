@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Job;
+use App\Models\ProgressJob;
 
 class TrackController extends Controller
 {
@@ -15,9 +16,20 @@ class TrackController extends Controller
     public function search(Request $request)
     {
         try {
-            return view('track.index', ['job' => Job::whereJobNumber($request->job_number)->firstOrFail()]);
-        } catch(\Exception $ex) {
+            $job = Job::whereJobNumber($request->job_number)->first();
+            if ($job) {
+                $progress_jobs = ProgressJob::whereJobId($job->job_id)->get();
+                if($progress_jobs) {
+                    return view('track.index', [
+                        'job' => $job,
+                        'progress_jobs' => $progress_jobs
+                    ]);
+                }
+            }
+            
             return view('track.index', ['message' => 'Job Not Found']);
+        } catch(\Exception $ex) {
+            return view('track.index', ['message' => $ex->getMessage()]);
         }
     }
 }
