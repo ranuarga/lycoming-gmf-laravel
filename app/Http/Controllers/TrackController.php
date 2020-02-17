@@ -18,7 +18,7 @@ class TrackController extends Controller
         try {
             $job = Job::whereJobNumber($request->job_number)->first();
             if ($job) {
-                $progress_jobs = ProgressJob::whereJobId($job->job_id)->get();
+                $progress_jobs = ProgressJob::whereJobId($job->job_id)->orderBy('progress_job_id', 'asc')->get();
                 if($progress_jobs) {
                     return view('track.index', [
                         'job' => $job,

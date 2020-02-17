@@ -53,7 +53,7 @@ class JobController extends Controller
             'job.progress',
             [
                 'job' => Job::findOrFail($id),
-                'progress_jobs' => ProgressJob::where('job_id', $id)->get()
+                'progress_jobs' => ProgressJob::where('job_id', $id)->orderBy('progress_job_id', 'asc')->get()
             ]
         );
     }
