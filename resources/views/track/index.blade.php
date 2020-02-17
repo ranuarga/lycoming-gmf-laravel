@@ -8,6 +8,7 @@
         <title>Track Your Engine</title>
         <!-- Bootstrap core CSS -->
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/track.css') }}" rel="stylesheet">
         <!-- Custom fonts for this template -->
         <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
         <link href="{{ asset('css/simple-line-icons.css') }}" rel="stylesheet" type="text/css">
@@ -92,9 +93,44 @@
                 </table>
             </div>
         </div>
-    </section>
     @if($progress_jobs)
+        <div class="container">
+            @foreach($progress_jobs as $progress_job)
+            <div class="row">
+                <div class="col-12 mt-3">
+                    <div class="card">
+                        <div class="card-horizontal">
+                            <div class="img-square-wrapper">
+                                @if($progress_job->progress_status)
+                                    <img class="" src="{{ asset('img/'. $progress_job->progress_status->progress_status_name .'.png' )}}">
+                                @else
+                                    <img class="" src="{{ asset('img/Null.png' )}}">
+                                @endif
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                @if($progress_job->job_sheet)
+                                    {{ $progress_job->job_sheet->job_sheet_name }}
+                                    @if($progress_job->progress_status)
+                                        - {{ $progress_job->progress_status->progress_status_name }}
+                                    @endif
+                                @endif
+                                </h4>
+                                <p class="card-text">
+                                    @if($progress_job->progress_job_date_start)
+                                        {{ $progress_job->progress_job_date_start }}
+                                        @if($progress_job->progress_job_date_completion)
+                                    
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
     @endif
+    </section>
     @endif
     <!-- Footer -->
     <footer class="footer bg-light">
