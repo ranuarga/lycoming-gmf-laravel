@@ -118,9 +118,11 @@
                                 </h4>
                                 <p class="card-text">
                                     @if($progress_job->progress_job_date_start)
-                                        {{ $progress_job->progress_job_date_start }}
+                                        {{ $progress_job->progress_job_date_start->format('d-M-Y') }}
                                         @if($progress_job->progress_job_date_completion)
-                                    
+                                        To {{ $progress_job->progress_job_date_completion->format('d-M-Y') }}
+                                        @endif
+                                    @endif
                                 </p>
                             </div>
                         </div>

@@ -22,6 +22,11 @@ class ProgressJob extends Model
         'progress_job_note'
     ];
 
+    protected $casts = [
+        'progress_job_date_start'  => 'date:d-M-Y',
+        'progress_job_date_completion'  => 'date:d-M-Y',
+    ];
+
     public function job()
     {
         return $this->belongsTo('App\Models\Job', 'job_id');
