@@ -99,7 +99,9 @@ class ProgressJobController extends Controller
             $progress_job->management_id = auth()->guard('management')->user()->management_id;
             $progress_job->save();
 
-            return response()->json($progress_job, 200);
+            return response()->json(array(
+                'message' => 'Successfull'
+            ), 200);
         } catch (\Exception $ex) {
             return response()->json([
                 'message' => $ex->getMessage()
@@ -124,7 +126,9 @@ class ProgressJobController extends Controller
             }
             $progress_job->save();
 
-            return response()->json($progress_job, 200);
+            return response()->json(array(
+                'message' => 'Successfull'
+            ), 200);
         } catch (\Exception $ex) {
             return response()->json([
                 'message' => $ex->getMessage()
