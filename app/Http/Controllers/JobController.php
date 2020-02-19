@@ -60,11 +60,18 @@ class JobController extends Controller
 
     public function progressDetail($id, $pid)
     {        
+        $progress_job = ProgressJob::findOrFail($pid);
+        $job = Job::findOrFail($id);
+
+        if($job->job_id != $progress_job->job_id) {
+            return abort(404);
+        }
+
         return view(
             'job.progress-detail',
             [
-                'progress_job' => ProgressJob::findOrFail($pid),
-                'job' => Job::findOrFail($id)
+                'progress_job' => $progress_job,
+                'job' => $job
             ]
         );
     }
