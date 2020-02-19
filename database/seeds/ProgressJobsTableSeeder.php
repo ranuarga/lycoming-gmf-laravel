@@ -40,7 +40,7 @@ class ProgressJobsTableSeeder extends Seeder
         }
 
         for ($i=1; $i <= 10; $i++) { 
-            if($i < 5){
+            if($i <= 5){
                 array_push($arr, [
                     'job_id' => 2,
                     'job_sheet_id' => $i,
