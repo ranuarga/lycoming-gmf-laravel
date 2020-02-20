@@ -9,7 +9,9 @@ class ProgressStatusController extends Controller
 {
     public function all()
     {
-        return response()->json(ProgressStatus::all());
+        return response()->json(array(
+            'progress_status' => ProgressStatus::all(),
+        ));
     }
 
     public function index()
