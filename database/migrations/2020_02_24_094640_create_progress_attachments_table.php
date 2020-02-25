@@ -16,7 +16,8 @@ class CreateProgressAttachmentsTable extends Migration
         Schema::create('progress_attachments', function (Blueprint $table) {
             $table->bigIncrements('progress_attachment_id');
             $table->unsignedBigInteger('progress_job_id')->nullable();
-            $table->text('progress_attachment_path')->nullable();
+            $table->string('cloudinary_public_id')->nullable();
+            $table->text('cloudinary_secure_url')->nullable();
             $table->timestamps();
 
             $table

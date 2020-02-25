@@ -71,6 +71,12 @@ Route::group(['prefix' => 'admin-side'], function() {
         Route::put('management/{id}', 'ManagementController@update');
         Route::delete('management/{id}', 'ManagementController@delete');
     
+        Route::get('progress-attachment', 'ProgressAttachmentController@all');
+        Route::get('progress-attachment/{id}', 'ProgressAttachmentController@show');
+        Route::post('progress-attachment', 'ProgressAttachmentController@store');
+        Route::put('progress-attachment/{id}', 'ProgressAttachmentController@update');
+        Route::delete('progress-attachment/{id}', 'ProgressAttachmentController@delete');
+        
         Route::get('progress-job', 'ProgressJobController@all');
         Route::get('progress-job/{id}', 'ProgressJobController@show');
         // Progress Job created when we create Job so probably we not this method for production,
