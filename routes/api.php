@@ -76,7 +76,7 @@ Route::group(['prefix' => 'admin-side'], function() {
         Route::post('progress-attachment', 'ProgressAttachmentController@store');
         Route::post('progress-attachment/{id}', 'ProgressAttachmentController@update');
         Route::delete('progress-attachment/{id}', 'ProgressAttachmentController@delete');
-        Route::delete('progress-attachment/{id}/deleteWeb', 'ProgressAttachmentController@deleteWeb')->name('progress-attachment.deleteWeb');
+        Route::get('progress-attachment/{id}/deleteWeb', 'ProgressAttachmentController@deleteWeb')->name('progress-attachment.deleteWeb');
         
         Route::get('progress-job', 'ProgressJobController@all');
         Route::get('progress-job/{id}', 'ProgressJobController@show');
