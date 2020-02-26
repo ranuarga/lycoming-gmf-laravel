@@ -22,6 +22,8 @@ Route::get('/', function () {
     return "Welcome to Lycoming GMF KSO Surabaya's API";
 })->name('root');
 
+Route::get('progress-job/{id}/attachment', 'ProgressJobController@showAttachment');
+
 Route::group(['prefix' => 'admin-side'], function() {
     Route::post('login', 'LoginController@loginAdmin');
     
