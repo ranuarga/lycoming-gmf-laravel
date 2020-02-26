@@ -158,11 +158,13 @@ class ProgressJobController extends Controller
     public function showAttachment($id)
     {
         try {
-            return view('progress-job.attachment', [
-                'attachments' => ProgressAttachment::whereProgressJobId($id)->get()
-            ]);
+            return response()->json(array(
+                'progress_attachment' => ProgressAttachment::whereProgressJobId($id)->get()
+            ));
         } catch (\Exception $ex) {
-            //throw $th;
+            return response()->json([
+                'message' => $ex->getMessage()
+            ]);
         }
     }
 }
