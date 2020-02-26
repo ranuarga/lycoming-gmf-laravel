@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProgressJob;
+use App\Models\ProgressAttachment;
 
 class ProgressJobController extends Controller
 {
@@ -151,6 +152,17 @@ class ProgressJobController extends Controller
             return response()->json([
                 'message' => $ex->getMessage()
             ]);
+        }
+    }
+
+    public function showAttachment($id)
+    {
+        try {
+            return view('progress-job.attachment', [
+                'attachments' => ProgressAttachment::whereProgressJobId($id)->get()
+            ]);
+        } catch (\Exception $ex) {
+            //throw $th;
         }
     }
 }

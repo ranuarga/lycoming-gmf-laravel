@@ -79,6 +79,7 @@ Route::group(['prefix' => 'admin-side'], function() {
         
         Route::get('progress-job', 'ProgressJobController@all');
         Route::get('progress-job/{id}', 'ProgressJobController@show');
+        Route::get('progress-job/{id}/attachment', 'ProgressJobController@showAttachment');
         // Progress Job created when we create Job so probably we not this method for production,
         // but for development I think i need it so I put it here.
         Route::post('progress-job', 'ProgressJobController@store');
