@@ -100,6 +100,20 @@ class ProgressAttachmentController extends Controller
         }
     }
 
+    public function deleteWeb($id)
+    {
+        $progress_attachment = ProgressAttachment::findOrFail($id);
+        $progress_job_id = $progress_attachment->progress_job_id;
+        $cloudinary_public_id = $progress_attachment->cloudinary_public_id;
+            
+        if($cloudinary_public_id)
+            \Cloudder::delete($cloudinary_public_id);
+
+        $progress_attachment->delete();
+
+        return redirect()->route('progress-job.attachment', ['id' => $progress_job_id]);
+    }
+
     public function delete($id)
     {
         try {

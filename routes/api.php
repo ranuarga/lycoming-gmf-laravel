@@ -22,8 +22,6 @@ Route::get('/', function () {
     return "Welcome to Lycoming GMF KSO Surabaya's API";
 })->name('root');
 
-Route::get('progress-job/{id}/attachment', 'ProgressJobController@showAttachment');
-
 Route::group(['prefix' => 'admin-side'], function() {
     Route::post('login', 'LoginController@loginAdmin');
     
@@ -78,10 +76,11 @@ Route::group(['prefix' => 'admin-side'], function() {
         Route::post('progress-attachment', 'ProgressAttachmentController@store');
         Route::post('progress-attachment/{id}', 'ProgressAttachmentController@update');
         Route::delete('progress-attachment/{id}', 'ProgressAttachmentController@delete');
+        Route::delete('progress-attachment/{id}/deleteWeb', 'ProgressAttachmentController@deleteWeb')->name('progress-attachment.deleteWeb');
         
         Route::get('progress-job', 'ProgressJobController@all');
         Route::get('progress-job/{id}', 'ProgressJobController@show');
-        Route::get('progress-job/{id}/attachment', 'ProgressJobController@showAttachment');
+        Route::get('progress-job/{id}/attachment', 'ProgressJobController@showAttachment')->name('progress-job.attachment');
         // Progress Job created when we create Job so probably we not this method for production,
         // but for development I think i need it so I put it here.
         Route::post('progress-job', 'ProgressJobController@store');
