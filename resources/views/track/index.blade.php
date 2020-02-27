@@ -104,6 +104,15 @@
                                         To {{ $progress_job->progress_job_date_completion->format('d-M-Y') }}
                                         @endif
                                     @endif
+                                    <br>
+                                    @if($progress_job->progress_attachment)
+                                        @foreach($progress_job->progress_attachment as $progress_attachment)
+                                        <a href="{{ $progress_attachment->cloudinary_secure_url }}" target="_blank" rel="noopener noreferrer">
+                                            Attachment {{ $loop->iteration }}
+                                        </a>
+                                        <br>
+                                        @endforeach
+                                    @endif
                                 </p>
                             </div>
                         </div>

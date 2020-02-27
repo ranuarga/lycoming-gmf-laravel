@@ -76,18 +76,26 @@
                     @foreach($progress_jobs as $progress_job)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>
                         @if($progress_job->job_sheet)
-                        <td>{{ $progress_job->job_sheet->job_sheet_name }}</td>
-                        @else
-                        <td></td>
+                            {{ $progress_job->job_sheet->job_sheet_name }}
                         @endif
+                        </td>
+                        <td>
                         @if($progress_job->progress_status)
-                        <td>{{ $progress_job->progress_status->progress_status_name }}</td>
-                        @else
-                        <td></td>
+                            {{ $progress_job->progress_status->progress_status_name }}
+                            @endif
+                        </td>
+                        <td>
+                        @if($progress_job->progress_job_date_start)
+                            {{ $progress_job->progress_job_date_start->format('d-M-Y') }}
                         @endif
-                        <td>{{ $progress_job->progress_job_date_start }}</td>
-                        <td>{{ $progress_job->progress_job_date_completion }}</td>
+                        </td>
+                        <td>
+                        @if($progress_job->progress_job_date_completion)
+                            {{ $progress_job->progress_job_date_completion->format('d-M-Y') }}
+                        @endif
+                        </td>
                         <td>
                             <a href="{{ route('job.progress.detail', ['id' => $progress_job->job_id, 'pid' => $progress_job->progress_job_id]) }}">
                                 <i class="fas fa-eye"></i>

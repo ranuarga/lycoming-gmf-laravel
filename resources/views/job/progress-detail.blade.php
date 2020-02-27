@@ -69,7 +69,7 @@
                     <td>
                         Remark by Engineer
                         @if($progress_job->engineer)
-                        {{ $progress_job->engineer->engineer_full_name }}
+                            {{ $progress_job->engineer->engineer_full_name }}
                         @endif
                     </td>
                     <td>{{ $progress_job->progress_job_remark }}</td>
@@ -78,18 +78,39 @@
                     <td>
                     Note by Management 
                     @if($progress_job->management)
-                    {{ $progress_job->management->management_full_name }}
+                        {{ $progress_job->management->management_full_name }}
                     @endif
                     </td>
                     <td>{{ $progress_job->progress_job_note }}</td>
                 </tr>
                 <tr>
                     <td>Date Start</td>
-                    <td>{{ $progress_job->progress_job_date_start }}</td>
+                    <td>
+                    @if($progress_job->progress_job_date_start)
+                        {{ $progress_job->progress_job_date_start->format('d-M-Y') }}
+                    @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>Date Completion</td>
-                    <td>{{ $progress_job->progress_job_date_completion }}</td>
+                    <td>
+                    @if($progress_job->progress_job_date_completion)
+                        {{ $progress_job->progress_job_date_completion->format('d-M-Y') }}
+                    @endif
+                    </td>
+                </tr>
+                <tr>
+                    <td>Attachment</td>
+                    <td>
+                    @if($progress_job->progress_attachment)
+                        @foreach($progress_job->progress_attachment as $progress_attachment)
+                            <a href="{{ $progress_attachment->cloudinary_secure_url }}" target="_blank" rel="noopener noreferrer">
+                                Attachment {{ $loop->iteration }}
+                            </a>
+                            <br>
+                        @endforeach
+                    @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>Status</td>

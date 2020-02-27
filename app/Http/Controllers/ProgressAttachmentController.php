@@ -43,7 +43,6 @@ class ProgressAttachmentController extends Controller
 
             $file = $request->file('progress_attachment_file');
             $job_id = ProgressJob::findOrFail($request->progress_job_id)
-                ->firstOrFail()
                 ->job_id;
             $job_number = Job::findOrFail($job_id)->job_number;
             $file_name =  time() . '-' . $job_number;
@@ -79,7 +78,6 @@ class ProgressAttachmentController extends Controller
                 }
 
                 $job_id = ProgressJob::findOrFail($request->progress_job_id)
-                    ->firstOrFail()
                     ->job_id;
                 $job_number = Job::findOrFail($job_id)->job_number;
                 $file_name =  time() . '-' . $job_number;

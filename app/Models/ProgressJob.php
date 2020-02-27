@@ -51,4 +51,9 @@ class ProgressJob extends Model
     {
         return $this->belongsTo('App\Models\ProgressStatus', 'progress_status_id');
     }
+
+    public function progress_attachment()
+    {
+        return $this->hasMany('App\Models\ProgressAttachment', 'progress_job_id');
+    }
 }
