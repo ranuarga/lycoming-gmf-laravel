@@ -112,6 +112,11 @@ Route::group(['prefix' => 'engineer-side'], function() {
         Route::get('progress-job/{id}/attachment', 'ProgressJobController@showAttachment');
         Route::put('progress-job/{id}/remark', 'ProgressJobController@updateStatusAndRemark');
 
+        Route::get('progress-attachment/{id}', 'ProgressAttachmentController@show');
+        Route::post('progress-attachment', 'ProgressAttachmentController@store');
+        Route::post('progress-attachment/{id}', 'ProgressAttachmentController@update');
+        Route::delete('progress-attachment/{id}', 'ProgressAttachmentController@delete');
+        
         Route::get('progress-status', 'ProgressStatusController@all');
     });
 });
