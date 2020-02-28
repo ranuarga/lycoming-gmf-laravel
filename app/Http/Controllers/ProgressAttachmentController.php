@@ -110,7 +110,7 @@ class ProgressAttachmentController extends Controller
             $progress_attachment->delete();
 
             return response()->json(array(
-                'message' => 'Progress Attachment Deleted Successfully'
+                'message' => 'File Deleted Successfully'
             ));
         } catch (\Exception $ex) {
             return response()->json([
