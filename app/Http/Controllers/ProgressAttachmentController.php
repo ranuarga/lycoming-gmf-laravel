@@ -56,8 +56,10 @@ class ProgressAttachmentController extends Controller
                 'cloudinary_secure_url' => $result['secure_url'],
             ]);
 
-            return response()->json($progress_attachment);
-
+            return response()->json(array(
+                'progress_attachment' => $progress_attachment,
+                'message' => 'Success'
+            ));
         } catch (\Exception $ex) {
             return response()->json([
                 'message' => $ex->getMessage()
