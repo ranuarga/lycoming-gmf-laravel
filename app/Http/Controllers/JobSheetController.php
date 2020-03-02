@@ -33,10 +33,12 @@ class JobSheetController extends Controller
         try {
             $this->validate($request, [
                 'job_sheet_name' => 'string|max:255',
+                'job_sheet_man_hours' => 'numeric'
             ]);
             
             $job_sheet = JobSheet::create([
                 'job_sheet_name' => $request->job_sheet_name,
+                'job_sheet_man_hours' => $request->job_sheet_man_hours
             ]);
 
             return response()->json($job_sheet, 201);

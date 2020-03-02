@@ -16,6 +16,7 @@ class CreateJobSheetsTable extends Migration
         Schema::create('job_sheets', function (Blueprint $table) {
             $table->bigIncrements('job_sheet_id');
             $table->string('job_sheet_name')->nullable();
+            $table->unsignedInteger('job_sheet_man_hours')->nullable();
             $table->timestamps();
         });
     }

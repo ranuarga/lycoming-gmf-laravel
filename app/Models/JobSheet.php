@@ -11,7 +11,8 @@ class JobSheet extends Model
 
     protected $fillable = [
         'job_sheet_id',
-        'job_sheet_name'
+        'job_sheet_name',
+        'job_sheet_man_hours'
     ];   
 
     public function progress_job()
