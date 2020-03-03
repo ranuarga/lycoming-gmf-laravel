@@ -59,19 +59,23 @@
                     <tr>
                         <!-- <td>{{ $loop->iteration }}</td> -->
                         <td>{{ $job->job_number }}</td>
+                        <td>
                         @if($job->engine_model)
-                        <td>{{ $job->engine_model->engine_model_name }}</td>
-                        @else
-                        <td></td>
+                            {{ $job->engine_model->engine_model_name }}
                         @endif
+                        </td>
                         <td>{{ $job->job_engine_number }}</td>
+                        <td>
                         @if($job->job_order)
-                        <td>{{ $job->job_order->job_order_name }}</td>
-                        @else
-                        <td></td>
+                            {{ $job->job_order->job_order_name }}
                         @endif
+                        </td>
                         <td>{{ $job->job_customer }}</td>
-                        <td>{{ $job->job_reference }}</td>
+                        <td>
+                        @if($job->engine_model)
+                            {{ $job->engine_model->engine_model_reference }}
+                        @endif
+                        </td>
                         <td>{{ $job->job_entry_date->format('d-M-Y') }}</td>
                         <td>
                             <a href="{{ route('job.progress', ['id' => $job->job_id]) }}">

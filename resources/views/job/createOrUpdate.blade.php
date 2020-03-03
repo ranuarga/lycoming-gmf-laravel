@@ -33,8 +33,6 @@
             {{ Form::text('job_engine_number', Request::old('job_engine_number'), ['class' => 'form-control', 'placeholder' => 'Engine Number']) }}
             {{ Form::label('job_customer', 'Customer') }}
             {{ Form::text('job_customer', Request::old('job_customer'), ['class' => 'form-control', 'placeholder' => 'Customer']) }}
-            {{ Form::label('job_reference', 'Reference') }}
-            {{ Form::text('job_reference', Request::old('job_reference'), ['class' => 'form-control', 'placeholder' => 'Reference']) }}
             {{ Form::label('job_entry_date', 'Entry Date') }}
             {{ Form::date('job_entry_date', Request::old('job_entry_date'), ['class' => 'form-control', 'placeholder' => 'Entry Date']) }}
             <br>

@@ -27,6 +27,8 @@
     @endif
             {{ Form::label('engine_model_name', 'Engine Model') }}
             {{ Form::text('engine_model_name', Request::old('engine_model_name'), ['class' => 'form-control', 'placeholder' => 'Engine Model', 'required']) }}
+            {{ Form::label('engine_model_reference', 'Reference') }}
+            {{ Form::text('engine_model_reference', Request::old('engine_model_reference'), ['class' => 'form-control', 'placeholder' => 'Reference', 'required']) }}
             <br>
             <button type="submit" class="btn btn-primary float-right">Done</button>
     {{ Form::close() }}

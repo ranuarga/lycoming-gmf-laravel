@@ -28,6 +28,7 @@
                     <tr>
                         <th>#</th>
                         <th>Engine Model</th>
+                        <th>Reference</th>
                         <th>Created At</th>
                         <th>Updated At</th>
                         <th>Actions</th>
@@ -37,6 +38,7 @@
                     <tr>
                         <th>#</th>
                         <th>Engine Model</th>
+                        <th>Reference</th>
                         <th>Created At</th>
                         <th>Updated At</th>
                         <th>Actions</th>
@@ -47,6 +49,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $engine_model->engine_model_name }}</td>
+                        <td>{{ $engine_model->engine_model_reference }}</td>
                         <td>{{ $engine_model->created_at }}</td>
                         <td>{{ $engine_model->updated_at }}</td>
                         <td>

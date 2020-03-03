@@ -26,7 +26,11 @@
                 </tr>
                 <tr>
                     <td>Engine</td>
-                    <td>{{ $job->engine_model->engine_model_name }}</td>
+                    <td>
+                    @if($job->engine_model)
+                        {{ $job->engine_model->engine_model_name }}
+                    @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>Engine Number</td>
@@ -34,7 +38,11 @@
                 </tr>
                 <tr>
                     <td>Order</td>
-                    <td>{{ $job->job_order->job_order_name }}</td>
+                    <td>
+                    @if($job->job_order)
+                        {{ $job->job_order->job_order_name }}
+                    @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>Customer</td>
@@ -42,7 +50,11 @@
                 </tr>
                 <tr>
                     <td>Reference</td>
-                    <td>{{ $job->job_reference }}</td>
+                    <td>
+                    @if($job->engine_model)
+                        {{ $job->engine_model->engine_model_reference }}
+                    @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>Entry Date</td>

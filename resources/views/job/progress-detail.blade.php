@@ -27,19 +27,19 @@
                 </tr>
                 <tr>
                     <td>Job Sheet</td>
+                    <td>
                     @if($progress_job->job_sheet)
-                    <td>{{ $progress_job->job_sheet->job_sheet_name }}</td>
-                    @else
-                    <td></td>
+                        {{ $progress_job->job_sheet->job_sheet_name }}
                     @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>Engine</td>
+                    <td>
                     @if($job->engine_model)
-                    <td>{{ $job->engine_model->engine_model_name }}</td>
-                    @else
-                    <td></td>
+                        {{ $job->engine_model->engine_model_name }}
                     @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>Engine Number</td>
@@ -47,11 +47,11 @@
                 </tr>
                 <tr>
                     <td>Order</td>
+                    <td>
                     @if($job->job_order)
-                    <td>{{ $job->job_order->job_order_name }}</td>
-                    @else
-                    <td></td>
+                        {{ $job->job_order->job_order_name }}
                     @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>Customer</td>
@@ -59,7 +59,11 @@
                 </tr>
                 <tr>
                     <td>Reference</td>
-                    <td>{{ $job->job_reference }}</td>
+                    <td>
+                    @if($job->engine_model)
+                        {{ $job->engine_model->engine_model_reference }}
+                    @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>Entry Date</td>
@@ -76,10 +80,10 @@
                 </tr>
                 <tr>
                     <td>
-                    Note by Management 
-                    @if($progress_job->management)
-                        {{ $progress_job->management->management_full_name }}
-                    @endif
+                        Note by Management 
+                        @if($progress_job->management)
+                            {{ $progress_job->management->management_full_name }}
+                        @endif
                     </td>
                     <td>{{ $progress_job->progress_job_note }}</td>
                 </tr>
@@ -116,7 +120,7 @@
                     <td>Status</td>
                     <td>
                     @if($progress_job->progress_status)
-                    {{ $progress_job->progress_status->progress_status_name }}
+                        {{ $progress_job->progress_status->progress_status_name }}
                     @endif
                     </td>
                 </tr>
