@@ -16,6 +16,7 @@ class CreateEngineModelsTable extends Migration
         Schema::create('engine_models', function (Blueprint $table) {
             $table->bigIncrements('engine_model_id');
             $table->string('engine_model_name')->nullable();
+            $table->string('engine_model_reference')->nullable();
             $table->timestamps();
         });
     }

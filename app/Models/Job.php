@@ -16,7 +16,6 @@ class Job extends Model
         'job_number',
         'job_engine_number',
         'job_customer',
-        'job_reference',
         'job_entry_date'
     ];
 

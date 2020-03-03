@@ -20,7 +20,6 @@ class CreateJobsTable extends Migration
             $table->string('job_number')->nullable()->unique();
             $table->string('job_engine_number')->nullable();
             $table->string('job_customer')->nullable();
-            $table->string('job_reference')->nullable();
             $table->date('job_entry_date')->nullable();
             $table->timestamps();
 

@@ -11,7 +11,8 @@ class EngineModel extends Model
 
     protected $fillable = [
         'engine_model_id',
-        'engine_model_name'
+        'engine_model_name',
+        'engine_model_reference'
     ];   
 
     public function job()

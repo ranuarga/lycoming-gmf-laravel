@@ -99,9 +99,6 @@ class JobController extends Controller
 
     public function done()
     {
-        // $jobs = Job::with('engine_model')
-        //             ->with('job_order')
-        //             ->get();
         $jobs = Job::all();
         $jobsDone = [];
         foreach ($jobs as $job) {
@@ -124,8 +121,10 @@ class JobController extends Controller
                 $job_order = JobOrder::find($job->job_order_id);
                 if ($engine_model) {
                     $job['engine_model_name'] = $engine_model->engine_model_name;
+                    $job['engine_model_reference'] = $engine_model->engine_model_reference;
                 } else {
                     $job['engine_model_name'] = null;
+                    $job['engine_model_reference'] = null;
                 }
                 if ($job_order) {
                     $job['job_order_name'] = $job_order->job_order_name;
@@ -153,9 +152,6 @@ class JobController extends Controller
 
     public function onProgress()
     {
-        // $jobs = Job::with('engine_model')
-        //             ->with('job_order')
-        //             ->get();
         $jobs = Job::all();
         $jobsProgress = [];
         foreach ($jobs as $job) {
@@ -177,8 +173,10 @@ class JobController extends Controller
                 $job_order = JobOrder::find($job->job_order_id);
                 if ($engine_model) {
                     $job['engine_model_name'] = $engine_model->engine_model_name;
+                    $job['engine_model_refernce'] = $engine_model->engine_model_reference;
                 } else {
                     $job['engine_model_name'] = null;
+                    $job['engine_model_reference'] = null;
                 }
                 if ($job_order) {
                     $job['job_order_name'] = $job_order->job_order_name;
@@ -213,8 +211,10 @@ class JobController extends Controller
                 $progress_status = ProgressStatus::find($list->progress_status_id);
                 if ($job_sheet) {                   
                     $list['job_sheet_name'] = $job_sheet->job_sheet_name;
+                    $list['job_sheet_man_hours'] = $job_sheet->job_sheet_man_hours;
                 } else {
                     $list['job_sheet_name'] = null;
+                    $list['job_sheet_man_hours'] = null;
                 }
                 if ($progress_status) {
                     $list['progress_status_name'] = $progress_status->progress_status_name;
@@ -240,8 +240,10 @@ class JobController extends Controller
             $job_order = JobOrder::find($job->job_order_id);
             if ($engine_model) {
                 $job['engine_model_name'] = $engine_model->engine_model_name;
+                $job['engine_model_reference'] = $engine_model->engine_model_reference;
             } else {
                 $job['engine_model_name'] = null;
+                $job['engine_model_reference'] = null;
             }
             if ($job_order) {
                 $job['job_order_name'] = $job_order->job_order_name;
@@ -267,7 +269,6 @@ class JobController extends Controller
                 'job_order_id' => 'numeric',
                 'job_engine_number' => 'string|max:255',
                 'job_customer' => 'string|max:255',
-                'job_reference' => 'string|max:255',
                 'job_entry_date' => 'string'
             ]);
 
@@ -276,7 +277,6 @@ class JobController extends Controller
                 'job_order_id' => $request->job_order_id,
                 'job_engine_number' => $request->job_engine_number,
                 'job_customer' => $request->job_customer,
-                'job_reference' => $request->job_reference,
                 'job_entry_date' => $request->job_entry_date
             ]);
 
@@ -307,7 +307,6 @@ class JobController extends Controller
                 'job_order_id' => $request->job_order_id,
                 'job_engine_number' => $request->job_engine_number,
                 'job_customer' => $request->job_customer,
-                'job_reference' => $request->job_reference,
                 'job_entry_date' => $request->job_entry_date
             ]);
 
@@ -355,7 +354,6 @@ class JobController extends Controller
             $job->job_order_id = $request->job_order_id;
             $job->job_engine_number = $request->job_engine_number;
             $job->job_customer = $request->job_customer;
-            $job->job_reference = $request->job_reference;
             $job->job_entry_date = $request->job_entry_date;
             $job->save();
 
@@ -375,10 +373,8 @@ class JobController extends Controller
             $job->job_order_id = $request->job_order_id;
             $job->job_engine_number = $request->job_engine_number;
             $job->job_customer = $request->job_customer;
-            $job->job_reference = $request->job_reference;
             $job->job_entry_date = $request->job_entry_date;
             $job->save();
-
 
             return redirect()->route('job');
         } catch (\Exception $ex) {

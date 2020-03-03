@@ -20,7 +20,6 @@ class JobsTableSeeder extends Seeder
                 'job_number' => sprintf("%06d", 1),
                 'job_engine_number' => 'RL-14572-39 A',
                 'job_customer' => 'PT MPS',
-                'job_reference' => 'OHM 60294-7-14',
                 'job_entry_date' => '2020-02-02',
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
@@ -31,7 +30,6 @@ class JobsTableSeeder extends Seeder
                 'job_number' => sprintf("%06d", 2),
                 'job_engine_number' => 'RL-14272-39 A',
                 'job_customer' => 'Mr. Chang',
-                'job_reference' => 'OHM 60294-7-14',
                 'job_entry_date' => '2020-02-05',
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
@@ -42,7 +40,6 @@ class JobsTableSeeder extends Seeder
                 'job_number' => sprintf("%06d", 3),
                 'job_engine_number' => 'RL-14372-39 A',
                 'job_customer' => 'Mr. Lee',
-                'job_reference' => 'OHM 60294-7-14',
                 'job_entry_date' => '2020-02-13',
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')

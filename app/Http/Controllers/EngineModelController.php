@@ -33,10 +33,12 @@ class EngineModelController extends Controller
         try {
             $this->validate($request, [
                 'engine_model_name' => 'string|max:255',
+                'engine_model_reference' => 'string|max:255',
             ]);
             
             $engine_model = EngineModel::create([
                 'engine_model_name' => $request->engine_model_name,
+                'engine_model_reference' => $request->engine_model_reference,
             ]);
 
             return response()->json($engine_model, 201);
@@ -52,6 +54,7 @@ class EngineModelController extends Controller
         try {            
             $engine_model = JobOrder::create([
                 'engine_model_name' => $request->engine_model_name,
+                'engine_model_reference' => $request->engine_model_reference,
             ]);
 
             return redirect()->route('engine-model');
