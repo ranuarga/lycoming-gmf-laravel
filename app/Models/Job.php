@@ -16,7 +16,9 @@ class Job extends Model
         'job_number',
         'job_engine_number',
         'job_customer',
-        'job_entry_date'
+        'job_entry_date',
+        'job_wo_public_id',
+        'job_wo_secure_url',
     ];
 
     protected $casts = [

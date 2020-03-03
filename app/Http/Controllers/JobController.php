@@ -269,7 +269,8 @@ class JobController extends Controller
                 'job_order_id' => 'numeric',
                 'job_engine_number' => 'string|max:255',
                 'job_customer' => 'string|max:255',
-                'job_entry_date' => 'string'
+                'job_entry_date' => 'string',
+                'job_wo_file' => 'file'
             ]);
 
             $job = Job::create([
@@ -279,6 +280,18 @@ class JobController extends Controller
                 'job_customer' => $request->job_customer,
                 'job_entry_date' => $request->job_entry_date
             ]);
+
+            if($request->hasFile('job_wo_file')) {
+                $file = $request->file('job_wo_file');
+                $file_name = rawurlencode(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+                $public_id =  time() . '-' . $file_name;
+
+                \Cloudder::upload($file, $public_id);
+                $result = \Cloudder::getResult();
+                
+                $job->job_wo_public_id = $result['public_id'];
+                $job->job_wo_secure_url = $result['secure_url'];
+            }
 
             $job->job_number = sprintf("%06d", $job->job_id);
             $job->save();
@@ -309,6 +322,18 @@ class JobController extends Controller
                 'job_customer' => $request->job_customer,
                 'job_entry_date' => $request->job_entry_date
             ]);
+
+            if($request->hasFile('job_wo_file')) {
+                $file = $request->file('job_wo_file');
+                $file_name = rawurlencode(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+                $public_id =  time() . '-' . $file_name;
+
+                \Cloudder::upload($file, $public_id);
+                $result = \Cloudder::getResult();
+                
+                $job->job_wo_public_id = $result['public_id'];
+                $job->job_wo_secure_url = $result['secure_url'];
+            }
 
             $job->job_number = sprintf("%06d", $job->job_id);
             $job->save();
@@ -355,6 +380,24 @@ class JobController extends Controller
             $job->job_engine_number = $request->job_engine_number;
             $job->job_customer = $request->job_customer;
             $job->job_entry_date = $request->job_entry_date;
+
+            if($request->hasFile('job_wo_file')) {
+                $file = $request->file('job_wo_file');
+                if($job->job_wo_public_id) {
+                    \Cloudder::delete($job->job_wo_public_id);
+                }
+
+                $file = $request->file('job_wo_file');
+                $file_name = rawurlencode(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+                $public_id =  time() . '-' . $file_name;
+
+                \Cloudder::upload($file, $public_id);
+                $result = \Cloudder::getResult();
+                
+                $job->job_wo_public_id = $result['public_id'];
+                $job->job_wo_secure_url = $result['secure_url'];
+            }
+
             $job->save();
 
             return response()->json($job, 200);
@@ -374,6 +417,24 @@ class JobController extends Controller
             $job->job_engine_number = $request->job_engine_number;
             $job->job_customer = $request->job_customer;
             $job->job_entry_date = $request->job_entry_date;
+
+            if($request->hasFile('job_wo_file')) {
+                $file = $request->file('job_wo_file');
+                if($job->job_wo_public_id) {
+                    \Cloudder::delete($job->job_wo_public_id);
+                }
+
+                $file = $request->file('job_wo_file');
+                $file_name = rawurlencode(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+                $public_id =  time() . '-' . $file_name;
+
+                \Cloudder::upload($file, $public_id);
+                $result = \Cloudder::getResult();
+                
+                $job->job_wo_public_id = $result['public_id'];
+                $job->job_wo_secure_url = $result['secure_url'];
+            }
+
             $job->save();
 
             return redirect()->route('job');
@@ -385,7 +446,13 @@ class JobController extends Controller
     public function delete($id)
     {
         try {
-            Job::findOrFail($id)->delete();
+            $job = Job::findOrFail($id);
+            $job_wo_public_id = $job->job_wo_public_id;
+
+            if($job_wo_public_id)
+                \Cloudder::delete($job_wo_public_id);
+
+            $job->delete();
 
             return response()->json('Job Deleted Successfully', 200);
         } catch (\Exception $ex) {
@@ -397,7 +464,13 @@ class JobController extends Controller
 
     public function destroy($id)
     {
-        Job::findOrFail($id)->delete();
+        $job = Job::findOrFail($id);
+            $job_wo_public_id = $job->job_wo_public_id;
+
+            if($job_wo_public_id)
+                \Cloudder::delete($job_wo_public_id);
+
+            $job->delete();
 
         return redirect()->route('job');
     }

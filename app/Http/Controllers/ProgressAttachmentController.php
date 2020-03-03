@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ProgressAttachment;
 use App\Models\ProgressJob;
-use App\Models\Job;
 
 class ProgressAttachmentController extends Controller
 {
@@ -37,7 +36,7 @@ class ProgressAttachmentController extends Controller
     {
         try {
             $this->validate($request, [
-                'progress_attachment_file' => 'required',
+                'progress_attachment_file' => 'required|file',
                 'progress_job_id' => 'required'
             ]);
 
@@ -77,18 +76,17 @@ class ProgressAttachmentController extends Controller
                     \Cloudder::delete($progress_attachment->cloudinary_public_id);
                 }
 
-                $job_id = ProgressJob::findOrFail($request->progress_job_id)
-                    ->job_id;
-                $job_number = Job::findOrFail($job_id)->job_number;
-                $file_name =  time() . '-' . $job_number;
+                $file = $request->file('progress_attachment_file');
+                $file_name = rawurlencode(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+                $public_id =  time() . '-' . $file_name;
 
-                \Cloudder::upload($file, $file_name);
+                \Cloudder::upload($file, $public_id);
                 $result = \Cloudder::getResult();
                 
                 $progress_attachment->cloudinary_public_id = $result['public_id'];
                 $progress_attachment->cloudinary_secure_url = $result['secure_url'];
-                $progress_attachment->save();
             }
+            $progress_attachment->save();
 
             return response()->json($progress_attachment, 200);
         } catch (\Exception $ex) {

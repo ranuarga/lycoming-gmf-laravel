@@ -21,6 +21,8 @@ class CreateJobsTable extends Migration
             $table->string('job_engine_number')->nullable();
             $table->string('job_customer')->nullable();
             $table->date('job_entry_date')->nullable();
+            $table->string('job_wo_public_id')->nullable();
+            $table->text('jon_wo_secure_url')->nullable();
             $table->timestamps();
 
             $table
