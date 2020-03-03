@@ -42,12 +42,10 @@ class ProgressAttachmentController extends Controller
             ]);
 
             $file = $request->file('progress_attachment_file');
-            $job_id = ProgressJob::findOrFail($request->progress_job_id)
-                ->job_id;
-            $job_number = Job::findOrFail($job_id)->job_number;
-            $file_name =  time() . '-' . $job_number;
+            $file_name = rawurlencode(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+            $public_id =  time() . '-' . $file_name;
 
-            \Cloudder::upload($file, $file_name);
+            \Cloudder::upload($file, $public_id);
             $result = \Cloudder::getResult();
 
             $progress_attachment = ProgressAttachment::create([
