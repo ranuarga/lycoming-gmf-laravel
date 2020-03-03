@@ -49,11 +49,32 @@ class JobController extends Controller
 
     public function progress($id)
     {        
+        // Pembilang in English
+        $numerator = 0;
+        // Penyebut in English
+        $denominator = 0;
+        $progress_jobs = ProgressJob::where('job_id', $id)->orderBy('progress_job_id', 'asc')->get();
+        foreach ($progress_jobs as $progress_job) {
+            if($progress_job->job_sheet) {
+                if($progress_job->job_sheet->job_sheet_man_hours) {
+                    $denominator += $progress_job->job_sheet->job_sheet_man_hours;
+                    if($progress_job->progress_status) {
+                        if($progress_job->progress_status->progress_status_name == 'Done') {
+                            $numerator += $progress_job->job_sheet->job_sheet_man_hours;
+                        }
+                    }
+                }
+            }
+        }
+
+        $completion_percentage = ($numerator / $denominator) * 100;
+        
         return view(
             'job.progress',
             [
                 'job' => Job::findOrFail($id),
-                'progress_jobs' => ProgressJob::where('job_id', $id)->orderBy('progress_job_id', 'asc')->get()
+                'progress_jobs' => $progress_jobs,
+                'completion_percentage' => $completion_percentage
             ]
         );
     }

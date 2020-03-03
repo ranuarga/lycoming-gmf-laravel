@@ -48,6 +48,10 @@
                     <td>Entry Date</td>
                     <td>{{ $job->job_entry_date->format('d-M-Y') }}</td>
                 </tr>
+                <tr>
+                    <td>Completion Percentage</td>
+                    <td>{{ number_format((float)$completion_percentage, 2, '.', '') }} % </td>
+                </tr>
             </table>
         </div>
         <div class="table-responsive">
