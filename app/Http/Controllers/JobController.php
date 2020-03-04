@@ -47,13 +47,12 @@ class JobController extends Controller
         return view('job.index', ['jobs' => Job::all()]);
     }
 
-    public function progress($id)
-    {        
+    public function completionPercentage($progress_jobs)
+    {
         // Pembilang in English
         $numerator = 0;
         // Penyebut in English
         $denominator = 0;
-        $progress_jobs = ProgressJob::where('job_id', $id)->orderBy('progress_job_id', 'asc')->get();
         foreach ($progress_jobs as $progress_job) {
             if($progress_job->job_sheet) {
                 if($progress_job->job_sheet->job_sheet_man_hours) {
@@ -67,14 +66,18 @@ class JobController extends Controller
             }
         }
 
-        $completion_percentage = ($numerator / $denominator) * 100;
-        
+        return ($numerator / $denominator) * 100;
+    }
+    
+    public function progress($id)
+    {        
+        $progress_jobs = ProgressJob::where('job_id', $id)->orderBy('progress_job_id', 'asc')->get();
         return view(
             'job.progress',
             [
                 'job' => Job::findOrFail($id),
                 'progress_jobs' => $progress_jobs,
-                'completion_percentage' => $completion_percentage
+                'completion_percentage' => $this->completionPercentage($progress_jobs)
             ]
         );
     }
@@ -131,6 +134,7 @@ class JobController extends Controller
                 } else {
                     $job['job_order_name'] = null;
                 }
+                $job['completion_percentage'] = $this->completionPercentage($progress_jobs);
                 array_push($jobsDone, $job);
             }
         }
@@ -183,6 +187,7 @@ class JobController extends Controller
                 } else {
                     $job['job_order_name'] = null;
                 }
+                $job['completion_percentage'] = $this->completionPercentage($progress_jobs);
                 array_push($jobsProgress, $job);
             }
         }
@@ -206,6 +211,14 @@ class JobController extends Controller
     {
         try {
             $job_progress_list = ProgressJob::where('job_id', $id)->get();
+            $denominator = 0
+            foreach ($job_progress_list as $list) {
+                if($progress_job->job_sheet) {
+                    if($progress_job->job_sheet->job_sheet_man_hours) {
+                        $denominator += $progress_job->job_sheet->job_sheet_man_hours;
+                    }
+                }
+            }
             foreach ($job_progress_list as $list) {
                 $job_sheet = JobSheet::find($list->job_sheet_id);
                 $progress_status = ProgressStatus::find($list->progress_status_id);
@@ -221,6 +234,8 @@ class JobController extends Controller
                 } else {
                     $list['progress_status_name'] = null;
                 }
+
+                $list['percentage'] = $job_sheet->job_sheet_man_hours / $denominator;
             }
             return response()->json(array(
                 'job_progress_list' => $job_progress_list
@@ -250,9 +265,10 @@ class JobController extends Controller
             } else {
                 $job['job_order_name'] = null;
             }
+            $job['completion_percentage'] = $this->completionPercentage($progress_jobs);
 
             return response()->json(array(
-                    'job' => $job
+                'job' => $job
             ));
         } catch (\Exception $ex) {
             return response()->json([
