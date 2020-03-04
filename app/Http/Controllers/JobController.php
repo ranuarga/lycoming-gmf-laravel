@@ -66,12 +66,11 @@ class JobController extends Controller
             }
         }
         $completion_percentage =  ($numerator / $denominator) * 100;
-        return (int) $completion_percentage;
-        // $obj['completion_percentage'] = ($numerator / $denominator) * 100;
-        // // 1 Day Work is 7 Hours
-        // $obj['days_to_complete'] = (int) ($denominator / 7);
+        $obj['completion_percentage'] = (int) $completion_percentage;
+        // 1 Day Work is 7 Hours
+        $obj['days_to_complete'] = (int) ($denominator / 7);
 
-        // return $obj;
+        return $obj;
     }
     
     public function progress($id)
@@ -82,7 +81,8 @@ class JobController extends Controller
             [
                 'job' => Job::findOrFail($id),
                 'progress_jobs' => $progress_jobs,
-                'completion_percentage' => $this->completionPercentage($progress_jobs)
+                'completion_percentage' => $this->completionPercentage($progress_jobs)['completion_percentage'],
+                'days_to_complete' => $this->completionPercentage($progress_jobs)['days_to_complete']
             ]
         );
     }
@@ -139,9 +139,8 @@ class JobController extends Controller
                 } else {
                     $job['job_order_name'] = null;
                 }
-                // $job['completion_percentage'] = $this->completionPercentage($progress_jobs)['completion_percentage'];
-                // $job['days_to_complete'] = $this->completionPercentage($progress_jobs)['days_to_complete'];
-                $job['completion_percentage'] = $this->completionPercentage($progress_jobs);
+                $job['completion_percentage'] = $this->completionPercentage($progress_jobs)['completion_percentage'];
+                $job['days_to_complete'] = $this->completionPercentage($progress_jobs)['days_to_complete'];
                 array_push($jobsDone, $job);
             }
         }
@@ -194,7 +193,8 @@ class JobController extends Controller
                 } else {
                     $job['job_order_name'] = null;
                 }
-                $job['completion_percentage'] = $this->completionPercentage($progress_jobs);
+                $job['completion_percentage'] = $this->completionPercentage($progress_jobs)['completion_percentage'];
+                $job['days_to_complete'] = $this->completionPercentage($progress_jobs)['days_to_complete'];
                 array_push($jobsProgress, $job);
             }
         }
@@ -274,7 +274,8 @@ class JobController extends Controller
             } else {
                 $job['job_order_name'] = null;
             }
-            $job['completion_percentage'] = $this->completionPercentage($progress_jobs);
+            $job['completion_percentage'] = $this->completionPercentage($progress_jobs)['completion_percentage'];
+            $job['days_to_complete'] = $this->completionPercentage($progress_jobs)['days_to_complete'];
 
             return response()->json(array(
                 'job' => $job
