@@ -65,8 +65,14 @@ class JobController extends Controller
                 }
             }
         }
+        
+        $completion_percentage = ($numerator / $denominator) * 100;
+        return number_format((float)$completion_percentage, 2, '.', '');
+        // $obj['completion_percentage'] = ($numerator / $denominator) * 100;
+        // // 1 Day Work is 7 Hours
+        // $obj['days_to_complete'] = (int) ($denominator / 7);
 
-        return ($numerator / $denominator) * 100;
+        // return $obj;
     }
     
     public function progress($id)
@@ -134,7 +140,9 @@ class JobController extends Controller
                 } else {
                     $job['job_order_name'] = null;
                 }
-                $job['completion_percentage'] = $this->completionPercentage($progress_jobs);
+                // $job['completion_percentage'] = $this->completionPercentage($progress_jobs)['completion_percentage'];
+                // $job['days_to_complete'] = $this->completionPercentage($progress_jobs)['days_to_complete'];
+                $job['compleion_percentage'] = $this->completionPercentage($progress_jobs);
                 array_push($jobsDone, $job);
             }
         }
