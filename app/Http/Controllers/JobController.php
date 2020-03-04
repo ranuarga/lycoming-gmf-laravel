@@ -65,9 +65,8 @@ class JobController extends Controller
                 }
             }
         }
-        
-        $completion_percentage = ($numerator / $denominator) * 100;
-        return number_format((float)$completion_percentage, 2, '.', '');
+        $completion_percentage =  ($numerator / $denominator) * 100;
+        return (int) $completion_percentage;
         // $obj['completion_percentage'] = ($numerator / $denominator) * 100;
         // // 1 Day Work is 7 Hours
         // $obj['days_to_complete'] = (int) ($denominator / 7);
