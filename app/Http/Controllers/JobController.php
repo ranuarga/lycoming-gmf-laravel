@@ -56,10 +56,10 @@ class JobController extends Controller
         foreach ($progress_jobs as $progress_job) {
             if($progress_job->job_sheet) {
                 if($progress_job->job_sheet->job_sheet_man_hours) {
-                    $denominator += $progress_job->job_sheet->job_sheet_man_hours;
+                    $denominator += (float) $progress_job->job_sheet->job_sheet_man_hours;
                     if($progress_job->progress_status) {
                         if($progress_job->progress_status->progress_status_name == 'Done') {
-                            $numerator += $progress_job->job_sheet->job_sheet_man_hours;
+                            $numerator += (float) $progress_job->job_sheet->job_sheet_man_hours;
                         }
                     }
                 }
@@ -253,7 +253,7 @@ class JobController extends Controller
             $job = Job::findOrFail($id);
             $engine_model = EngineModel::find($job->engine_model_id);
             $job_order = JobOrder::find($job->job_order_id);
-            $progress_jobs = ProgressJob::where('job_id', $id);
+            $progress_jobs = ProgressJob::where('job_id', $id)->get();
             if ($engine_model) {
                 $job['engine_model_name'] = $engine_model->engine_model_name;
                 $job['engine_model_reference'] = $engine_model->engine_model_reference;
