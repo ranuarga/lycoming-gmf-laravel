@@ -213,9 +213,9 @@ class JobController extends Controller
             $job_progress_list = ProgressJob::where('job_id', $id)->get();
             $denominator = 0;
             foreach ($job_progress_list as $list) {
-                if($progress_job->job_sheet) {
-                    if($progress_job->job_sheet->job_sheet_man_hours) {
-                        $denominator += $progress_job->job_sheet->job_sheet_man_hours;
+                if($list->job_sheet) {
+                    if($list->job_sheet->job_sheet_man_hours) {
+                        $denominator += $list->job_sheet->job_sheet_man_hours;
                     }
                 }
             }
