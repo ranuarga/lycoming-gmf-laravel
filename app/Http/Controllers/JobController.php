@@ -253,6 +253,7 @@ class JobController extends Controller
             $job = Job::findOrFail($id);
             $engine_model = EngineModel::find($job->engine_model_id);
             $job_order = JobOrder::find($job->job_order_id);
+            $progress_jobs = ProgressJob::where('job_id', $id);
             if ($engine_model) {
                 $job['engine_model_name'] = $engine_model->engine_model_name;
                 $job['engine_model_reference'] = $engine_model->engine_model_reference;
