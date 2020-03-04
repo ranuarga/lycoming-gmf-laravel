@@ -235,7 +235,7 @@ class JobController extends Controller
                     $list['progress_status_name'] = null;
                 }
 
-                $list['percentage'] = $job_sheet->job_sheet_man_hours / $denominator;
+                $list['percentage'] = $job_sheet->job_sheet_man_hours / $denominator * 100;
             }
             return response()->json(array(
                 'job_progress_list' => $job_progress_list
