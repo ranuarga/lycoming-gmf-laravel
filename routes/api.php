@@ -41,7 +41,7 @@ Route::group(['prefix' => 'admin-side'], function() {
         Route::get('engine-model', 'EngineModelController@all');
         Route::get('engine-model/{id}', 'EngineModelController@show');
         Route::post('engine-model', 'EngineModelController@store');
-        Route::put('engine-model/{id}', 'EngineModelController@update');
+        Route::post('engine-model/{id}/update', 'EngineModelController@update');
         Route::delete('engine-model/{id}', 'EngineModelController@delete');
     
         Route::get('job', 'JobController@all');
@@ -49,7 +49,7 @@ Route::group(['prefix' => 'admin-side'], function() {
         Route::get('job/progress', 'JobController@allProgress');
         Route::get('job/{id}', 'JobController@show');
         Route::post('job', 'JobController@store');
-        Route::put('job/{id}', 'JobController@update');
+        Route::post('job/{id}/update', 'JobController@update');
         Route::delete('job/{id}', 'JobController@delete');
         Route::get('job/{id}/progress', 'JobController@showProgress');
     
