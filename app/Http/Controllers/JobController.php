@@ -393,11 +393,16 @@ class JobController extends Controller
     {
         try {
             $job = Job::findOrFail($id);
-            $job->engine_model_id = $request->engine_model_id;
-            $job->job_order_id = $request->job_order_id;
-            $job->job_engine_number = $request->job_engine_number;
-            $job->job_customer = $request->job_customer;
-            $job->job_entry_date = $request->job_entry_date;
+            if($request->engine_model_id)
+                $job->engine_model_id = $request->engine_model_id;
+            if($request->job_order_id)
+                $job->job_order_id = $request->job_order_id;
+            if($request->job_engine_number)
+                $job->job_engine_number = $request->job_engine_number;
+            if($request->job_customer)
+                $job->job_customer = $request->job_customer;
+            if($request->job_entry_date)
+                $job->job_entry_date = $request->job_entry_date;
 
             if($request->hasFile('job_wo_file')) {
                 $file = $request->file('job_wo_file');

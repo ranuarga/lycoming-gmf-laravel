@@ -41,7 +41,7 @@ Route::group(['prefix' => 'admin-side'], function() {
         Route::get('engine-model', 'EngineModelController@all');
         Route::get('engine-model/{id}', 'EngineModelController@show');
         Route::post('engine-model', 'EngineModelController@store');
-        Route::post('engine-model/{id}/update', 'EngineModelController@update');
+        Route::put('engine-model/{id}', 'EngineModelController@update');
         Route::delete('engine-model/{id}', 'EngineModelController@delete');
     
         Route::get('job', 'JobController@all');
