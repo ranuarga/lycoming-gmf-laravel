@@ -211,7 +211,7 @@ class JobController extends Controller
     {
         try {
             $job_progress_list = ProgressJob::where('job_id', $id)->get();
-            $denominator = 0
+            $denominator = 0;
             foreach ($job_progress_list as $list) {
                 if($progress_job->job_sheet) {
                     if($progress_job->job_sheet->job_sheet_man_hours) {
