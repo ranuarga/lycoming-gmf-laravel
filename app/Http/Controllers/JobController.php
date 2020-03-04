@@ -31,6 +31,25 @@ class JobController extends Controller
 
         return $job_orders;
     }
+
+    public function getWorkingDays($startDate, $endDate)
+    {
+        $begin = strtotime($startDate);
+        $end = strtotime($endDate);
+        if ($begin > $end) {
+            return 0;
+        } else {
+            $no_days  = 0;
+            while ($begin <= $end) {
+                $what_day = date("N", $begin);
+                if (!in_array($what_day, [6,7]) ) // 6 and 7 are weekend
+                    $no_days++;
+                $begin += 86400; // +1 day
+            };
+
+            return $no_days - 1;
+        }
+    }
     
     public function all()
     {
@@ -141,6 +160,8 @@ class JobController extends Controller
                 }
                 $job['completion_percentage'] = $this->completionPercentage($progress_jobs)['completion_percentage'];
                 $job['days_to_complete'] = $this->completionPercentage($progress_jobs)['days_to_complete'];
+                // if($job->job_entry_date)
+                //     $job['days_passed'] = $this->getWorkingDays($job->job_entry_date, date('Y-m-d'));
                 array_push($jobsDone, $job);
             }
         }
@@ -241,9 +262,6 @@ class JobController extends Controller
                 } else {
                     $list['progress_status_name'] = null;
                 }
-
-                $completion_percentage = $job_sheet->job_sheet_man_hours / $denominator * 100;
-                $list['percentage'] = number_format((float)$completion_percentage, 2, '.', '');
                 unset($list['job_sheet']);
             }
             return response()->json(array(
