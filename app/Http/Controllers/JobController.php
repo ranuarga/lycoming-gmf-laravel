@@ -86,8 +86,8 @@ class JobController extends Controller
         }
         $completion_percentage =  ($numerator / $denominator) * 100;
         $obj['completion_percentage'] = (int) $completion_percentage;
-        // 1 Day Work is 7 Hours
-        $obj['days_to_complete'] = (int) ($denominator / 7);
+        // 1 Day Work is 7 Hours and there are 2 engineers
+        $obj['days_to_complete'] = (int) ($denominator / (7 * 2));
 
         return $obj;
     }
@@ -334,7 +334,7 @@ class JobController extends Controller
             if($request->hasFile('job_wo_file')) {
                 $file = $request->file('job_wo_file');
                 $file_name = rawurlencode(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
-                $public_id =  time() . '-' . $file_name;
+                $public_id =  $file_name  . '-' . Str::random(2);
 
                 \Cloudder::upload($file, $public_id);
                 $result = \Cloudder::getResult();
@@ -376,7 +376,7 @@ class JobController extends Controller
             if($request->hasFile('job_wo_file')) {
                 $file = $request->file('job_wo_file');
                 $file_name = rawurlencode(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
-                $public_id =  time() . '-' . $file_name;
+                $public_id =  $file_name  . '-' . Str::random(2);
 
                 \Cloudder::upload($file, $public_id);
                 $result = \Cloudder::getResult();
@@ -444,7 +444,7 @@ class JobController extends Controller
 
                 $file = $request->file('job_wo_file');
                 $file_name = rawurlencode(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
-                $public_id =  time() . '-' . $file_name;
+                $public_id =  $file_name  . '-' . Str::random(2);
 
                 \Cloudder::upload($file, $public_id);
                 $result = \Cloudder::getResult();
@@ -481,7 +481,7 @@ class JobController extends Controller
 
                 $file = $request->file('job_wo_file');
                 $file_name = rawurlencode(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
-                $public_id =  time() . '-' . $file_name;
+                $public_id =  $file_name  . '-' . Str::random(2);
 
                 \Cloudder::upload($file, $public_id);
                 $result = \Cloudder::getResult();

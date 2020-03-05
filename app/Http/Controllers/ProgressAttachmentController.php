@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ProgressAttachment;
 use App\Models\ProgressJob;
+use Illuminate\Support\Str;
 
 class ProgressAttachmentController extends Controller
 {
@@ -42,7 +43,7 @@ class ProgressAttachmentController extends Controller
 
             $file = $request->file('progress_attachment_file');
             $file_name = rawurlencode(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
-            $public_id =  time() . '-' . $file_name;
+            $public_id = $file_name  . '-' . Str::random(2);
 
             \Cloudder::upload($file, $public_id);
             $result = \Cloudder::getResult();
@@ -78,7 +79,7 @@ class ProgressAttachmentController extends Controller
 
                 $file = $request->file('progress_attachment_file');
                 $file_name = rawurlencode(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
-                $public_id =  time() . '-' . $file_name;
+                $public_id =  $file_name  . '-' . Str::random(2);
 
                 \Cloudder::upload($file, $public_id);
                 $result = \Cloudder::getResult();
