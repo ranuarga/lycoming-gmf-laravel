@@ -9,6 +9,7 @@ use App\Models\JobOrder;
 use App\Models\JobSheet;
 use App\Models\ProgressJob;
 use App\Models\ProgressStatus;
+use DateTime;
 
 class JobController extends Controller
 {
@@ -34,21 +35,51 @@ class JobController extends Controller
 
     public function getWorkingDays($startDate, $endDate)
     {
-        // $begin = strtotime($startDate);
-        // $end = strtotime($endDate);
-        // if ($begin > $end) {
-        //     return 0;
-        // } else {
-        //     $no_days  = 0;
-        //     while ($begin <= $end) {
-        //         $what_day = date("N", $begin);
-        //         if (!in_array($what_day, [6,7]) ) // 6 and 7 are weekend
-        //             $no_days++;
-        //         $begin += 86400; // +1 day
-        //     };
+        // https://stackoverflow.com/questions/336127/calculate-business-days
+        $endDate = strtotime($endDate);
+        $startDate = strtotime($startDate);
+        $holidays = [
+            date('Y') . '-12-25',
+            date('Y', strtotime('-1 years')) . '-12-25',
+            date('Y', strtotime('+1 years')) . '-12-25',
+        ];
 
-        //     return $no_days - 1;
-        // }
+        $days = ($endDate - $startDate) / 86400 + 1;
+
+        $no_full_weeks = floor($days / 7);
+        $no_remaining_days = fmod($days, 7);
+
+        $the_first_day_of_week = date("N", $startDate);
+        $the_last_day_of_week = date("N", $endDate);
+
+        if ($the_first_day_of_week <= $the_last_day_of_week) {
+            if ($the_first_day_of_week <= 6 && 6 <= $the_last_day_of_week) $no_remaining_days--;
+            if ($the_first_day_of_week <= 7 && 7 <= $the_last_day_of_week) $no_remaining_days--;
+        } else {
+            if ($the_first_day_of_week == 7) {
+                $no_remaining_days--;
+
+                if ($the_last_day_of_week == 6) {                    
+                    $no_remaining_days--;
+                }
+            }
+            else {
+                $no_remaining_days -= 2;
+            }
+        }
+
+        $workingDays = $no_full_weeks * 5;
+        if ($no_remaining_days > 0 ) {
+            $workingDays += $no_remaining_days;
+        }
+
+        foreach($holidays as $holiday){
+            $time_stamp=strtotime($holiday);
+            if ($startDate <= $time_stamp && $time_stamp <= $endDate && date("N",$time_stamp) != 6 && date("N",$time_stamp) != 7)
+                $workingDays--;
+        }
+
+        return (int) $workingDays;
     }
     
     public function all()
@@ -160,8 +191,13 @@ class JobController extends Controller
                 }
                 $job['completion_percentage'] = $this->completionPercentage($progress_jobs)['completion_percentage'];
                 $job['days_to_complete'] = $this->completionPercentage($progress_jobs)['days_to_complete'];
-                // if($job->job_entry_date)
-                //     $job['days_passed'] = $this->getWorkingDays($job->job_entry_date, date('Y-m-d'));
+                if($job->progress_job[0])
+                    if($job->progress_job[0]->progress_job_date_start)
+                        $job['days_passed'] = $this->getWorkingDays(
+                            $job->progress_job[0]->progress_job_date_start,
+                            $job->progress_job[count($jobs) - 1]->progress_job_date_completion
+                        );
+                unset($job['progress_job']);
                 array_push($jobsDone, $job);
             }
         }
@@ -216,6 +252,13 @@ class JobController extends Controller
                 }
                 $job['completion_percentage'] = $this->completionPercentage($progress_jobs)['completion_percentage'];
                 $job['days_to_complete'] = $this->completionPercentage($progress_jobs)['days_to_complete'];
+                if($job->progress_job[0])
+                    if($job->progress_job[0]->progress_job_date_start)
+                        $job['days_passed'] = $this->getWorkingDays(
+                            $job->progress_job[0]->progress_job_date_start,
+                            date('Y-m-d H:i:s')
+                        );
+                unset($job['progress_job']);
                 array_push($jobsProgress, $job);
             }
         }
