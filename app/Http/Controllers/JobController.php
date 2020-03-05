@@ -34,21 +34,21 @@ class JobController extends Controller
 
     public function getWorkingDays($startDate, $endDate)
     {
-        $begin = strtotime($startDate);
-        $end = strtotime($endDate);
-        if ($begin > $end) {
-            return 0;
-        } else {
-            $no_days  = 0;
-            while ($begin <= $end) {
-                $what_day = date("N", $begin);
-                if (!in_array($what_day, [6,7]) ) // 6 and 7 are weekend
-                    $no_days++;
-                $begin += 86400; // +1 day
-            };
+        // $begin = strtotime($startDate);
+        // $end = strtotime($endDate);
+        // if ($begin > $end) {
+        //     return 0;
+        // } else {
+        //     $no_days  = 0;
+        //     while ($begin <= $end) {
+        //         $what_day = date("N", $begin);
+        //         if (!in_array($what_day, [6,7]) ) // 6 and 7 are weekend
+        //             $no_days++;
+        //         $begin += 86400; // +1 day
+        //     };
 
-            return $no_days - 1;
-        }
+        //     return $no_days - 1;
+        // }
     }
     
     public function all()
@@ -239,14 +239,6 @@ class JobController extends Controller
     {
         try {
             $job_progress_list = ProgressJob::where('job_id', $id)->get();
-            $denominator = 0;
-            foreach ($job_progress_list as $list) {
-                if($list->job_sheet) {
-                    if($list->job_sheet->job_sheet_man_hours) {
-                        $denominator += $list->job_sheet->job_sheet_man_hours;
-                    }
-                }
-            }
             foreach ($job_progress_list as $list) {
                 $job_sheet = JobSheet::find($list->job_sheet_id);
                 $progress_status = ProgressStatus::find($list->progress_status_id);
@@ -257,11 +249,24 @@ class JobController extends Controller
                     $list['job_sheet_name'] = null;
                     $list['job_sheet_man_hours'] = null;
                 }
+
                 if ($progress_status) {
                     $list['progress_status_name'] = $progress_status->progress_status_name;
                 } else {
                     $list['progress_status_name'] = null;
                 }
+
+                if ($list->progress_job_date_start) {
+                    $date_start = strtotime($list->progress_job_date_start);
+                    $date_end = strtotime(date('Y-m-d H:i:s'));
+                    if ($list->progress_job_date_completion) {
+                        $date_end = strtotime($list->progress_job_date_completion);
+                    }
+                    $list['actual_hours'] = (int) (abs($date_end - $date_start) / (60 * 60));
+                } else {
+                    $list['actual_hours'] = null;
+                }
+
                 unset($list['job_sheet']);
             }
             return response()->json(array(
