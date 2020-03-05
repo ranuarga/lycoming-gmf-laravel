@@ -256,16 +256,17 @@ class JobController extends Controller
                     $list['progress_status_name'] = null;
                 }
 
-                if ($list->progress_job_date_start) {
-                    $date_start = strtotime($list->progress_job_date_start);
-                    $date_end = strtotime(date('Y-m-d H:i:s'));
-                    if ($list->progress_job_date_completion) {
-                        $date_end = strtotime($list->progress_job_date_completion);
-                    }
-                    $list['actual_hours'] = (int) (abs($date_end - $date_start) / (60 * 60));
-                } else {
-                    $list['actual_hours'] = null;
-                }
+                // Wrong Algo
+                // if ($list->progress_job_date_start) {
+                //     $date_start = strtotime($list->progress_job_date_start);
+                //     $date_end = strtotime(date('Y-m-d H:i:s'));
+                //     if ($list->progress_job_date_completion) {
+                //         $date_end = strtotime($list->progress_job_date_completion);
+                //     }
+                //     $list['actual_hours'] = (int) (abs($date_end - $date_start) / (60 * 60));
+                // } else {
+                //     $list['actual_hours'] = null;
+                // }
 
                 unset($list['job_sheet']);
             }
