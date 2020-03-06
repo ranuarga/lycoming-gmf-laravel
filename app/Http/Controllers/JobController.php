@@ -9,7 +9,8 @@ use App\Models\JobOrder;
 use App\Models\JobSheet;
 use App\Models\ProgressJob;
 use App\Models\ProgressStatus;
-use DateTime;
+use GeniusTS\HijriDate\Hijri;
+use GeniusTS\HijriDate\Date;
 
 class JobController extends Controller
 {
@@ -35,14 +36,31 @@ class JobController extends Controller
 
     public function getWorkingDays($startDate, $endDate)
     {
+        // Management only request Eid Fitri & X-Mas Holiday, so i did it like this
+        // Actually it will be easier if all holidays included
+        // Just Requested it from Google Calendar API or something similar
+        
+        // getWorkingDays based on this
         // https://stackoverflow.com/questions/336127/calculate-business-days
         $endDate = strtotime($endDate);
         $startDate = strtotime($startDate);
-        $holidays = [
+        
+        // Eid Fitri
+        // https://github.com/GeniusTS/hijri-dates
+        $hijriYear = (int) Date::now()->format('o');
+
+        $oneSyawals = [];
+        for($i = -1 ; $i < 3 ; $i++) {
+            for($j = -1 ; $j < 2 ; $j++) {
+                array_push($oneSyawals, date('Y-m-d', strtotime(Hijri::convertToGregorian(1 + $i, 10, $hijriYear + $j))));
+            }
+        }
+        $christmas = [
             date('Y') . '-12-25',
             date('Y', strtotime('-1 years')) . '-12-25',
             date('Y', strtotime('+1 years')) . '-12-25',
         ];
+        $holidays = array_merge($oneSyawals, $christmas);
 
         $days = ($endDate - $startDate) / 86400 + 1;
 
@@ -58,12 +76,10 @@ class JobController extends Controller
         } else {
             if ($the_first_day_of_week == 7) {
                 $no_remaining_days--;
-
                 if ($the_last_day_of_week == 6) {                    
                     $no_remaining_days--;
                 }
-            }
-            else {
+            } else {
                 $no_remaining_days -= 2;
             }
         }
@@ -78,7 +94,7 @@ class JobController extends Controller
             if ($startDate <= $time_stamp && $time_stamp <= $endDate && date("N",$time_stamp) != 6 && date("N",$time_stamp) != 7)
                 $workingDays--;
         }
-
+        return $holidays;
         return (int) $workingDays;
     }
     
