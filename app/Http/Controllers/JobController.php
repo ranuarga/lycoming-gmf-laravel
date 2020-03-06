@@ -94,7 +94,7 @@ class JobController extends Controller
             if ($startDate <= $time_stamp && $time_stamp <= $endDate && date("N",$time_stamp) != 6 && date("N",$time_stamp) != 7)
                 $workingDays--;
         }
-        return $holidays;
+        
         return (int) $workingDays;
     }
     
@@ -303,10 +303,11 @@ class JobController extends Controller
                 $progress_status = ProgressStatus::find($list->progress_status_id);
                 if ($job_sheet) {                   
                     $list['job_sheet_name'] = $job_sheet->job_sheet_name;
-                    $list['job_sheet_man_hours'] = $job_sheet->job_sheet_man_hours;
+                    // Because there are 2 engineers
+                    $list['ideal_hours'] = $job_sheet->job_sheet_man_hours / 2;
                 } else {
                     $list['job_sheet_name'] = null;
-                    $list['job_sheet_man_hours'] = null;
+                    $list['ideal_hours'] = null;
                 }
 
                 if ($progress_status) {
