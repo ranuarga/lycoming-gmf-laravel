@@ -54,8 +54,8 @@ Route::group(['middleware' => 'auth:web-admin'], function() {
     Route::post('job/store', 'JobController@storeWeb')->name('job.store');
     Route::post('job/{id}/update', 'JobController@updateWeb')->name('job.update');
     Route::get('job/{id}/edit', 'JobController@edit')->name('job.edit');
-    Route::get('job/{id}/progress', 'JobController@progress')->name('job.progress');
-    Route::get('job/{id}/progress/{pid}', 'JobController@progressDetail')->name('job.progress.detail');
+    Route::get('job/{id}/progress', 'ProgressJobController@progressByJobID')->name('job.progress');
+    Route::get('job/{id}/progress/{pid}', 'ProgressJobController@progressDetail')->name('job.progress.detail');
     Route::get('job/{id}/delete', 'JobController@destroy')->name('job.delete');
     
     Route::get('job-order', 'JobOrderController@index')->name('job-order');

@@ -9,95 +9,9 @@ use App\Models\JobOrder;
 use App\Models\JobSheet;
 use App\Models\ProgressJob;
 use App\Models\ProgressStatus;
-use GeniusTS\HijriDate\Hijri;
-use GeniusTS\HijriDate\Date;
 
 class JobController extends Controller
 {
-    public function getEngineModels()
-    {
-        $engine_models = [];
-        foreach (EngineModel::all() as $engine_model) {
-            $engine_models[$engine_model->engine_model_id] = $engine_model->engine_model_name;
-        }
-        
-        return $engine_models;
-    }
-
-    public function getJobOrders()
-    {
-        $job_orders = [];
-        foreach (JobOrder::all() as $job_order) {
-            $job_orders[$job_order->job_order_id] = $job_order->job_order_name;
-        }
-
-        return $job_orders;
-    }
-
-    public function getWorkingDays($startDate, $endDate)
-    {
-        // Management only request Eid Fitri & X-Mas Holiday, so i did it like this
-        // Actually it will be easier if all holidays included
-        // Just Requested it from Google Calendar API or something similar
-        
-        // getWorkingDays based on this
-        // https://stackoverflow.com/questions/336127/calculate-business-days
-        $endDate = strtotime($endDate);
-        $startDate = strtotime($startDate);
-        
-        // Eid Fitri
-        // https://github.com/GeniusTS/hijri-dates
-        $hijriYear = (int) Date::now()->format('o');
-
-        $oneSyawals = [];
-        for($i = -1 ; $i < 3 ; $i++) {
-            for($j = -1 ; $j < 2 ; $j++) {
-                array_push($oneSyawals, date('Y-m-d', strtotime(Hijri::convertToGregorian(1 + $i, 10, $hijriYear + $j))));
-            }
-        }
-        $christmas = [
-            date('Y') . '-12-25',
-            date('Y', strtotime('-1 years')) . '-12-25',
-            date('Y', strtotime('+1 years')) . '-12-25',
-        ];
-        $holidays = array_merge($oneSyawals, $christmas);
-
-        $days = ($endDate - $startDate) / 86400 + 1;
-
-        $no_full_weeks = floor($days / 7);
-        $no_remaining_days = fmod($days, 7);
-
-        $the_first_day_of_week = date("N", $startDate);
-        $the_last_day_of_week = date("N", $endDate);
-
-        if ($the_first_day_of_week <= $the_last_day_of_week) {
-            if ($the_first_day_of_week <= 6 && 6 <= $the_last_day_of_week) $no_remaining_days--;
-            if ($the_first_day_of_week <= 7 && 7 <= $the_last_day_of_week) $no_remaining_days--;
-        } else {
-            if ($the_first_day_of_week == 7) {
-                $no_remaining_days--;
-                if ($the_last_day_of_week == 6) {                    
-                    $no_remaining_days--;
-                }
-            } else {
-                $no_remaining_days -= 2;
-            }
-        }
-
-        $workingDays = $no_full_weeks * 5;
-        if ($no_remaining_days > 0 ) {
-            $workingDays += $no_remaining_days;
-        }
-
-        foreach($holidays as $holiday){
-            $time_stamp=strtotime($holiday);
-            if ($startDate <= $time_stamp && $time_stamp <= $endDate && date("N",$time_stamp) != 6 && date("N",$time_stamp) != 7)
-                $workingDays--;
-        }
-        
-        return (int) $workingDays;
-    }
-    
     public function all()
     {
         return response()
@@ -111,64 +25,6 @@ class JobController extends Controller
     public function index()
     {        
         return view('job.index', ['jobs' => Job::all()]);
-    }
-
-    public function completionPercentage($progress_jobs)
-    {
-        // Pembilang in English
-        $numerator = 0;
-        // Penyebut in English
-        $denominator = 0;
-        foreach ($progress_jobs as $progress_job) {
-            if($progress_job->job_sheet) {
-                if($progress_job->job_sheet->job_sheet_man_hours) {
-                    $denominator += (float) $progress_job->job_sheet->job_sheet_man_hours;
-                    if($progress_job->progress_status) {
-                        if($progress_job->progress_status->progress_status_name == 'Done') {
-                            $numerator += (float) $progress_job->job_sheet->job_sheet_man_hours;
-                        }
-                    }
-                }
-            }
-        }
-        $completion_percentage =  ($numerator / $denominator) * 100;
-        $obj['completion_percentage'] = (int) $completion_percentage;
-        // 1 Day Work is 7 Hours and there are 2 engineers
-        $obj['days_to_complete'] = (int) ($denominator / (7 * 2));
-
-        return $obj;
-    }
-    
-    public function progress($id)
-    {        
-        $progress_jobs = ProgressJob::where('job_id', $id)->orderBy('progress_job_id', 'asc')->get();
-        return view(
-            'job.progress',
-            [
-                'job' => Job::findOrFail($id),
-                'progress_jobs' => $progress_jobs,
-                'completion_percentage' => $this->completionPercentage($progress_jobs)['completion_percentage'],
-                'days_to_complete' => $this->completionPercentage($progress_jobs)['days_to_complete']
-            ]
-        );
-    }
-
-    public function progressDetail($id, $pid)
-    {        
-        $progress_job = ProgressJob::findOrFail($pid);
-        $job = Job::findOrFail($id);
-
-        if($job->job_id != $progress_job->job_id) {
-            return abort(404);
-        }
-
-        return view(
-            'job.progress-detail',
-            [
-                'progress_job' => $progress_job,
-                'job' => $job
-            ]
-        );
     }
 
     public function done()
@@ -292,52 +148,6 @@ class JobController extends Controller
         return response()->json(array(
             'job_progress' => $this->onProgress()
         ));
-    }
-
-    public function showProgress($id)
-    {
-        try {
-            $job_progress_list = ProgressJob::where('job_id', $id)->get();
-            foreach ($job_progress_list as $list) {
-                $job_sheet = JobSheet::find($list->job_sheet_id);
-                $progress_status = ProgressStatus::find($list->progress_status_id);
-                if ($job_sheet) {                   
-                    $list['job_sheet_name'] = $job_sheet->job_sheet_name;
-                    // Because there are 2 engineers
-                    $list['ideal_hours'] = $job_sheet->job_sheet_man_hours / 2;
-                } else {
-                    $list['job_sheet_name'] = null;
-                    $list['ideal_hours'] = null;
-                }
-
-                if ($progress_status) {
-                    $list['progress_status_name'] = $progress_status->progress_status_name;
-                } else {
-                    $list['progress_status_name'] = null;
-                }
-
-                // Wrong Algo
-                // if ($list->progress_job_date_start) {
-                //     $date_start = strtotime($list->progress_job_date_start);
-                //     $date_end = strtotime(date('Y-m-d H:i:s'));
-                //     if ($list->progress_job_date_completion) {
-                //         $date_end = strtotime($list->progress_job_date_completion);
-                //     }
-                //     $list['actual_hours'] = (int) (abs($date_end - $date_start) / (60 * 60));
-                // } else {
-                //     $list['actual_hours'] = null;
-                // }
-
-                unset($list['job_sheet']);
-            }
-            return response()->json(array(
-                'job_progress_list' => $job_progress_list
-            ));
-        } catch (\Exception $ex) {
-            return response()->json([
-                'message' => $ex->getMessage()
-            ]);
-        }
     }
 
     public function show($id)
