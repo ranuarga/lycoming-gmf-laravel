@@ -71,6 +71,22 @@
                 </tr>
                 <tr>
                     <td>
+                        Days Passed / Estimated Time to Complete
+                        <br>
+                        (Counted From First Process & Based on Workdays)
+                    </td>
+                    <td>{{ $days_passed }} / {{ $days_to_complete }} </td>
+                </tr>
+                <tr>
+                    <td>
+                        Completion Percentage
+                        <br>
+                        (Based on Man Hours Each Process)
+                    </td>
+                    <td>{{ $completion_percentage }} %</td>
+                </tr>
+                <tr>
+                    <td>
                         Remark by Engineer
                         @if($progress_job->engineer)
                             {{ $progress_job->engineer->engineer_full_name }}

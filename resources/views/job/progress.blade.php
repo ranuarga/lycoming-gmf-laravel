@@ -61,16 +61,20 @@
                     <td>{{ $job->job_entry_date->format('d-M-Y') }}</td>
                 </tr>
                 <tr>
-                    <td>Days To Complete</td>
-                    <td> {{ $days_to_complete }} </td>
+                    <td>
+                        Days Passed / Estimated Time to Complete
+                        <br>
+                        (Counted From First Process & Based on Workdays)
+                    </td>
+                    <td>{{ $days_passed }} / {{ $days_to_complete }} </td>
                 </tr>
                 <tr>
-                    <td>Days Passed</td>
-                    <td> {{ $days_passed }} </td>
-                </tr>
-                <tr>
-                    <td>Completion Percentage</td>
-                    <td>{{ $completion_percentage }} % </td>
+                    <td>
+                        Completion Percentage
+                        <br>
+                        (Based on Man Hours Each Process)
+                    </td>
+                    <td>{{ $completion_percentage }} %</td>
                 </tr>
             </table>
         </div>

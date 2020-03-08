@@ -186,8 +186,9 @@ class ProgressJobController extends Controller
 
     public function progressDetail($id, $pid)
     {        
-        $progress_job = ProgressJob::findOrFail($pid);
         $job = Job::findOrFail($id);
+        $progress_job = ProgressJob::findOrFail($pid);
+        $progress_jobs = ProgressJob::where('job_id', $id)->orderBy('progress_job_id', 'asc')->get();
 
         if($job->job_id != $progress_job->job_id) {
             return abort(404);
@@ -197,7 +198,10 @@ class ProgressJobController extends Controller
             'job.progress-detail',
             [
                 'progress_job' => $progress_job,
-                'job' => $job
+                'job' => $job,
+                'completion_percentage' => $this->completionPercentage($progress_jobs)['completion_percentage'],
+                'days_to_complete' => $this->completionPercentage($progress_jobs)['days_to_complete'],
+                'days_passed' => $this->completionPercentage($progress_jobs)['days_passed']
             ]
         );
     }
