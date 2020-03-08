@@ -61,8 +61,16 @@
                     <td>{{ $job->job_entry_date->format('d-M-Y') }}</td>
                 </tr>
                 <tr>
+                    <td>Days To Complete</td>
+                    <td> {{ $days_to_complete }} </td>
+                </tr>
+                <tr>
+                    <td>Days Passed</td>
+                    <td> {{ $days_passed }} </td>
+                </tr>
+                <tr>
                     <td>Completion Percentage</td>
-                    <td>{{ number_format((float)$completion_percentage, 2, '.', '') }} % </td>
+                    <td>{{ $completion_percentage }} % </td>
                 </tr>
             </table>
         </div>

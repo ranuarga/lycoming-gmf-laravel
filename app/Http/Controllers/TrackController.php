@@ -22,7 +22,10 @@ class TrackController extends Controller
                 if($progress_jobs) {
                     return view('track.index', [
                         'job' => $job,
-                        'progress_jobs' => $progress_jobs
+                        'progress_jobs' => $progress_jobs,
+                        'completion_percentage' => $this->completionPercentage($progress_jobs)['completion_percentage'],
+                        'days_to_complete' => $this->completionPercentage($progress_jobs)['days_to_complete'],
+                        'days_passed' => $this->completionPercentage($progress_jobs)['days_passed']
                     ]);
                 }
             }

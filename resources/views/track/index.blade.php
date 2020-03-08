@@ -49,7 +49,11 @@
                     </tr>
                     <tr>
                         <td>Engine</td>
-                        <td>{{ $job->engine_model->engine_model_name }}</td>
+                        <td>
+                        @if($job->engine_model)
+                            {{ $job->engine_model->engine_model_name }}
+                        @endif
+                        </td>
                     </tr>
                     <tr>
                         <td>Engine Number</td>
@@ -57,7 +61,11 @@
                     </tr>
                     <tr>
                         <td>Order</td>
-                        <td>{{ $job->job_order->job_order_name }}</td>
+                        <td>
+                        @if($job->job_order)
+                            {{ $job->job_order->job_order_name }}
+                        @endif
+                        </td>
                     </tr>
                     <tr>
                         <td>Customer</td>
@@ -65,11 +73,27 @@
                     </tr>
                     <tr>
                         <td>Reference</td>
-                        <td>{{ $job->job_reference }}</td>
+                        <td>
+                        @if($job->engine_model)
+                            {{ $job->engine_model->engine_model_reference }}
+                        @endif
+                        </td>
                     </tr>
                     <tr>
                         <td>Entry Date</td>
                         <td>{{ $job->job_entry_date->format('d-M-Y') }}</td>
+                    </tr>
+                    <tr>
+                        <td>Days To Complete</td>
+                        <td> {{ $days_to_complete }} </td>
+                    </tr>
+                    <tr>
+                        <td>Days Passed</td>
+                        <td> {{ $days_passed }} </td>
+                    </tr>
+                    <tr>
+                        <td>Completion Percentage</td>
+                        <td>{{ $completion_percentage }} %</td>
                     </tr>
                 </table>
             </div>

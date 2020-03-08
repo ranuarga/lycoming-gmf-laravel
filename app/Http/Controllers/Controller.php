@@ -17,6 +17,7 @@ class Controller extends BaseController
 
     public function completionPercentage($progress_jobs)
     {
+        // $progress_jobs must be sorted first by id or created_at
         // Pembilang in English
         $numerator = 0;
         // Penyebut in English
@@ -37,6 +38,21 @@ class Controller extends BaseController
         $obj['completion_percentage'] = (int) $completion_percentage;
         // 1 Day Work is 7 Hours and there are 2 engineers
         $obj['days_to_complete'] = (int) ($denominator / (7 * 2));
+
+        $obj['days_passed'] = 0;
+        if($progress_jobs[0])
+            if($progress_jobs[0]->progress_job_date_start) {
+                if($progress_jobs[count($progress_jobs) - 1]->progress_job_date_completion)
+                    $obj['days_passed'] = $this->getWorkingDays(
+                        $progress_jobs[0]->progress_job_date_start,
+                        $progress_jobs[count($progress_jobs) - 1]->progress_job_date_completion
+                    );
+                else
+                    $obj['days_passed'] = $this->getWorkingDays(
+                        $progress_jobs[0]->progress_job_date_start,
+                        date('Y-m-d H:i:s')
+                    );
+            }
 
         return $obj;
     }

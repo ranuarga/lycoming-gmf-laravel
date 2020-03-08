@@ -33,7 +33,7 @@ class JobController extends Controller
         $jobsDone = [];
         foreach ($jobs as $job) {
             $allDone = true;
-            $progress_jobs = ProgressJob::where('job_id', $job->job_id)->get();
+            $progress_jobs = ProgressJob::where('job_id', $job->job_id)->orderBy('progress_job_id', 'asc')->get();
             foreach ($progress_jobs as $progress_job) {
                 if ($progress_job->progress_status) {
                     if ($progress_job->progress_status->progress_status_name != 'Done') {
@@ -63,12 +63,7 @@ class JobController extends Controller
                 }
                 $job['completion_percentage'] = $this->completionPercentage($progress_jobs)['completion_percentage'];
                 $job['days_to_complete'] = $this->completionPercentage($progress_jobs)['days_to_complete'];
-                if($job->progress_job[0])
-                    if($job->progress_job[0]->progress_job_date_start)
-                        $job['days_passed'] = $this->getWorkingDays(
-                            $job->progress_job[0]->progress_job_date_start,
-                            $job->progress_job[count($jobs) - 1]->progress_job_date_completion
-                        );
+                $job['days_passed'] = $this->completionPercentage($progress_jobs)['days_passed'];
                 unset($job['progress_job']);
                 array_push($jobsDone, $job);
             }
@@ -95,7 +90,7 @@ class JobController extends Controller
         $jobsProgress = [];
         foreach ($jobs as $job) {
             $allProgress = false;
-            $progress_jobs = ProgressJob::where('job_id', $job->job_id)->get();
+            $progress_jobs = ProgressJob::where('job_id', $job->job_id)->orderBy('progress_job_id', 'asc')->get();
             foreach ($progress_jobs as $progress_job) {
                 if ($progress_job->progress_status) {
                     if ($progress_job->progress_status->progress_status_name != 'Done') {
@@ -124,12 +119,7 @@ class JobController extends Controller
                 }
                 $job['completion_percentage'] = $this->completionPercentage($progress_jobs)['completion_percentage'];
                 $job['days_to_complete'] = $this->completionPercentage($progress_jobs)['days_to_complete'];
-                if($job->progress_job[0])
-                    if($job->progress_job[0]->progress_job_date_start)
-                        $job['days_passed'] = $this->getWorkingDays(
-                            $job->progress_job[0]->progress_job_date_start,
-                            date('Y-m-d H:i:s')
-                        );
+                $job['days_passed'] = $this->completionPercentage($progress_jobs)['days_passed'];
                 unset($job['progress_job']);
                 array_push($jobsProgress, $job);
             }
