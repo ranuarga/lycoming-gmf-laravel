@@ -161,6 +161,7 @@ class JobController extends Controller
             }
             $job['completion_percentage'] = $this->completionPercentage($progress_jobs)['completion_percentage'];
             $job['days_to_complete'] = $this->completionPercentage($progress_jobs)['days_to_complete'];
+            $job['days_passed'] = $this->completionPercentage($progress_jobs)['days_passed'];
 
             return response()->json(array(
                 'job' => $job
