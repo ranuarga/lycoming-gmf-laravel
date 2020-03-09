@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ProgressJob;
 use App\Models\ProgressStatus;
 use App\Models\Job;
-use App\Models\JobSheey;
+use App\Models\JobSheet;
 use App\Models\ProgressAttachment;
 
 class ProgressJobController extends Controller
