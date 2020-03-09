@@ -76,7 +76,11 @@
                             {{ $job->engine_model->engine_model_reference }}
                         @endif
                         </td>
-                        <td>{{ $job->job_entry_date->format('d-M-Y') }}</td>
+                        <td>
+                        @if($job->job_entry_date)
+                            {{ $job->job_entry_date->format('d-M-Y') }}
+                        @endif
+                        </td>
                         <td>
                             <a href="{{ route('job.progress', ['id' => $job->job_id]) }}">
                                 <i class="fas fa-eye"></i>

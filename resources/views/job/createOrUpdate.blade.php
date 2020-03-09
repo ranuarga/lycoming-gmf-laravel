@@ -35,6 +35,12 @@
             {{ Form::text('job_customer', Request::old('job_customer'), ['class' => 'form-control', 'placeholder' => 'Customer']) }}
             {{ Form::label('job_entry_date', 'Entry Date') }}
             {{ Form::date('job_entry_date', Request::old('job_entry_date'), ['class' => 'form-control', 'placeholder' => 'Entry Date']) }}
+            {{ Form::label('job_wo_file', 'Work Order File') }}
+            @if(!isset($job))
+                {{ Form::file('job_wo_file', ['class' => 'form-control', 'required']) }}
+            @else
+                {{ Form::file('job_wo_file', ['class' => 'form-control']) }}
+            @endif
             <br>
             <button type="submit" class="btn btn-primary float-right">Done</button>
     {{ Form::close() }}

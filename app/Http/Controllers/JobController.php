@@ -333,7 +333,8 @@ class JobController extends Controller
             $job->job_order_id = $request->job_order_id;
             $job->job_engine_number = $request->job_engine_number;
             $job->job_customer = $request->job_customer;
-            $job->job_entry_date = $request->job_entry_date;
+            if($request->job_entry_date)
+                $job->job_entry_date = $request->job_entry_date;
 
             if($request->hasFile('job_wo_file')) {
                 $file = $request->file('job_wo_file');
