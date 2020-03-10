@@ -45,32 +45,7 @@ class JobOrderController extends Controller
                 'message' => $ex->getMessage()
             ], 500);
         }
-    }
-
-    public function storeWeb(Request $request)
-    {
-        try {            
-            $job_order = JobOrder::create([
-                'job_order_name' => $request->job_order_name,
-            ]);
-
-            return redirect()->route('job-order');
-        } catch (\Exception $ex) {
-            print_r($ex->getMessage());
-        }
-    }
-
-    public function create()
-    {
-        return view('job-order.createOrUpdate');
-    }
-
-    public function edit($id)
-    {
-        $job_order = JobOrder::findOrFail($id);
-
-        return view('job-order.createOrUpdate', ['job_order' => $job_order]);
-    }
+    }    
     
     public function update($id, Request $request)
     {
@@ -86,18 +61,6 @@ class JobOrderController extends Controller
         }
     }
 
-    public function updateWeb($id, Request $request)
-    {
-        try {
-            $job_order = JobOrder::findOrFail($id);
-            $job_order->update($request->all());
-            
-            return redirect()->route('job-order');
-        } catch (\Exception $ex) {
-            print_r($ex->getMessage());
-        }
-    }
-
     public function delete($id)
     {
         try {
@@ -109,12 +72,5 @@ class JobOrderController extends Controller
                 'message' => $ex->getMessage()
             ]);
         }
-    }
-
-    public function destroy($id)
-    {
-        JobOrder::findOrFail($id)->delete();
-
-        return redirect()->route('job-order');
     }
 }

@@ -23,16 +23,14 @@
                     <tr>
                         <th>#</th>
                         <th>Job Sheet</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
+                        <th>Man Hours</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>#</th>
                         <th>Job Sheet</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
+                        <th>Man Hours</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -40,8 +38,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $job_sheet->job_sheet_name }}</td>
-                        <td>{{ $job_sheet->created_at }}</td>
-                        <td>{{ $job_sheet->updated_at }}</td>
+                        <td>{{ $job_sheet->job_sheet_man_hours }}</td>
                     </tr>
                     @endforeach
                 </tbody>
