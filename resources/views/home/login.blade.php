@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Login Admin Panel</title>
+        <title>Login Production Control Panel</title>
         <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     </head>
@@ -20,7 +20,7 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header">
                                         <h3 class="text-center font-weight-light my-4">
-                                            Lycoming Engine Monitoring & Progress Report Application Admin Panel
+                                            Lycoming Engine Monitoring & Progress Report Application Production Control Panel
                                         </h3>
                                     </div>
                                     <div class="card-body">
@@ -47,7 +47,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Lycoming Engine Monitoring & Progress Report Application Admin Panel</div>
+                            <div class="text-muted">Lycoming Engine Monitoring & Progress Report Application Production Control Panel</div>
                             <div>
                                 Joint Operation GMF
                                 &middot;

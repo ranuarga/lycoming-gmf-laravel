@@ -1,21 +1,21 @@
 @extends('layouts.index')
 
 @section('title')
-    Admin
+    Production Control
 @endsection
 
 @section('name')
-    Admin
+    Production Control
 @endsection
 
 @section('content')
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-    <li class="breadcrumb-item active">Admin</li>
+    <li class="breadcrumb-item active">Production Control</li>
 </ol>
 <a href="{{ route('admin.create') }}">
     <button class="btn btn-success float-right">
-        Create Admin
+        Create Production Control
     </button>
 </a>
 <br>

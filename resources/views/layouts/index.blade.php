@@ -17,7 +17,7 @@
     <!-- <body> -->
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <a class="navbar-brand" href="{{ route('home') }}">
-                Admin Panel
+                PC Panel
             </a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
                 <i class="fas fa-bars"></i>
@@ -97,7 +97,7 @@
                             <div class="collapse" id="collapseUsers" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{ route('admin') }}">
-                                        Admin
+                                        Production Control
                                     </a>
                                     <a class="nav-link" href="{{ route('engineer') }}">
                                         Engineer
@@ -151,7 +151,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Lycoming Engine Monitoring & Progress Report Application Admin Panel</div>
+                            <div class="text-muted">Lycoming Engine Monitoring & Progress Report Application Production Control Panel</div>
                             <div>
                                 Joint Operation GMF
                                 &middot;
