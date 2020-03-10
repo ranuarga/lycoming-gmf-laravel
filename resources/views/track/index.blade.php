@@ -44,20 +44,18 @@
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <tr>
-                        <td>Job Number</td>
-                        <td>{{ $job->job_number }}</td>
-                    </tr>
-                    <tr>
-                        <td>Engine</td>
+                        <td>Work Order</td>
                         <td>
-                        @if($job->engine_model)
-                            {{ $job->engine_model->engine_model_name }}
+                        @if($job->job_wo_secure_url)
+                            <a href="{{ $job->job_wo_secure_url }}" target="_blank" rel="noopener noreferrer">
+                                {{ $job->job_wo_public_id }}
+                            </a>
                         @endif
                         </td>
                     </tr>
                     <tr>
-                        <td>Engine Number</td>
-                        <td>{{ $job->job_engine_number }}</td>
+                        <td>Job Number</td>
+                        <td>{{ $job->job_number }}</td>
                     </tr>
                     <tr>
                         <td>Order</td>
@@ -68,8 +66,16 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Customer</td>
-                        <td>{{ $job->job_customer }}</td>
+                        <td>Engine</td>
+                        <td>
+                        @if($job->engine_model)
+                            {{ $job->engine_model->engine_model_name }}
+                        @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Engine Serial Number</td>
+                        <td>{{ $job->job_engine_number }}</td>
                     </tr>
                     <tr>
                         <td>Reference</td>
@@ -78,6 +84,10 @@
                             {{ $job->engine_model->engine_model_reference }}
                         @endif
                         </td>
+                    </tr>
+                    <tr>
+                        <td>Customer</td>
+                        <td>{{ $job->job_customer }}</td>
                     </tr>
                     <tr>
                         <td>Entry Date</td>

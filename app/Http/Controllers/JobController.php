@@ -179,6 +179,7 @@ class JobController extends Controller
             $this->validate($request, [
                 'engine_model_id' => 'numeric',
                 'job_order_id' => 'numeric',
+                'job_number' => 'string',
                 'job_engine_number' => 'string|max:255',
                 'job_customer' => 'string|max:255',
                 'job_entry_date' => 'string',
@@ -189,6 +190,7 @@ class JobController extends Controller
                 'engine_model_id' => $request->engine_model_id,
                 'job_order_id' => $request->job_order_id,
                 'job_engine_number' => $request->job_engine_number,
+                'job_number' => $request->job_number,
                 'job_customer' => $request->job_customer,
                 'job_entry_date' => $request->job_entry_date
             ]);
@@ -204,8 +206,6 @@ class JobController extends Controller
                 $job->job_wo_public_id = $result['public_id'];
                 $job->job_wo_secure_url = $result['secure_url'];
             }
-
-            $job->job_number = sprintf("%06d", $job->job_id);
             $job->save();
 
             $job_sheets = JobSheet::all();
@@ -231,6 +231,7 @@ class JobController extends Controller
                 'engine_model_id' => $request->engine_model_id,
                 'job_order_id' => $request->job_order_id,
                 'job_engine_number' => $request->job_engine_number,
+                'job_number' => $request->job_number,
                 'job_customer' => $request->job_customer,
                 'job_entry_date' => $request->job_entry_date
             ]);
@@ -246,8 +247,6 @@ class JobController extends Controller
                 $job->job_wo_public_id = $result['public_id'];
                 $job->job_wo_secure_url = $result['secure_url'];
             }
-
-            $job->job_number = sprintf("%06d", $job->job_id);
             $job->save();
 
             $job_sheets = JobSheet::all();
@@ -293,6 +292,8 @@ class JobController extends Controller
                 $job->job_order_id = $request->job_order_id;
             if($request->job_engine_number)
                 $job->job_engine_number = $request->job_engine_number;
+            if($request->job_number)
+                $job->job_number = $request->job_number;
             if($request->job_customer)
                 $job->job_customer = $request->job_customer;
             if($request->job_entry_date)
@@ -332,6 +333,7 @@ class JobController extends Controller
             $job->engine_model_id = $request->engine_model_id;
             $job->job_order_id = $request->job_order_id;
             $job->job_engine_number = $request->job_engine_number;
+            $job->job_number = $request->job_number;
             $job->job_customer = $request->job_customer;
             if($request->job_entry_date)
                 $job->job_entry_date = $request->job_entry_date;

@@ -33,7 +33,7 @@
                         <!-- <th>#</th> -->
                         <th>Job Number</th>
                         <th>Engine</th>
-                        <th>Engine Number</th>
+                        <th>Engine Serial Number (ESN)</th>
                         <th>Order</th>
                         <th>Customer</th>
                         <th>Reference</th>
@@ -46,7 +46,7 @@
                         <!-- <th>#</th> -->
                         <th>Job Number</th>
                         <th>Engine</th>
-                        <th>Engine Number</th>
+                        <th>Engine Serial Number (ESN)</th>
                         <th>Order</th>
                         <th>Customer</th>
                         <th>Reference</th>
