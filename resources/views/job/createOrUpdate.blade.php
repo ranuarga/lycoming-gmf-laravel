@@ -21,9 +21,9 @@
     <li class="breadcrumb-item active">{{ $title }}</li>
 </ol>
     @if(isset($job))
-        {{ Form::model($job, ['route' => ['job.update', $job->job_id], 'method' => 'post']) }}
+        {{ Form::model($job, ['route' => ['job.update', $job->job_id], 'method' => 'post', 'files' => true]) }}
     @else
-        {{ Form::open(['route' => 'job.store']) }}
+        {{ Form::open(['route' => 'job.store', 'files' => true]) }}
     @endif
             {{ Form::label('job_wo_file', 'Work Order File') }}
             @if(!isset($job))
@@ -33,8 +33,10 @@
             @endif
             {{ Form::label('job_number', 'Job Number') }}
             {{ Form::text('job_number', Request::old('job_number'), ['class' => 'form-control', 'placeholder' => 'Job Number', 'required']) }}
-            {{ Form::label('job_order_id', 'Order') }}
-            {{ Form::select('job_order_id', [null=>'Select Order'] + $job_orders, Request::old('job_order_id'), ['class' => 'form-control', 'required']) }}
+            @if(!isset($job))
+                {{ Form::label('job_order_id', 'Order') }}
+                {{ Form::select('job_order_id', [null=>'Select Order'] + $job_orders, Request::old('job_order_id'), ['class' => 'form-control', 'required']) }}
+            @endif
             {{ Form::label('engine_model_id', 'Engine') }}
             {{ Form::select('engine_model_id', [null=>'Select Engine'] + $engine_models, Request::old('engine_model_id'), ['class' => 'form-control', 'required']) }}
             {{ Form::label('job_engine_number', 'Engine Serial Number (ESN)') }}

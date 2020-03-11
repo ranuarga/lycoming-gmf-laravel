@@ -13,8 +13,8 @@
         <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
         <link href="{{ asset('css/simple-line-icons.css') }}" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-        <!-- Custom styles for this template -->
         <link href="{{ asset('css/landing-page.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/progress.css') }}" rel="stylesheet">
     </head>
     <body>
     <!-- Navigation -->
@@ -39,5 +39,6 @@
     </footer>
     <!-- Bootstrap core JavaScript -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/progress.js') }}"></script>
     </body>
 </html>

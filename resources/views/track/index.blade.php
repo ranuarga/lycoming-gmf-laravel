@@ -44,6 +44,29 @@
             <div class="table-responsive">
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <tr>
+                        <td>
+                            Completion Percentage
+                            <br>
+                            (Based on Man Hours Each Process)
+                        </td>
+                        <!-- <td>{{ $completion_percentage }} %</td> -->
+                        <td>
+                            <div class="progress mx-auto" data-value="{{ $completion_percentage }}">
+                                <span class="progress-left">
+                                    <span class="progress-bar border-primary"></span>
+                                </span>
+                                <span class="progress-right">
+                                    <span class="progress-bar border-primary"></span>
+                                </span>
+                                <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                    <div class="h2 font-weight-bold">
+                                        {{ $completion_percentage }}<sup class="small">%</sup>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>Work Order</td>
                         <td>
                         @if($job->job_wo_secure_url)
@@ -100,14 +123,6 @@
                             (Counted From First Process & Based on Workdays)
                         </td>
                         <td>{{ $days_passed }} / {{ $days_to_complete }} </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Completion Percentage
-                            <br>
-                            (Based on Man Hours Each Process)
-                        </td>
-                        <td>{{ $completion_percentage }} %</td>
                     </tr>
                 </table>
             </div>

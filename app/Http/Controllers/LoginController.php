@@ -9,7 +9,10 @@ class LoginController extends Controller
 {
     public function loginForm()
     {
-        return view('home.login');
+        if(!Auth::guard('web-admin')->check())
+            return view('home.login');
+        else
+            return redirect('home');
     }
 
     public function loginWeb(Request $request)
@@ -37,7 +40,7 @@ class LoginController extends Controller
             Auth::guard('web-admin')->logout();
             $request->session()->invalidate();
         }
-        return  redirect('login');
+        return redirect('login');
     }
 
     public function loginAdmin(Request $request)

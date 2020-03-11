@@ -7,8 +7,10 @@ use App\Models\EngineModel;
 use App\Models\Job;
 use App\Models\JobOrder;
 use App\Models\JobSheet;
+use App\Models\JobSheetOrder;
 use App\Models\ProgressJob;
 use App\Models\ProgressStatus;
+use Illuminate\Support\Str;
 
 class JobController extends Controller
 {
@@ -208,7 +210,7 @@ class JobController extends Controller
             }
             $job->save();
 
-            $job_sheets = JobSheet::all();
+            $job_sheets = JobSheetOrder::whereJobOrderId($job->job_order_id)->orderBy('job_sheet_order_id', 'asc')->get();
             foreach ($job_sheets as $job_sheet) {
                 ProgressJob::create([
                     'job_id' => $job->job_id,
@@ -249,7 +251,7 @@ class JobController extends Controller
             }
             $job->save();
 
-            $job_sheets = JobSheet::all();
+            $job_sheets = JobSheetOrder::whereJobOrderId($job->job_order_id)->orderBy('job_sheet_order_id', 'asc')->get();
             foreach ($job_sheets as $job_sheet) {
                 ProgressJob::create([
                     'job_id' => $job->job_id,
@@ -288,8 +290,6 @@ class JobController extends Controller
             $job = Job::findOrFail($id);
             if($request->engine_model_id)
                 $job->engine_model_id = $request->engine_model_id;
-            if($request->job_order_id)
-                $job->job_order_id = $request->job_order_id;
             if($request->job_engine_number)
                 $job->job_engine_number = $request->job_engine_number;
             if($request->job_number)
@@ -331,7 +331,6 @@ class JobController extends Controller
         try {
             $job = Job::findOrFail($id);
             $job->engine_model_id = $request->engine_model_id;
-            $job->job_order_id = $request->job_order_id;
             $job->job_engine_number = $request->job_engine_number;
             $job->job_number = $request->job_number;
             $job->job_customer = $request->job_customer;

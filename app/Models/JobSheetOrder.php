@@ -11,8 +11,8 @@ class JobSheetOrder extends Model
 
     protected $fillable = [
         'job_sheet_order_id',
-        'job_sheet_id',
-        'job_order_id'
+        'job_order_id',
+        'job_sheet_id'
     ];   
 
     public function job_sheet()
