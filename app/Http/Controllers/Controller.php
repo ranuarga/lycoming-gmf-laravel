@@ -35,7 +35,7 @@ class Controller extends BaseController
             }
         }
         $completion_percentage =  ($numerator / $denominator) * 100;
-        $obj['completion_percentage'] = ceil($completion_percentage);
+        $obj['completion_percentage'] = (int) $completion_percentage;
         // 1 Day Work is 7 Hours and there are 2 engineers
         $obj['days_to_complete'] = ceil($denominator / (7 * 2));
 

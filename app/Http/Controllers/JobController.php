@@ -181,7 +181,7 @@ class JobController extends Controller
             $this->validate($request, [
                 'engine_model_id' => 'numeric',
                 'job_order_id' => 'numeric',
-                'job_number' => 'string',
+                'job_number' => 'string|unique:jobs',
                 'job_engine_number' => 'string|max:255',
                 'job_customer' => 'string|max:255',
                 'job_entry_date' => 'string',

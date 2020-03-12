@@ -35,10 +35,10 @@
             {{ Form::text('job_number', Request::old('job_number'), ['class' => 'form-control', 'placeholder' => 'Job Number', 'required']) }}
             @if(!isset($job))
                 {{ Form::label('job_order_id', 'Order') }}
-                {{ Form::select('job_order_id', [null=>'Select Order'] + $job_orders, Request::old('job_order_id'), ['class' => 'form-control', 'required']) }}
+                {{ Form::select('job_order_id', [null=>'Select Order'] + $job_orders, Request::old('job_order_id'), ['class' => 'form-control select2', 'required']) }}
             @endif
             {{ Form::label('engine_model_id', 'Engine') }}
-            {{ Form::select('engine_model_id', [null=>'Select Engine'] + $engine_models, Request::old('engine_model_id'), ['class' => 'form-control', 'required']) }}
+            {{ Form::select('engine_model_id', [null=>'Select Engine'] + $engine_models, Request::old('engine_model_id'), ['class' => 'form-control select2', 'required']) }}
             {{ Form::label('job_engine_number', 'Engine Serial Number (ESN)') }}
             {{ Form::text('job_engine_number', Request::old('job_engine_number'), ['class' => 'form-control', 'placeholder' => 'Engine Number', 'required']) }}
             {{ Form::label('job_customer', 'Customer') }}
