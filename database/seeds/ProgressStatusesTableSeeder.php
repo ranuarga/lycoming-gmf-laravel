@@ -14,7 +14,7 @@ class ProgressStatusesTableSeeder extends Seeder
     {
         DB::table('progress_statuses')->insert([
             [
-                'progress_status_name' => 'On Progress',
+                'progress_status_name' => 'In Progress',
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],

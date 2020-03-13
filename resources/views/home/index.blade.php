@@ -32,8 +32,8 @@
     <div class="col-xl-4 col-md-12">
         <div class="card bg-warning text-white mb-4">
             <div class="card-body">
-                <h1>{{ $onProgress }}</h1>
-                Job(s) On Progress
+                <h1>{{ $inProgress }}</h1>
+                Job(s) In Progress
             </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="{{ route('job.on-progress') }}">

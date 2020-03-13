@@ -124,7 +124,7 @@ class ProgressJobController extends Controller
                 if(!$progress_job->progress_job_date_start) {
                     $progress_job->progress_job_date_start = date('Y-m-d H:i:s');
                 }
-                // 1 is for On Progress, 2 is for Done, 3 is for Pending
+                // 1 is for In Progress, 2 is for Done, 3 is for Pending
                 if ($request->progress_status_id == 1 || $request->progress_status_id == 3) {
                     $progress_job->progress_job_date_completion = null;
                 } else if ($request->progress_status_id == 2) {

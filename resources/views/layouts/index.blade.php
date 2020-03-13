@@ -78,7 +78,7 @@
                                         All Job
                                     </a>
                                     <a class="nav-link" href="{{ route('job.on-progress') }}">
-                                        On Progress
+                                        In Progress
                                     </a>
                                     <a class="nav-link" href="{{ route('job.done') }}">
                                         Done

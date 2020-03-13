@@ -13,7 +13,7 @@ class HomeController extends Controller
         
         return view('home.index', [
             'done' => count($jobController->done()),
-            'onProgress' => count($jobController->onProgress()),
+            'inProgress' => count($jobController->inProgress()),
             'all' => Job::all()->count()
         ]);
     }

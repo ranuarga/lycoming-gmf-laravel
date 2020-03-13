@@ -86,7 +86,7 @@ class JobController extends Controller
         ));
     }
 
-    public function onProgress()
+    public function inProgress()
     {
         $jobs = Job::all();
         $jobsProgress = [];
@@ -132,13 +132,13 @@ class JobController extends Controller
     
     public function allProgressWeb()
     {
-        return view('job.index', ['jobs' => $this->onProgress(), 'title' => 'On Progress']);
+        return view('job.index', ['jobs' => $this->inProgress(), 'title' => 'In Progress']);
     }
 
     public function allProgress()
     {
         return response()->json(array(
-            'job_progress' => $this->onProgress()
+            'job_progress' => $this->inProgress()
         ));
     }
 
