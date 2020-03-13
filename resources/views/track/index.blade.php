@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-9 mx-auto">
-                    <h1 class="mb-5">Enter Job Number Then Click Search</h1>
+                    <h1 class="mb-5">Enter Tracking Code Then Click Search</h1>
                 </div>
                 <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
                 @if(isset($job))
@@ -21,7 +21,7 @@
                 @endif
                     <div class="form-row">
                     <div class="col-12 col-md-9 mb-2 mb-md-0">
-                        {{ Form::text('job_number', Request::old('job_number'), ['class' => 'form-control form-control-lg', 'placeholder' => 'Enter Job Number...']) }}
+                        {{ Form::text('job_track_code', Request::old('job_track_code'), ['class' => 'form-control form-control-lg', 'placeholder' => 'Enter Tracking Code...']) }}
                     </div>
                     <div class="col-12 col-md-3">
                         <button type="submit" class="btn btn-block btn-lg btn-primary">Search!</button>
@@ -87,6 +87,10 @@
                             {{ $job->job_order->job_order_name }}
                         @endif
                         </td>
+                    </tr>
+                    <tr>
+                        <td>Tracking Code</td>
+                        <td>{{ $job->job_track_code }}</td>
                     </tr>
                     <tr>
                         <td>Engine</td>

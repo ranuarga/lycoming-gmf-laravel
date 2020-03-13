@@ -16,7 +16,7 @@ class TrackController extends Controller
     public function search(Request $request)
     {
         try {
-            $job = Job::whereJobNumber($request->job_number)->first();
+            $job = Job::whereJobTrackCode($request->job_track_code)->first();
             if ($job) {
                 $progress_jobs = ProgressJob::whereJobId($job->job_id)->orderBy('progress_job_id', 'asc')->get();
                 if($progress_jobs) {

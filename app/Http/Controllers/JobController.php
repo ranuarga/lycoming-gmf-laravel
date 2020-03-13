@@ -191,6 +191,7 @@ class JobController extends Controller
             $job = Job::create([
                 'engine_model_id' => $request->engine_model_id,
                 'job_order_id' => $request->job_order_id,
+                'job_track_number' => strtolower(Str::random(12)),
                 'job_engine_number' => $request->job_engine_number,
                 'job_number' => $request->job_number,
                 'job_customer' => $request->job_customer,
@@ -232,6 +233,7 @@ class JobController extends Controller
             $job = Job::create([
                 'engine_model_id' => $request->engine_model_id,
                 'job_order_id' => $request->job_order_id,
+                'job_track_number' => strtolower(Str::random(12)),
                 'job_engine_number' => $request->job_engine_number,
                 'job_number' => $request->job_number,
                 'job_customer' => $request->job_customer,

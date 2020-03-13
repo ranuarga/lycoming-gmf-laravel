@@ -14,6 +14,7 @@ class Job extends Model
         'engine_model_id',
         'job_order_id',
         'job_number',
+        'job_track_code',
         'job_engine_number',
         'job_customer',
         'job_entry_date',

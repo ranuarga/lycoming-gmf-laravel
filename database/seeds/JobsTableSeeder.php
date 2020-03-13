@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 
 class JobsTableSeeder extends Seeder
@@ -18,6 +19,7 @@ class JobsTableSeeder extends Seeder
                 'engine_model_id' => 10,
                 'job_order_id' => 1,
                 'job_number' => sprintf("%06d", 1),
+                'job_track_code' => strtolower(Str::random(12)),
                 'job_engine_number' => 'RL-14572-39 A',
                 'job_customer' => 'PT MPS',
                 'job_entry_date' => '2020-02-02',
@@ -28,6 +30,7 @@ class JobsTableSeeder extends Seeder
                 'engine_model_id' => 21,
                 'job_order_id' => 1,
                 'job_number' => sprintf("%06d", 2),
+                'job_track_code' => strtolower(Str::random(12)),
                 'job_engine_number' => 'RL-14272-39 A',
                 'job_customer' => 'Mr. Chang',
                 'job_entry_date' => '2020-02-05',
@@ -38,6 +41,7 @@ class JobsTableSeeder extends Seeder
                 'engine_model_id' => 23,
                 'job_order_id' => 1,
                 'job_number' => sprintf("%06d", 3),
+                'job_track_code' => strtolower(Str::random(12)),
                 'job_engine_number' => 'RL-14372-39 A',
                 'job_customer' => 'Mr. Lee',
                 'job_entry_date' => '2020-02-13',

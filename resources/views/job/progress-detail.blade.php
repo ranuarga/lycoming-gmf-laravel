@@ -44,6 +44,10 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Tracking Code</td>
+                    <td>{{ $job->job_track_code }}</td>
+                </tr>
+                <tr>
                     <td>Engine</td>
                     <td>
                     @if($job->engine_model)
