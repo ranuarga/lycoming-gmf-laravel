@@ -33,6 +33,44 @@ class ProgressAttachmentController extends Controller
         }
     }
 
+    public function showByProgress($id, $pid)
+    {
+        $progress_attachments = ProgressAttachment::whereProgressJobId($pid)
+            ->orderBy('progress_attachment_id', 'asc')
+            ->get();
+        $progress_job = ProgressJob::findOrFail($pid);
+
+        return view('job.attachment', [
+            'progress_attachments' => $progress_attachments,
+            'progress_job' => $progress_job
+        ]);
+    }
+
+    public function storeWeb(Request $request)
+    {
+        try {
+            $file = $request->file('progress_attachment_file');
+            $file_name = rawurlencode(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+            $public_id = $file_name  . '-' . Str::random(2);
+
+            \Cloudder::upload($file, $public_id);
+            $result = \Cloudder::getResult();
+
+            $progress_attachment = ProgressAttachment::create([
+                'progress_job_id' => $request->progress_job_id,
+                'cloudinary_public_id' => $result['public_id'],
+                'cloudinary_secure_url' => $result['secure_url'],
+            ]);
+
+            return redirect()->route('job.progress.attachment', [
+                'id' => $progress_attachment->progress_job->job_id,
+                'pid' => $progress_attachment->progress_job_id
+            ]);
+        } catch (\Exception $ex) {
+            print_r($ex->getMessage());
+        }
+    }
+
     public function store(Request $request)
     {
         try {
@@ -115,6 +153,27 @@ class ProgressAttachmentController extends Controller
             return response()->json([
                 'message' => $ex->getMessage()
             ]);
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $progress_attachment = ProgressAttachment::findOrFail($id);
+            $cloudinary_public_id = $progress_attachment->cloudinary_public_id;
+            $progress_job = $progress_attachment->progress_job;
+
+            if($cloudinary_public_id)
+                \Cloudder::delete($cloudinary_public_id);
+
+            $progress_attachment->delete();
+
+            return redirect()->route('job.progress.attachment', [
+                'id' => $progress_job->job_id,
+                'pid' => $progress_job->progress_job_id
+            ]);
+        } catch (\Exception $ex) {
+            print_r($ex->getMessage());
         }
     }
 }

@@ -81,9 +81,9 @@ class ProgressJobController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit($id, $pid)
     {
-        $progress_job = ProgressJob::findOrFail($id);
+        $progress_job = ProgressJob::findOrFail($pid);
 
         return view('job.updateProgress', [
             'progress_job' => $progress_job,

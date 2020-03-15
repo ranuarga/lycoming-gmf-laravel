@@ -56,6 +56,9 @@ Route::group(['middleware' => 'auth:web-admin'], function() {
     Route::get('job/{id}/edit', 'JobController@edit')->name('job.edit');
     Route::get('job/{id}/progress', 'ProgressJobController@progressByJobID')->name('job.progress');
     Route::get('job/{id}/progress/{pid}', 'ProgressJobController@progressDetail')->name('job.progress.detail');
+    Route::get('job/{id}/progress/{pid}/attachment', 'ProgressAttachmentController@showByProgress')->name('job.progress.attachment');
+    Route::post('progress-attachment/store', 'ProgressAttachmentController@storeWeb')->name('attachment.store');
+    Route::get('progress-attachment/{id}/delete', 'ProgressAttachmentController@destroy')->name('attachment.delete');
     Route::get('job/{id}/progress/{pid}/edit', 'ProgressJobController@edit')->name('job.progress.edit');
     Route::post('progress-job/{id}/update', 'ProgressJobController@updateWeb')->name('job.progress.update');
     Route::get('job/{id}/delete', 'JobController@destroy')->name('job.delete');
