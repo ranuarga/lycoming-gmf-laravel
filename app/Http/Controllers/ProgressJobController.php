@@ -81,6 +81,30 @@ class ProgressJobController extends Controller
         }
     }
 
+    public function edit($id)
+    {
+        $progress_job = ProgressJob::findOrFail($id);
+
+        return view('job.updateProgress', [
+            'progress_job' => $progress_job,
+            'progress_statuses' => $this->getProgressStatuses()
+        ]);
+    }
+
+    public function updateWeb($id, Request $request)
+    {
+        try {
+            $progress_job = ProgressJob::findOrFail($id);
+            $progress_job->progress_status_id = $request->progress_status_id;
+            $progress_job->progress_job_remark = $request->progress_job_remark;
+            $progress_job->save();
+
+            return redirect()->route('job.progress', ['id' => $progress_job->job_id]);
+        } catch (\Exception $ex) {
+            print_r($ex->getMessage());
+        }
+    }
+    
     public function update($id, Request $request)
     {
         try {

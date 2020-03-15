@@ -10,6 +10,7 @@ use GeniusTS\HijriDate\Hijri;
 use GeniusTS\HijriDate\Date;
 use App\Models\EngineModel;
 use App\Models\JobOrder;
+use App\Models\ProgressStatus;
 
 class Controller extends BaseController
 {
@@ -129,6 +130,16 @@ class Controller extends BaseController
         }
         
         return $engine_models;
+    }
+
+    public function getProgressStatuses()
+    {
+        $progress_statuses = [];
+        foreach (ProgressStatus::all() as $progress_status) {
+            $progress_statuses[$progress_status->progress_status_id] = $progress_status->progress_status_name;
+        }
+
+        return $progress_statuses;
     }
 
     public function getJobOrders()

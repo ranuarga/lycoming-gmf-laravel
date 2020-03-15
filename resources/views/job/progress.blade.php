@@ -142,6 +142,9 @@
                             <a href="{{ route('job.progress.detail', ['id' => $progress_job->job_id, 'pid' => $progress_job->progress_job_id]) }}">
                                 <i class="fas fa-eye"></i>
                             </a>
+                            <a href="{{ route('job.progress.edit', ['id' => $progress_job->job_id, 'pid' => $progress_job->progress_job_id]) }}">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
                         </td>
                     </tr>
                     @endforeach
