@@ -24,7 +24,7 @@
 </ol>
 {{ Form::open(['route' => 'attachment.store', 'files' => true]) }}
     {{ Form::label('progress_attachment_file', 'Attachment') }}
-    {{ Form::file('progress_attachment_file', ['class' => 'form-control']) }}
+    {{ Form::file('progress_attachment_file', ['class' => 'form-control', 'required']) }}
     {{ Form::hidden('progress_job_id', $progress_job->progress_job_id) }}
     <br>
     <button type="submit" class="btn btn-success float-right">
