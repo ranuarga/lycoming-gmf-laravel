@@ -11,6 +11,8 @@ use App\Models\JobSheetOrder;
 use App\Models\ProgressJob;
 use App\Models\ProgressStatus;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\JobsExport;
 
 class JobController extends Controller
 {
@@ -394,5 +396,10 @@ class JobController extends Controller
             $job->delete();
 
         return redirect()->route('job');
+    }
+
+    public function export()
+    {
+        return (new JobsExport)->download('jobs.xlsx');
     }
 }

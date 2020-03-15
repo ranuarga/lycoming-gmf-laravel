@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth:web-admin'], function() {
     Route::get('engine-model/{id}/delete', 'EngineModelController@destroy')->name('engine-model.delete');
 
     Route::get('job', 'JobController@index')->name('job');
+    Route::get('job/export', 'JobController@export')->name('job.export');
     Route::get('job/done', 'JobController@allDoneWeb')->name('job.done');
     Route::get('job/on-progress', 'JobController@allProgressWeb')->name('job.on-progress');
     Route::get('job/create', 'JobController@create')->name('job.create');

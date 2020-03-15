@@ -17,6 +17,11 @@
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
     <li class="breadcrumb-item active">Job {{ $title }}</li>
 </ol>
+<a href="{{ route('job.export') }}">
+    <button class="btn btn-primary float-left">
+        Download Excel
+    </button>
+</a>
 <a href="{{ route('job.create') }}">
     <button class="btn btn-success float-right">
         Create Job
