@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Str;
 
-$DATABASE_URL=parse_url('postgres://cjeyzgedzhgptj:cf47cc03037f552654f284240723dc2dd330e480dfcb3dae4d8ab904933a25a3@ec2-184-72-235-80.compute-1.amazonaws.com:5432/d41m47hvavv43a');
+// $DATABASE_URL=parse_url('postgres://cjeyzgedzhgptj:cf47cc03037f552654f284240723dc2dd330e480dfcb3dae4d8ab904933a25a3@ec2-184-72-235-80.compute-1.amazonaws.com:5432/d41m47hvavv43a');
 
 return [
 
@@ -65,35 +65,35 @@ return [
             ]) : [],
         ],
 
-        // 'pgsql' => [
-        //     'driver' => 'pgsql',
-        //     'url' => env('DATABASE_URL'),
-        //     'host' => env('DB_HOST', '127.0.0.1'),
-        //     'port' => env('DB_PORT', '5432'),
-        //     'database' => env('DB_DATABASE', 'forge'),
-        //     'username' => env('DB_USERNAME', 'forge'),
-        //     'password' => env('DB_PASSWORD', ''),
-        //     'charset' => 'utf8',
-        //     'prefix' => '',
-        //     'prefix_indexes' => true,
-        //     'schema' => 'public',
-        //     'sslmode' => 'prefer',
-        // ],
-
         'pgsql' => [
             'driver' => 'pgsql',
-            // 'url' => env('DATABASE_URL'),
-            'host' => $DATABASE_URL['host'],
-            'port' => $DATABASE_URL['port'],
-            'database' => ltrim($DATABASE_URL['path'], '/'),
-            'username' => $DATABASE_URL['user'],
-            'password' => $DATABASE_URL['pass'],
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '5432'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
         ],
+
+        // 'pgsql' => [
+        //     'driver' => 'pgsql',
+        //     // 'url' => env('DATABASE_URL'),
+        //     'host' => $DATABASE_URL['host'],
+        //     'port' => $DATABASE_URL['port'],
+        //     'database' => ltrim($DATABASE_URL['path'], '/'),
+        //     'username' => $DATABASE_URL['user'],
+        //     'password' => $DATABASE_URL['pass'],
+        //     'charset' => 'utf8',
+        //     'prefix' => '',
+        //     'prefix_indexes' => true,
+        //     'schema' => 'public',
+        //     'sslmode' => 'prefer',
+        // ],
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',
