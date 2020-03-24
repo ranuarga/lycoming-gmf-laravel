@@ -206,14 +206,15 @@ class ProgressJobController extends Controller
     public function progressByJobID($id)
     {        
         $progress_jobs = ProgressJob::where('job_id', $id)->orderBy('progress_job_id', 'asc')->get();
+        $tmp = $this->completionPercentage($progress_jobs);
         return view(
             'job.progress',
             [
                 'job' => Job::findOrFail($id),
                 'progress_jobs' => $progress_jobs,
-                'completion_percentage' => $this->completionPercentage($progress_jobs)['completion_percentage'],
-                'days_to_complete' => $this->completionPercentage($progress_jobs)['days_to_complete'],
-                'days_passed' => $this->completionPercentage($progress_jobs)['days_passed']
+                'completion_percentage' => $tmp['completion_percentage'],
+                'days_to_complete' => $tmp['days_to_complete'],
+                'days_passed' => $tmp['days_passed']
             ]
         );
     }
@@ -223,6 +224,7 @@ class ProgressJobController extends Controller
         $job = Job::findOrFail($id);
         $progress_job = ProgressJob::findOrFail($pid);
         $progress_jobs = ProgressJob::where('job_id', $id)->orderBy('progress_job_id', 'asc')->get();
+        $tmp = $this->completionPercentage($progress_jobs);
 
         if($job->job_id != $progress_job->job_id) {
             return abort(404);
@@ -233,9 +235,9 @@ class ProgressJobController extends Controller
             [
                 'progress_job' => $progress_job,
                 'job' => $job,
-                'completion_percentage' => $this->completionPercentage($progress_jobs)['completion_percentage'],
-                'days_to_complete' => $this->completionPercentage($progress_jobs)['days_to_complete'],
-                'days_passed' => $this->completionPercentage($progress_jobs)['days_passed']
+                'completion_percentage' => $tmp['completion_percentage'],
+                'days_to_complete' => $tmp['days_to_complete'],
+                'days_passed' => $tmp['days_passed']
             ]
         );
     }

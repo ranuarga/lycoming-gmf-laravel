@@ -65,9 +65,10 @@ class JobController extends Controller
                 } else {
                     $job['job_order_name'] = null;
                 }
-                $job['completion_percentage'] = $this->completionPercentage($progress_jobs)['completion_percentage'];
-                $job['days_to_complete'] = $this->completionPercentage($progress_jobs)['days_to_complete'];
-                $job['days_passed'] = $this->completionPercentage($progress_jobs)['days_passed'];
+                $tmp = $this->completionPercentage($progress_jobs);
+                $job['completion_percentage'] = $tmp['completion_percentage'];
+                $job['days_to_complete'] = $tmp['days_to_complete'];
+                $job['days_passed'] = $tmp['days_passed'];
                 unset($job['progress_job']);
                 array_push($jobsDone, $job);
             }
@@ -121,9 +122,10 @@ class JobController extends Controller
                 } else {
                     $job['job_order_name'] = null;
                 }
-                $job['completion_percentage'] = $this->completionPercentage($progress_jobs)['completion_percentage'];
-                $job['days_to_complete'] = $this->completionPercentage($progress_jobs)['days_to_complete'];
-                $job['days_passed'] = $this->completionPercentage($progress_jobs)['days_passed'];
+                $tmp = $this->completionPercentage($progress_jobs);
+                $job['completion_percentage'] = $tmp['completion_percentage'];
+                $job['days_to_complete'] = $tmp['days_to_complete'];
+                $job['days_passed'] = $tmp['days_passed'];
                 unset($job['progress_job']);
                 array_push($jobsProgress, $job);
             }
@@ -163,9 +165,10 @@ class JobController extends Controller
             } else {
                 $job['job_order_name'] = null;
             }
-            $job['completion_percentage'] = $this->completionPercentage($progress_jobs)['completion_percentage'];
-            $job['days_to_complete'] = $this->completionPercentage($progress_jobs)['days_to_complete'];
-            $job['days_passed'] = $this->completionPercentage($progress_jobs)['days_passed'];
+            $tmp = $this->completionPercentage($progress_jobs);
+            $job['completion_percentage'] = $tmp['completion_percentage'];
+            $job['days_to_complete'] = $tmp['days_to_complete'];
+            $job['days_passed'] = $tmp['days_passed'];
 
             return response()->json(array(
                 'job' => $job

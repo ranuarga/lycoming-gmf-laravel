@@ -20,13 +20,14 @@ class TrackController extends Controller
             $job = Job::whereJobTrackCode($job_track_code)->first();
             if ($job) {
                 $progress_jobs = ProgressJob::whereJobId($job->job_id)->orderBy('progress_job_id', 'asc')->get();
+                $tmp = $this->completionPercentage($progress_jobs);
                 if($progress_jobs) {
                     return view('track.index', [
                         'job' => $job,
                         'progress_jobs' => $progress_jobs,
-                        'completion_percentage' => $this->completionPercentage($progress_jobs)['completion_percentage'],
-                        'days_to_complete' => $this->completionPercentage($progress_jobs)['days_to_complete'],
-                        'days_passed' => $this->completionPercentage($progress_jobs)['days_passed']
+                        'completion_percentage' => $tmp['completion_percentage'],
+                        'days_to_complete' => $tmp['days_to_complete'],
+                        'days_passed' => $tmp['days_passed']
                     ]);
                 }
             }
