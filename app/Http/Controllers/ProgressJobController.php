@@ -90,28 +90,38 @@ class ProgressJobController extends Controller
             'progress_statuses' => $this->getProgressStatuses()
         ]);
     }
-
+    
     public function updateWeb($id, Request $request)
     {
         try {
             $progress_job = ProgressJob::findOrFail($id);
             $progress_job->progress_job_remark = $request->progress_job_remark;
-            if ($request->progress_status_id) {
-                if(!$progress_job->progress_job_date_start) {
-                    $progress_job->progress_job_date_start = date('Y-m-d H:i:s');
-                }
-                // 1 is for In Progress, 2 is for Done, 3 is for Pending
-                if ($request->progress_status_id == 1 || $request->progress_status_id == 3) {
-                    $progress_job->progress_job_date_completion = null;
-                } else if ($request->progress_status_id == 2) {
-                    $progress_job->progress_job_date_completion = date('Y-m-d H:i:s');
-                } 
-            }
+            $progress_job = $this->checkStatusId($request, $progress_job);
             $progress_job->save();
 
             return redirect()->route('job.progress', ['id' => $progress_job->job_id]);
         } catch (\Exception $ex) {
             print_r($ex->getMessage());
+        }
+    }
+
+    public function updateStatusAndRemark($id, Request $request)
+    {
+        try {
+            $progress_job = ProgressJob::findOrFail($id);
+            $progress_job->progress_status_id = $request->progress_status_id;
+            $progress_job->progress_job_remark = $request->progress_job_remark;
+            $progress_job->engineer_id = auth()->guard('engineer')->user()->engineer_id;
+            $progress_job = $this->checkStatusId($request, $progress_job);
+            $progress_job->save();
+
+            return response()->json(array(
+                'message' => 'Successfull'
+            ), 200);
+        } catch (\Exception $ex) {
+            return response()->json([
+                'message' => $ex->getMessage()
+            ]);
         }
     }
     
@@ -135,36 +145,6 @@ class ProgressJobController extends Controller
             $progress_job = ProgressJob::findOrFail($id);
             $progress_job->progress_job_note = $request->progress_job_note;
             $progress_job->management_id = auth()->guard('management')->user()->management_id;
-            $progress_job->save();
-
-            return response()->json(array(
-                'message' => 'Successfull'
-            ), 200);
-        } catch (\Exception $ex) {
-            return response()->json([
-                'message' => $ex->getMessage()
-            ]);
-        }
-    }
-
-    public function updateStatusAndRemark($id, Request $request)
-    {
-        try {
-            $progress_job = ProgressJob::findOrFail($id);
-            $progress_job->progress_status_id = $request->progress_status_id;
-            $progress_job->progress_job_remark = $request->progress_job_remark;
-            $progress_job->engineer_id = auth()->guard('engineer')->user()->engineer_id;
-            if ($request->progress_status_id) {
-                if(!$progress_job->progress_job_date_start) {
-                    $progress_job->progress_job_date_start = date('Y-m-d H:i:s');
-                }
-                // 1 is for In Progress, 2 is for Done, 3 is for Pending
-                if ($request->progress_status_id == 1 || $request->progress_status_id == 3) {
-                    $progress_job->progress_job_date_completion = null;
-                } else if ($request->progress_status_id == 2) {
-                    $progress_job->progress_job_date_completion = date('Y-m-d H:i:s');
-                } 
-            }
             $progress_job->save();
 
             return response()->json(array(
@@ -263,19 +243,6 @@ class ProgressJobController extends Controller
                 } else {
                     $list['progress_status_name'] = null;
                 }
-
-                // Wrong Algo
-                // if ($list->progress_job_date_start) {
-                //     $date_start = strtotime($list->progress_job_date_start);
-                //     $date_end = strtotime(date('Y-m-d H:i:s'));
-                //     if ($list->progress_job_date_completion) {
-                //         $date_end = strtotime($list->progress_job_date_completion);
-                //     }
-                //     $list['actual_hours'] = (int) (abs($date_end - $date_start) / (60 * 60));
-                // } else {
-                //     $list['actual_hours'] = null;
-                // }
-
                 unset($list['job_sheet']);
             }
             return response()->json(array(
