@@ -95,6 +95,7 @@ class ProgressJobController extends Controller
     {
         try {
             $progress_job = ProgressJob::findOrFail($id);
+            $progress_job->progress_status_id = $request->progress_status_id;
             $progress_job->progress_job_remark = $request->progress_job_remark;
             $progress_job = $this->checkStatusId($request, $progress_job);
             $progress_job->save();

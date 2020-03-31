@@ -11,6 +11,7 @@ use GeniusTS\HijriDate\Date;
 use App\Models\EngineModel;
 use App\Models\JobOrder;
 use App\Models\ProgressStatus;
+use App\Models\PendingDay;
 
 class Controller extends BaseController
 {
@@ -155,12 +156,31 @@ class Controller extends BaseController
     public function checkStatusId($request, $progress_job)
     {
         if ($request->progress_status_id) {
-            if(!$progress_job->progress_job_date_start) {
+            if (!$progress_job->progress_job_date_start) {
                 $progress_job->progress_job_date_start = date('Y-m-d H:i:s');
             }
             // 1 is for In Progress, 2 is for Done, 3 is for Pending
+            // Client Project Requested Only Pending In Reassembly Counting Day Will Be Freezed
+            $pending_day_ongoing = PendingDay::where('progress_job_id' ,$progress_job->progress_job_id)
+                ->whereNull('pending_day_date_end')
+                ->first();
+            $pending_day_done = PendingDay::where('progress_job_id' ,$progress_job->progress_job_id)
+                ->whereNotNull('pending_day_date_end')
+                ->first();
+            if (($request->progress_status_id == 1 || $request->progress_status_id == 2) && $pending_day_ongoing != null) {
+                $pending_day_ongoing->pending_day_date_end = date('Y-m-d');
+                $pending_day_ongoing->save();
+            }
             if ($request->progress_status_id == 1 || $request->progress_status_id == 3) {
                 $progress_job->progress_job_date_completion = null;
+                if ($progress_job->job_sheet_id == 9 && $request->progress_status_id == 3) {
+                    if ($pending_day_done || ($pending_day_ongoing != null)) {
+                        PendingDay::create([
+                            'progress_job_id' => $progress_job->progress_job_id,
+                            'pending_day_date_start' => date('Y-m-d')
+                        ]);
+                    }
+                }
             } else if ($request->progress_status_id == 2) {
                 $progress_job->progress_job_date_completion = date('Y-m-d H:i:s');
             } 
