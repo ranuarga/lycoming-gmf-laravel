@@ -16,8 +16,8 @@ class CreatePendingDaysTable extends Migration
         Schema::create('pending_days', function (Blueprint $table) {
             $table->bigIncrements('pending_day_id');
             $table->unsignedBigInteger('progress_job_id')->nullable();
-            $table->date('pending_day_date_start')->nullable();
-            $table->date('pending_day_date_end')->nullable();
+            $table->datetime('pending_day_date_start')->nullable();
+            $table->datetime('pending_day_date_end')->nullable();
             $table->timestamps();
 
             $table

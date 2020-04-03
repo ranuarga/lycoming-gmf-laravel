@@ -12,6 +12,7 @@ use App\Models\EngineModel;
 use App\Models\JobOrder;
 use App\Models\ProgressStatus;
 use App\Models\PendingDay;
+use DateTime;
 
 class Controller extends BaseController
 {
@@ -24,6 +25,9 @@ class Controller extends BaseController
         $numerator = 0;
         // Penyebut in English
         $denominator = 0;
+        // Last Day For In Progress
+        $last_day = null;
+        $total_pending_day = 0;
         foreach ($progress_jobs as $progress_job) {
             if($progress_job->job_sheet) {
                 if($progress_job->job_sheet->job_sheet_man_hours) {
@@ -34,6 +38,32 @@ class Controller extends BaseController
                         }
                     }
                 }
+                if($progress_job->job_sheet->job_sheet_id == 9) {
+                    $pending_days = PendingDay::where('progress_job_id' ,$progress_job->progress_job_id)->get();
+                    $pending_day_date_start_before = '0000-00-00 00:00:00';
+                    $pending_day_date_end_before = '0000-00-00 00:00:00';
+                    foreach ($pending_days as $pending_day) {
+                        if($pending_day->pending_day_date_end == null) {
+                            $last_day = $pending_day->pending_day_date_start;
+                        } else {
+                            $date_start_before = DateTime::createFromFormat('Y-m-d H:i:s', $pending_day_date_start_before)->format('Y-m-d');
+                            $date_end_before = DateTime::createFromFormat('Y-m-d H:i:s', $pending_day_date_end_before)->format('Y-m-d');
+                            $date_start = DateTime::createFromFormat('Y-m-d H:i:s', $pending_day->pending_day_date_start)->format('Y-m-d');
+                            $date_end = DateTime::createFromFormat('Y-m-d H:i:s', $pending_day->pending_day_date_end)->format('Y-m-d');
+                            if($date_start_before != $date_end){
+                                $total_pending_day += $this->getWorkingDays(
+                                    $pending_day->pending_day_date_start,
+                                    $pending_day->pending_day_date_end
+                                );
+                            }
+                            if($date_end_before == $date_start && $date_start_before != $date_start) {
+                                $total_pending_day -= 1;
+                            }
+                            $pending_day_date_end_before = $pending_day->pending_day_date_end;
+                        }
+                        $pending_day_date_start_before = $pending_day->pending_day_date_start;
+                    }
+                }
             }
         }
         $completion_percentage =  ($numerator / $denominator) * 100;
@@ -42,18 +72,27 @@ class Controller extends BaseController
         $obj['days_to_complete'] = ceil($denominator / (7 * 2));
 
         $obj['days_passed'] = 0;
+        $actual_days_passed = 0;
         if($progress_jobs[0])
             if($progress_jobs[0]->progress_job_date_start) {
-                if($progress_jobs[count($progress_jobs) - 1]->progress_job_date_completion)
-                    $obj['days_passed'] = $this->getWorkingDays(
+                if($progress_jobs[count($progress_jobs) - 1]->progress_job_date_completion) {
+                    $actual_days_passed = $this->getWorkingDays(
                         $progress_jobs[0]->progress_job_date_start,
                         $progress_jobs[count($progress_jobs) - 1]->progress_job_date_completion
                     );
-                else
-                    $obj['days_passed'] = $this->getWorkingDays(
+                } else {
+                    if($last_day == null)
+                        $last_day = date('Y-m-d H:i:s');
+                    $actual_days_passed = $this->getWorkingDays(
                         $progress_jobs[0]->progress_job_date_start,
-                        date('Y-m-d H:i:s')
+                        $last_day
                     );
+                }
+                $obj['days_passed'] = 
+                // $last_day
+                $actual_days_passed
+                - $total_pending_day
+                ;
             }
 
         return $obj;
@@ -167,17 +206,17 @@ class Controller extends BaseController
             $pending_day_done = PendingDay::where('progress_job_id' ,$progress_job->progress_job_id)
                 ->whereNotNull('pending_day_date_end')
                 ->first();
-            if (($request->progress_status_id == 1 || $request->progress_status_id == 2) && $pending_day_ongoing != null) {
-                $pending_day_ongoing->pending_day_date_end = date('Y-m-d');
+            if (($request->progress_status_id == 1 || $request->progress_status_id == 2) && $pending_day_ongoing) {
+                $pending_day_ongoing->pending_day_date_end = date('Y-m-d H:i:s');
                 $pending_day_ongoing->save();
             }
             if ($request->progress_status_id == 1 || $request->progress_status_id == 3) {
                 $progress_job->progress_job_date_completion = null;
                 if ($progress_job->job_sheet_id == 9 && $request->progress_status_id == 3) {
-                    if ($pending_day_done || ($pending_day_ongoing != null)) {
+                    if ($pending_day_done || (!$pending_day_ongoing)) {
                         PendingDay::create([
                             'progress_job_id' => $progress_job->progress_job_id,
-                            'pending_day_date_start' => date('Y-m-d')
+                            'pending_day_date_start' => date('Y-m-d H:i:s')
                         ]);
                     }
                 }
