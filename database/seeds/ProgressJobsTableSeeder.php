@@ -3,7 +3,6 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-
 class ProgressJobsTableSeeder extends Seeder
 {
     /**
@@ -47,8 +46,8 @@ class ProgressJobsTableSeeder extends Seeder
                     'engineer_id' => 1,
                     'management_id' => 1,
                     'progress_status_id' => 2,
-                    'progress_job_date_start' => date('Y-m-d H:i:s'),
-                    'progress_job_date_completion' => date('Y-m-d H:i:s', strtotime('+1 hours')),
+                    'progress_job_date_start' => date('Y-m-d H:i:s', strtotime('-10 days')),
+                    'progress_job_date_completion' => date('Y-m-d H:i:s'),
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ]);
