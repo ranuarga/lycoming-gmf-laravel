@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\JobOrder;
+use App\Models\JobSheetOrder;
 
 class JobOrderController extends Controller
 {
@@ -26,6 +27,18 @@ class JobOrderController extends Controller
                 'message' => $ex->getMessage()
             ]);
         }
+    }
+
+    public function jobSheetByJobOrderID($id)
+    {
+        $job_sheet_orders = JobSheetOrder::where('job_order_id', $id)->orderBy('job_sheet_id', 'asc')->get();
+        return view(
+            'job-order.job-sheet',
+            [
+                'job_order' => JobOrder::findOrFail($id),
+                'job_sheet_orders' => $job_sheet_orders,
+            ]
+        );
     }
 
     public function store(Request $request)
@@ -72,5 +85,12 @@ class JobOrderController extends Controller
                 'message' => $ex->getMessage()
             ]);
         }
+    }
+
+    public function destroy($id)
+    {
+        JobOrder::findOrFail($id)->delete();
+
+        return redirect()->route('job-order');
     }
 }

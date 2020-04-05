@@ -20,7 +20,7 @@
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" width="100%" cellspacing="0">
-            <tr>
+                <tr>
                     <td>Work Order</td>
                     <td>
                     @if($job->job_wo_secure_url)

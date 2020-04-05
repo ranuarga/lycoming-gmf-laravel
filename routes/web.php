@@ -67,6 +67,7 @@ Route::group(['middleware' => 'auth:web-admin'], function() {
     Route::get('job-order', 'JobOrderController@index')->name('job-order');
     Route::get('job-order/create', 'JobOrderController@create')->name('job-order.create');
     Route::post('job-order/store', 'JobOrderController@storeWeb')->name('job-order.store');
+    Route::get('job-order/{id}/job-sheet', 'JobOrderController@jobSheetByJobOrderID')->name('job-order.job-sheet');
     Route::post('job-order/{id}/update', 'JobOrderController@updateWeb')->name('job-order.update');
     Route::get('job-order/{id}/edit', 'JobOrderController@edit')->name('job-order.edit');
     Route::get('job-order/{id}/delete', 'JobOrderController@destroy')->name('job-order.delete');

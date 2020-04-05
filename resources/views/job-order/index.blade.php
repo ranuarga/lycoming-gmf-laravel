@@ -25,6 +25,7 @@
                         <th>Job Order</th>
                         <th>Created At</th>
                         <th>Updated At</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -33,6 +34,7 @@
                         <th>Job Order</th>
                         <th>Created At</th>
                         <th>Updated At</th>
+                        <th>Actions</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -42,6 +44,17 @@
                         <td>{{ $job_order->job_order_name }}</td>
                         <td>{{ $job_order->created_at }}</td>
                         <td>{{ $job_order->updated_at }}</td>
+                        <td>
+                            <a href="{{ route('job-order.job-sheet', ['id' => $job_order->job_order_id]) }}">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <a href="{{ route('job-order.delete', ['id' => $job_order->job_order_id]) }}">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
