@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\JobOrder;
+use App\Models\JobSheet;
 use App\Models\JobSheetOrder;
 
 class JobOrderController extends Controller
@@ -62,10 +63,19 @@ class JobOrderController extends Controller
 
     public function storeWeb(Request $request)
     {
-        try {            
+        try {
             $job_order = JobOrder::create([
                 'job_order_name' => $request->job_order_name,
             ]);
+
+            if($request->has('chosen_job_sheets')) {
+                foreach ($request->input('chosen_job_sheets') as $job_sheet_id) {
+                    JobSheetOrder::create([
+                        'job_sheet_id' => $job_sheet_id,
+                        'job_order_id' => $job_order->job_order_id
+                    ]);
+                }
+            }
 
             return redirect()->route('job-order');
         } catch (\Exception $ex) {
@@ -75,14 +85,19 @@ class JobOrderController extends Controller
 
     public function create()
     {
-        return view('job-order.createOrUpdate');
+        return view('job-order.createOrUpdate', [
+            'job_sheets' => JobSheet::all()
+        ]);
     }
 
     public function edit($id)
     {
         $job_order = JobOrder::findOrFail($id);
 
-        return view('job-order.createOrUpdate', ['job_order' => $job_order]);
+        return view('job-order.createOrUpdate', [
+            'job_order' => $job_order,
+            'job_sheets' => JobSheet::all()
+        ]);
     }
     
     public function update($id, Request $request)

@@ -27,6 +27,13 @@
     @endif
             {{ Form::label('job_order_name', 'Job Order') }}
             {{ Form::text('job_order_name', Request::old('job_order_name'), ['class' => 'form-control', 'placeholder' => 'Job Order', 'required']) }}
+            {{ Form::label(null, 'Job Sheets') }}
+            @foreach($job_sheets as $job_sheet)
+            <div class="form-check">
+                {{ Form::checkbox('chosen_job_sheets[]', $job_sheet->job_sheet_id, false, ['class'=>'form-check-input']) }}
+                {{ Form::label($job_sheet->job_sheet_id, $job_sheet->job_sheet_name, ['class'=>'form-check-label']) }}
+            </div>
+            @endforeach
             <br>
             <button type="submit" class="btn btn-primary float-right">Done</button>
         {{ Form::close() }}
