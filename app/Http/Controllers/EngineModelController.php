@@ -52,7 +52,7 @@ class EngineModelController extends Controller
     public function storeWeb(Request $request)
     {
         try {            
-            $engine_model = JobOrder::create([
+            $engine_model = EngineModel::create([
                 'engine_model_name' => $request->engine_model_name,
                 'engine_model_reference' => $request->engine_model_reference,
             ]);
@@ -74,7 +74,6 @@ class EngineModelController extends Controller
 
         return view('engine-model.createOrUpdate', ['engine_model' => $engine_model]);
     }
-
 
     public function update($id, Request $request)
     {

@@ -17,7 +17,7 @@
 @section('content')
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('job-order') }}">Engine Model</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('engine-model') }}">Engine Model</a></li>
     <li class="breadcrumb-item active">{{ $title }}</li>
 </ol>
     @if(isset($engine_model))

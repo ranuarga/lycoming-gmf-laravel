@@ -13,6 +13,11 @@
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
     <li class="breadcrumb-item active">Job Order</li>
 </ol>
+<a href="{{ route('job-order.create') }}">
+    <button class="btn btn-success float-right">
+        Create Job Order
+    </button>
+</a>
 <br>
 <br>
 <div class="card mb-4">
@@ -48,7 +53,7 @@
                             <a href="{{ route('job-order.job-sheet', ['id' => $job_order->job_order_id]) }}">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a href="">
+                            <a href="{{ route('job-order.edit', ['id' => $job_order->job_order_id]) }}">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             <a href="{{ route('job-order.delete', ['id' => $job_order->job_order_id]) }}">
