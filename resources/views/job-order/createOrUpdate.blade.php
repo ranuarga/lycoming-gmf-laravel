@@ -30,7 +30,18 @@
             {{ Form::label(null, 'Job Sheets') }}
             @foreach($job_sheets as $job_sheet)
             <div class="form-check">
-                {{ Form::checkbox('chosen_job_sheets[]', $job_sheet->job_sheet_id, false, ['class'=>'form-check-input']) }}
+            <?php
+                $checkbox_value = false;
+                if(isset($job_sheet_orders)) {
+                    foreach ($job_sheet_orders as $job_sheet_order) {
+                        if($job_sheet_order->job_sheet_id == $job_sheet->job_sheet_id) {
+                            $checkbox_value = true;
+                            break;
+                        }
+                    }
+                }
+            ?>
+                {{ Form::checkbox('chosen_job_sheets[]', $job_sheet->job_sheet_id, $checkbox_value, ['class'=>'form-check-input']) }}
                 {{ Form::label($job_sheet->job_sheet_id, $job_sheet->job_sheet_name, ['class'=>'form-check-label']) }}
             </div>
             @endforeach

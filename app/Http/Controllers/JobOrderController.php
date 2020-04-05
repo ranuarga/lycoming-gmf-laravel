@@ -93,10 +93,12 @@ class JobOrderController extends Controller
     public function edit($id)
     {
         $job_order = JobOrder::findOrFail($id);
+        $job_sheet_orders = JobSheetOrder::where('job_order_id', $id)->get();
 
         return view('job-order.createOrUpdate', [
             'job_order' => $job_order,
-            'job_sheets' => JobSheet::all()
+            'job_sheets' => JobSheet::all(),
+            'job_sheet_orders' => $job_sheet_orders
         ]);
     }
     
@@ -119,6 +121,43 @@ class JobOrderController extends Controller
         try {
             $job_order = JobOrder::findOrFail($id);
             $job_order->update($request->all());
+            $job_sheet_orders = JobSheetOrder::where('job_order_id', $id)->get();
+            // Check If User Add New Job Sheet To Job Order
+            if($request->has('chosen_job_sheets')) {
+                foreach ($request->input('chosen_job_sheets') as $job_sheet_id) {
+                    $found = false;
+                    foreach ($job_sheet_orders as $job_sheet_order) {
+                        if($job_sheet_id == $job_sheet_order->job_sheet_id) {
+                            $found = true;
+                            break;
+                        }
+                    }
+                    if($found == false) {
+                        JobSheetOrder::create([
+                            'job_sheet_id' => $job_sheet_id,
+                            'job_order_id' => $id
+                        ]);
+                    }
+                }
+            }
+
+            // Check If User Delete Job Sheet From Job Order
+            foreach ($job_sheet_orders as $job_sheet_order) {
+                $found = false;
+                if($request->has('chosen_job_sheets')) {
+                    foreach ($request->input('chosen_job_sheets') as $job_sheet_id) {
+                        if($job_sheet_id == $job_sheet_order->job_sheet_id) {
+                            $found = true;
+                            break;
+                        }
+                    }
+                }
+                if($found == false) {
+                    JobSheetOrder::where('job_sheet_id', $job_sheet_order->job_sheet_id)
+                        ->where('job_order_id', $job_sheet_order->job_order_id)
+                        ->delete();
+                }
+            }
             
             return redirect()->route('job-order');
         } catch (\Exception $ex) {
