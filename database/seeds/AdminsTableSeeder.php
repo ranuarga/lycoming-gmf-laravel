@@ -15,11 +15,22 @@ class AdminsTableSeeder extends Seeder
     public function run()
     {
         DB::table('admins')->insert([
-            'admin_user_name' => 'admin',
-            'admin_full_name' => 'Mr. Administrator',
-            'password' => Hash::make('admin'),
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            [
+                'admin_user_name' => 'pcontrol',
+                'admin_full_name' => 'Mr. Prod. Control',
+                'password' => Hash::make('pcontrol'),
+                'admin_is_master' => true,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ],
+            [
+                'admin_user_name' => 'admin',
+                'admin_full_name' => 'Mr. Administrator',
+                'password' => Hash::make('admin'),
+                'admin_is_master' => true,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ]
         ]);
     }
 }

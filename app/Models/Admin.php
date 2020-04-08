@@ -18,7 +18,8 @@ class Admin extends Model implements AuthenticatableContract, JWTSubject
         'admin_id',
         'admin_user_name',
         'password',
-        'admin_full_name'
+        'admin_full_name',
+        'admin_is_master'
     ];
 
     protected $hidden = [
