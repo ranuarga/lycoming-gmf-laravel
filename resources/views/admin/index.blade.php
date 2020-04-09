@@ -1,21 +1,21 @@
 @extends('layouts.index')
 
 @section('title')
-    Production Control
+    {{ $title }}
 @endsection
 
 @section('name')
-    Production Control
+    {{ $title }}
 @endsection
 
 @section('content')
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-    <li class="breadcrumb-item active">Production Control</li>
+    <li class="breadcrumb-item active">{{ $title }}</li>
 </ol>
-<a href="{{ route('admin.create') }}">
+<a href="{{ route($route . '.create') }}">
     <button class="btn btn-success float-right">
-        Create Production Control
+        Create {{ $title }}
     </button>
 </a>
 <br>
@@ -53,10 +53,10 @@
                         <td>{{ $admin->created_at }}</td>
                         <td>{{ $admin->updated_at }}</td>
                         <td>
-                            <a href="{{ route('admin.edit', ['id' => $admin->admin_id]) }}">
+                            <a href="{{ route($route . '.edit', ['id' => $admin->admin_id]) }}">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            <a href="{{ route('admin.delete', ['id' => $admin->admin_id]) }}">
+                            <a href="{{ route($route . '.delete', ['id' => $admin->admin_id]) }}">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>

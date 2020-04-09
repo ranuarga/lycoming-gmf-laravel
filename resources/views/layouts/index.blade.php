@@ -85,6 +85,7 @@
                                     </a>
                                 </nav>
                             </div>
+                            @if(Auth::guard('web-admin')->user()->admin_is_master == true)
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-user"></i>
@@ -96,6 +97,9 @@
                             </a>
                             <div class="collapse" id="collapseUsers" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{ route('admin-master') }}">
+                                        Admin Master
+                                    </a>
                                     <a class="nav-link" href="{{ route('admin') }}">
                                         Production Control
                                     </a>
@@ -107,6 +111,7 @@
                                     </a>
                                 </nav>
                             </div>
+                            @endif
                             <a class="nav-link" href="{{ route('engine-model') }}">
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-tachometer-alt"></i>

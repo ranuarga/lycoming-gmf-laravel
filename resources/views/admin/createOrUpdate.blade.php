@@ -1,29 +1,29 @@
 <?php
     if(isset($admin))
-        $title = 'Update';
+        $operation = 'Update';
     else
-        $title = 'Create';
+        $operation = 'Create';
 ?>
 @extends('layouts.index')
 
 @section('title')
-    {{ $title }} Admin
+    {{ $operation }} {{ $title }}
 @endsection
 
 @section('name')
-    {{ $title }} Admin
+    {{ $operation }} {{ $title }}
 @endsection
 
 @section('content')
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('admin') }}">Admin</a></li>
-    <li class="breadcrumb-item active">{{ $title }}</li>
+    <li class="breadcrumb-item"><a href="{{ route($route) }}">{{ $title }}</a></li>
+    <li class="breadcrumb-item active">{{ $operation }}</li>
 </ol>
     @if(isset($admin))
-        {{ Form::model($admin, ['route' => ['admin.update', $admin->admin_id], 'method' => 'post']) }}
+        {{ Form::model($admin, ['route' => [$route . '.update', $admin->admin_id], 'method' => 'post']) }}
     @else
-        {{ Form::open(['route' => 'admin.store']) }}
+        {{ Form::open(['route' => $route . '.store']) }}
     @endif
             {{ Form::label('admin_user_name', 'Username') }}
             {{ Form::text('admin_user_name', Request::old('admin_user_name'), ['class' => 'form-control', 'placeholder' => 'Username', 'required']) }}

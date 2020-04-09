@@ -19,7 +19,7 @@ class AdminsTableSeeder extends Seeder
                 'admin_user_name' => 'pcontrol',
                 'admin_full_name' => 'Mr. Prod. Control',
                 'password' => Hash::make('pcontrol'),
-                'admin_is_master' => true,
+                'admin_is_master' => false,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
